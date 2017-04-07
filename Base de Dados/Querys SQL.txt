@@ -1,0 +1,1 @@
+select Data,Veiculo_km,quantidade,valor,notas,concat(Marca, ' ', Modelo,' ',Ano,' Matricula:',Matricula) as veiculo,Nome as Fornecedor,concat(Nome_Proprio, ' ', Apelido) as Utilizador ,Nome as Fornecedor from veiabast,veiculos,fornecedores,Utilizador where Veiculos.Codvei=Veiabast.CodVei and fornecedores.Codforn=Veiabast.Codforn and Utilizador.CodUser=Veiabast.Coduser

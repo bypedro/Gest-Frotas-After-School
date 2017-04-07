@@ -1,0 +1,11 @@
+c:\users\pedro\documents\visual studio 2012\Projects\Import Pais\Import Pais\bin\Debug\Import Pais.exe.config
+c:\users\pedro\documents\visual studio 2012\Projects\Import Pais\Import Pais\bin\Debug\Import Pais.exe
+c:\users\pedro\documents\visual studio 2012\Projects\Import Pais\Import Pais\bin\Debug\Import Pais.pdb
+c:\users\pedro\documents\visual studio 2012\Projects\Import Pais\Import Pais\bin\Debug\Import Pais.xml
+c:\users\pedro\documents\visual studio 2012\Projects\Import Pais\Import Pais\obj\Debug\Import_Pais.Form1.resources
+c:\users\pedro\documents\visual studio 2012\Projects\Import Pais\Import Pais\obj\Debug\Import_Pais.Resources.resources
+c:\users\pedro\documents\visual studio 2012\Projects\Import Pais\Import Pais\obj\Debug\Import Pais.vbproj.GenerateResource.Cache
+c:\users\pedro\documents\visual studio 2012\Projects\Import Pais\Import Pais\obj\Debug\Import Pais.exe
+c:\users\pedro\documents\visual studio 2012\Projects\Import Pais\Import Pais\obj\Debug\Import Pais.xml
+c:\users\pedro\documents\visual studio 2012\Projects\Import Pais\Import Pais\obj\Debug\Import Pais.pdb
+c:\users\pedro\documents\visual studio 2012\Projects\Import Pais\Import Pais\bin\Debug\MAGIC Import.exe.config

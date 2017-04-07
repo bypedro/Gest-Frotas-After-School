@@ -1,0 +1,12 @@
+C:\Users\Pedro\Documents\GitHub\Gest-Frotas\VB\GestFrotPAP\GestFrotPAP\bin\Release\GestFrotPAP.exe.config
+C:\Users\Pedro\Documents\GitHub\Gest-Frotas\VB\GestFrotPAP\GestFrotPAP\bin\Release\GestFrotPAP.exe
+C:\Users\Pedro\Documents\GitHub\Gest-Frotas\VB\GestFrotPAP\GestFrotPAP\bin\Release\GestFrotPAP.pdb
+C:\Users\Pedro\Documents\GitHub\Gest-Frotas\VB\GestFrotPAP\GestFrotPAP\bin\Release\GestFrotPAP.xml
+C:\Users\Pedro\Documents\GitHub\Gest-Frotas\VB\GestFrotPAP\GestFrotPAP\obj\Release\GestFrotPAP.BtnImagem.resources
+C:\Users\Pedro\Documents\GitHub\Gest-Frotas\VB\GestFrotPAP\GestFrotPAP\obj\Release\GestFrotPAP.BtnMenu.resources
+C:\Users\Pedro\Documents\GitHub\Gest-Frotas\VB\GestFrotPAP\GestFrotPAP\obj\Release\GestFrotPAP.Form1.resources
+C:\Users\Pedro\Documents\GitHub\Gest-Frotas\VB\GestFrotPAP\GestFrotPAP\obj\Release\GestFrotPAP.Resources.resources
+C:\Users\Pedro\Documents\GitHub\Gest-Frotas\VB\GestFrotPAP\GestFrotPAP\obj\Release\GestFrotPAP.vbproj.GenerateResource.Cache
+C:\Users\Pedro\Documents\GitHub\Gest-Frotas\VB\GestFrotPAP\GestFrotPAP\obj\Release\GestFrotPAP.exe
+C:\Users\Pedro\Documents\GitHub\Gest-Frotas\VB\GestFrotPAP\GestFrotPAP\obj\Release\GestFrotPAP.xml
+C:\Users\Pedro\Documents\GitHub\Gest-Frotas\VB\GestFrotPAP\GestFrotPAP\obj\Release\GestFrotPAP.pdb

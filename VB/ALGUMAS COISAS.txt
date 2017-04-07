@@ -1,0 +1,25 @@
+Private Declare Function LockWindowUpdate Lib "user32" (ByVal hwndLock As IntPtr) As Int32
+ Private Declare Function ShowScrollBar Lib "user32" (ByVal hwnd As IntPtr, ByVal wBar As Int32, ByVal bShow As Int32) As Int32
+
+ Private Const SB_VERT = 1
+
+
+ Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+  ShowScrollBar(ListBox1.Handle, SB_VERT, False)
+ End Sub
+
+ 'scroll down
+ Private Sub Button3_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button3.Click
+  LockWindowUpdate(ListBox1.Handle)
+  ListBox1.TopIndex = ListBox1.TopIndex + 1
+  ShowScrollBar(ListBox1.Handle, SB_VERT, False)
+  LockWindowUpdate(0&)
+ End Sub
+
+ 'scroll up
+Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
+ LockWindowUpdate(ListBox1.Handle)
+ ListBox1.TopIndex = ListBox1.TopIndex - 1
+ ShowScrollBar(ListBox1.Handle, SB_VERT, False)
+ LockWindowUpdate(0&)
+End Sub

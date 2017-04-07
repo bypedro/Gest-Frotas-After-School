@@ -1,0 +1,641 @@
+@charset "utf-8";
+/* CSS Document */
+
+@import 'https://fonts.googleapis.com/css?family=Montserrat:400,700|Raleway:300,400';
+
+*{
+	margin:0;
+	padding:0;
+}
+#login-form {
+	margin:5% auto;
+	max-width:500px;
+}
+/* home page */
+#wrapper{
+	padding-top:50px;
+}
+
+table {
+	font-family: Verdana, Geneva, sans-serif;
+    width: 100%;
+	border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    font-size: 14px;
+	font-family: "Raleway";
+    border-bottom: solid #f9f5f5 1px;
+	 padding: 14px;
+	 
+}
+
+td{
+text-align: left;
+
+}
+input, select {
+	font-family: Verdana, Geneva, sans-serif;
+    border: 0px solid #ccc;
+	border-bottom: solid #a7a7a7 1px;
+	width: 350px;
+	
+}
+
+
+
+
+input:hover {
+	font-family: Verdana, Geneva, sans-serif;
+    border: 0px solid ;
+	border-bottom: solid #555 1px;
+}
+
+input:focus {
+    outline: none;
+	border-bottom: solid #FF5252 1px;
+}
+
+
+
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #337ab7;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+font-size: 18px;
+    padding: 0px;
+    width: 120px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
+.hover08 figure img {
+	    margin: 0px 31px 40px 0px;
+   width: 166px;
+        height: 61px;
+	-webkit-filter: grayscale(0) blur(0);
+	filter: grayscale(0) blur(0);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+	padding-left: 15px;
+	padding-bottom: 15px;
+	border-radius: 13px;
+	-moz-border-radius: 130px;
+	
+
+}
+.hover08 figure:hover img {
+
+	-webkit-filter: grayscale(70%) blur(0px);
+	filter: grayscale(70%) blur(0px);
+	
+}
+
+
+
+.btnn {
+	font-family: Verdana, Geneva, sans-serif;
+	bottom-align: right;
+	background-color: rgba(236, 236, 236, 0);
+    border: none;
+    padding: 8px 15px;
+    text-align: center;
+	border-radius: 6px;
+    text-decoration: none;
+	color: #2f2f2f;
+    display: inline-block;
+    font-size: 13px;
+    margin: 4px 2px;
+    cursor: pointer;
+	border: 1px solid;
+	outline: none;
+}
+
+.btnn:hover {
+	background-color: #2f2f2f;
+	color: #f5f5f5;
+	outline: none;
+}
+
+
+.btns {
+	font-family: Verdana, Geneva, sans-serif;
+	bottom-align: right;
+	background-color: rgba(236, 236, 236, 0);
+    border: none;
+    padding: 8px 15px;
+    text-align: center;
+	border-radius: 6px;
+    text-decoration: none;
+	color: #2f2f2f;
+    display: inline-block;
+    font-size: 13px;
+    margin: 95px 130px;
+    cursor: pointer;
+	border: 1px solid;
+	outline: none;
+}
+
+.btns:hover {
+	background-color: #2f2f2f;
+	color: #f5f5f5;
+	outline: none;
+}
+
+
+
+.btna {
+	width: 436px;
+	font-family: Verdana, Geneva, sans-serif;
+	bottom-align: right;
+	background-color: #ECECEC;
+    border: none;
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+	color: black;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px 2px;
+    cursor: pointer;
+	outline: none;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+}
+
+.box {
+
+	display-align: block;
+  vertical-align: top;
+  background-color: white;
+  text-align: left;
+  padding: 30px;
+      width: 286px;
+      height: 339px;
+  margin: 10px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.26);
+}
+
+.boxt {
+	float:left;
+	display-align: block;
+  vertical-align: top;
+  background-color: white;
+  text-align: left;
+    padding: 42px;
+    width: 204px;
+    height: 297px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.26);
+  margin: 85px 15px 23px 22px;
+}
+
+.boxx {
+  display-align: block;
+  vertical-align: top;
+  background-color: #cccccc;
+  text-align: left;
+  padding: 20px;
+  width: 286px;
+  height: 10px;
+  margin: 10px;
+ 
+}
+
+.boxx:hover {
+background-color: #e8e8e8
+
+}
+
+.boxxx {
+  display-align: block;
+  vertical-align: top;
+  background-color: white;
+  text-align: left;
+  padding: 30px;
+      width: 281px;width: 281px;
+    height: 420px;
+  margin: 10px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.26);
+
+
+}
+
+.boxleft {
+  background-color: white;
+  width: 281px;
+width: 281px;
+   height: 420px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.26);
+}
+
+
+.btna:hover {
+	background-color: #c5c5c5 !important;
+	outline: none;
+}
+
+
+.btnnn {
+	font-family: Verdana, Geneva, sans-serif;
+	bottom-align: right;
+	background-color: rgba(236, 236, 236, 0);
+    border: none;
+    color: #3775c1;
+    padding: 8px 15px;
+    text-align: center;
+	border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin: 4px 2px;
+    cursor: pointer;
+	border: 1px solid;
+	outline: none;
+}
+
+.btnnn:hover {
+	background-color: #3775c1;
+	color: #f5f5f5;
+	outline: none;
+}
+
+.btnlogin {
+	font-family: Verdana, Geneva, sans-serif;
+	bottom-align: right;
+	background-color: rgba(236, 236, 236, 0);
+    border: none;
+    color: #ff9d9d;
+    padding: 8px 15px;
+    text-align: center;
+	border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin: 4px 2px;
+    cursor: pointer;
+	border: 1px solid;
+	outline: none;
+	width: 219px;
+}
+
+.btnlogin:hover {
+	background-color: #ff9d9d;
+	color: #f5f5f5;
+	outline: none;
+}
+
+.btnreg {
+	
+	bottom-align: right;
+	background-color: rgba(236, 236, 236, 0);
+    border: none;
+    color: #ada7a7;
+    padding: 8px 15px;
+    text-align: center;
+	border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin: 4px 2px;
+    cursor: pointer;
+	border: 1px solid;
+	outline: none;
+	width: 219px;
+}
+
+.btnreg:hover {
+	background-color: #ada7a7;
+	color: #f5f5f5;
+	outline: none;
+}
+
+
+.btnnnn {
+	font-family: Verdana, Geneva, sans-serif;
+	bottom-align: right;
+	background-color: rgba(236, 236, 236, 0);
+    border: none;
+    color: #848080;
+    padding: 8px 15px;
+    text-align: center;
+	border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin: 4px 2px;
+    cursor: pointer;
+	border: 1px solid;
+	outline: none;
+}
+
+.btnnnn:hover {
+	background-color: #848080;
+	color: #f5f5f5;
+	outline: none;
+}
+
+
+input[type=text] {
+	margin: 0px 0px 10px;
+    padding: 14px 10px 14px 40px;
+    width: calc(100%);
+    border-radius: 3px;
+    border: 1px solid #E3E4E7;
+    background: #FFF url(https://www.flex11.org/visuals/skins/modern_flex/images/icon-login.png) no-repeat 15px center;
+    color: #66737E;
+    font: 400 14px 'Cabin', sans-serif;
+    max-width: 230px;
+	
+}
+
+
+input[type=adress] {
+    padding: 14px 10px 14px 40px;
+    width: calc(100%);
+    border-radius: 3px;
+    border: 1px solid #E3E4E7;
+    background: #FFF url(https://www.flex11.org/visuals/skins/modern_flex/images/icon-login.png) no-repeat 15px center;
+    color: #66737E;
+    font: 400 14px 'Cabin', sans-serif;
+    max-width: 230px;
+	
+}
+
+
+
+input[type=password] {
+    padding: 14px 10px 14px 40px;
+    width: calc(100%);
+    border-radius: 3px;
+    border: 1px solid #E3E4E7;
+    background: #FFF url(https://www.flex11.org/visuals/skins/modern_flex/images/icon-password.png) no-repeat 15px center;
+    color: #66737E;
+    font: 400 14px 'Cabin', sans-serif;
+    max-width: 230px;
+}
+
+
+input[type=email] {
+    padding: 14px 10px 14px 40px;
+    width: calc(100%);
+    border-radius: 3px;
+    border: 1px solid #E3E4E7;
+    background: #FFF url(https://www.flex11.org/visuals/skins/modern_flex/images/icon-email.png) no-repeat 14px center;
+    color: #66737E;
+    font: 400 14px 'Cabin', sans-serif;
+    max-width: 230px;
+}
+
+img {
+	width: 70px;
+    height: 70px;
+	margin-top: 9px;
+}
+
+.imgg {
+	width: 27px;
+    height: 27px;
+	    margin-left: 10px;
+		opacity: 0.5;
+		
+}
+
+.imgg:hover {
+		opacity: 100;
+}
+
+
+.imgadd {
+	margin: 0px 6px 4px 0px;
+	width: 30px;
+    height: 30px;
+	margin-left: 6px;
+}
+
+
+.imggg {
+	width: 20px;
+    height: 20px;
+	margin-top: 0px;
+	float: left;
+	
+}
+
+
+.imgaddd {
+    width: 22px;
+    height: 22px;
+    margin-left: 4px;
+	opacity: 0.5;
+}
+
+
+.imgaddd:hover {
+		opacity: 100;
+}
+
+
+.imggg:hover{
+opacity: 0.5;
+}
+
+h1 {
+    margin-top: 10px;
+	font-family: "Raleway";
+	text-align: justify;
+	font-size: 90%;
+}
+
+h2 {
+    margin-top: 10px;
+	font-family: "Raleway";
+	text-align: justify;
+	font-size: 150%;
+	    margin: 52px 0px 0 24px;
+}
+
+h3 {
+	font-family: "Raleway";
+	font-size: 90%;
+	color: white;
+	padding-left: 35px;
+    padding-top: 3px;
+    margin: 2px 0px 0px 0px;
+}
+
+h4 {
+    color: #7b7b7b;
+	font: 500 18px 'Cabin', sans-serif;
+	margin-left: 47px;
+}
+
+h6 {
+    color: #7b7b7b;
+	font: 500 18px 'Cabin', sans-serif;
+	margin-left: 37px;
+}
+
+h5 {
+    color: white;
+	font: 500 15px 'Cabin', sans-serif;
+	}
+	
+h7 {
+	font: 400 12px 'Cabin', sans-serif;
+}
+
+
+img.bottom {
+    vertical-align: text-bottom;
+}
+
+tr:nth-child(even){background-color: white }
+
+th {
+        background-color: #efefef;
+    color: #555;
+;
+}
+
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  @media only screen and (max-width:960px){
+    body{
+        overflow-y:scroll;
+    }
+}
+  
+  main {
+    flex: 1 0 auto;
+  }
+  
+ .btne img{
+	 opacity: 1;
+	 border-radius: 7px;
+	 width: 25px;
+ }
+ 
+ .btne:hover {
+	 opacity: .5;
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+
+ }
+
+ ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #ffffff;
+}
+
+
+/* Float the list items side by side */
+ul.tab li {float: left;}
+
+/* Style the links inside the list items */
+ul.tab li a {
+	margin-bottom: 22px;
+	font-family: "Montserrat";
+    font-size: 13px;
+    display: inline-block;
+    color: #616161;
+    text-align:center; 
+    padding: 0px 78px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+/* Change background color of links on hover */
+ul.tab li a:hover {
+    color: #FF5252;
+}
+
+/* Create an active/current tablink class */
+ul.tab li a:focus, .active {
+    color: #FF5252 !important;
+}
+
+/* Style the tab content */
+.tabcontent {
+	
+    display: none;
+    padding: 6px 12px;
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s;
+}
+
+.imga:hover {
+}
+
+.supp{
+
+	font-family: "Raleway";
+	font-weight: bold;
+}
+
+.page-header {
+    padding-bottom: 9px;
+    margin: 40px 0 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.page-title {
+    width: 100%;
+    padding-bottom: 0;
+    margin: 31px 0 6px;
+    border-bottom: 1px solid #eee;
+}
+
+.ini{
+	font-family: "Raleway";
+	font-weight: bold;
+}
+
+@-webkit-keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+
+tr:hover {background-color: #f5f5f5}
