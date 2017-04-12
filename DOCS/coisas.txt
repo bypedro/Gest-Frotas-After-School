@@ -97,8 +97,8 @@ Public Module Funcoes
 		end if
 		
 		if my.settings.sqlmoeda="Euro"
-			MoedaSimbolo="€"
-			MoedaNome= "Valor(€)"
+			MoedaSimbolo="â‚¬"
+			MoedaNome= "Valor(â‚¬)"
 			MoedaConversao= getExchangeRate("EUR")
 		elseif my.settings.sqlmoeda="Dollar"
 			MoedaSimbolo="$"
@@ -111,5 +111,9 @@ Public Module Funcoes
 
 End Module
 *You've taught me everything I know but not everything you know.
+*People can be cruel, and they will be. People can hurt you, break your heart and they will. But only you can let them keep hurting you.
+*Forgive those who insult you, attack you, belittle you or take you for granted, but more than this... forgive yourself for allowing them to hurt you.
+*I never stopped loving you, it's just I stopped showing it.
+
 *https://social.msdn.microsoft.com/Forums/vstudio/en-US/816b7ca6-c1d4-42ff-aee4-b6a650b255be/vbnet-opacity-panel?forum=vbgeneral
 *http://snipplr.com/view/4048/get-currency-exchange-rate/
