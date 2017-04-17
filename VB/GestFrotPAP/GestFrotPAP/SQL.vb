@@ -1,8 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 Imports System.Net.Mail
 Module SQL
-    Dim DB As String = "frotas"
-    Dim ligacao As New MySqlConnection("Server=localhost;Database=" + DB + ";Uid=root;Pwd=;Connect timeout=30;Convert Zero Datetime=True;") 'MUDAR TALVEZ
+    Dim ligacao As New MySqlConnection("Server=" + My.Settings.SqlDBServer + ";Database=" + My.Settings.SqlDBNome + ";Uid=" + My.Settings.SqlDBUser + ";Pwd=" + My.Settings.SqlDBConPass + ";Connect timeout=30;Convert Zero Datetime=True;") 'MUDAR TALVEZ
     Dim adapter As New MySqlDataAdapter
     Dim Comando As MySqlCommand
     Public DetalhesUtilizador As New UtilizadorDetalhes
@@ -14,10 +13,43 @@ Module SQL
     Public IDSelecionado As String = ""
 
     Public Function Login(ByVal Utilizador As String, ByVal Password As String) As Boolean
+        ligacao = New MySqlConnection(Form1.linhaSQL)
+
         Dim max As MySqlCommand
+        Dim ErroDB As Boolean = False
         Dim User As Object
         Dim str As String
         Dim str1 As String = ""
+
+        Try
+            ligacao.Open()
+            max = New MySqlCommand("select * from Utilizador", ligacao)
+            max.ExecuteScalar()
+            ligacao.Close()
+        Catch ex As Exception
+
+            ligacao.Close()
+            If ex.Message.Contains("is not allowed to connect to this MySQL server") Or ex.ToString.Contains("Unable to connect") Then
+                MsgBox("Erro! Adresso do servidor errado ou servidor indisponivel")
+                ErroDB = True
+            ElseIf ex.Message.Contains("Access denied for user") Then
+                MsgBox("Erro! Credeciais para acesso ao servidor erradas")
+                ErroDB = True
+            ElseIf ex.Message.Contains("Unknown database") Or ex.ToString.Contains("No database selected") Or ex.ToString.Contains("doesn't exist") Then
+                MsgBox("Erro! Base de dados não existe ou é incorreta")
+                ErroDB = True
+            Else
+                ErroDB = True
+            End If
+        End Try
+        If ErroDB = True Then
+            ErroDB = False
+            Return False
+            Exit Function
+        End If
+
+
+
         If Utilizador = "" Then
             Form1.LblUtilizadorLogin.Show()
             Form1.LblUtilizadorLogin.Text = "*Necessita  de Utilizador"
@@ -815,8 +847,8 @@ Module SQL
         Dim Tabelas As DataSet = New DataSet
         adapter.SelectCommand = New MySqlCommand
         adapter.SelectCommand.Connection = ligacao
-        Dim itemcoll(100) As String
-        adapter.SelectCommand.CommandText = ("select Codmanu,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipoManu.Nome as Tipo,Valor,concat(Veiculo_km,' KM') as '" + "QuilometrosMUDAR" + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veiculo,Nome_Registo as Utilizador from Utilizador,VeiCondu,Manutencao,veiculos,fornecedores,tipomanu where VeiCondu.Codvei=Veiculos.Codvei and Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and Utilizador.CodUser=Manutencao.Coduser and efetuada='Sim' and EmUso='Sim' and Manutencao.CodUser='" + DetalhesUtilizador.CodUser + "'")
+        Dim itemcoll(100) As String 'ROUND((Veiculo_km/1.69),2
+        adapter.SelectCommand.CommandText = ("select Codmanu,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipoManu.Nome as Tipo,Valor,concat(ROUND((Veiculo_km/" + Conversao + "),2),' " + Simbolo + "') as '" + Distancia + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veiculo,Nome_Registo as Utilizador from Utilizador,VeiCondu,Manutencao,veiculos,fornecedores,tipomanu where VeiCondu.Codvei=Veiculos.Codvei and Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and Utilizador.CodUser=Manutencao.Coduser and efetuada='Sim' and EmUso='Sim' and Manutencao.CodUser='" + DetalhesUtilizador.CodUser + "'")
         Try
             ligacao.Open()
             adapter.Fill(Tabelas, "Manutencao")

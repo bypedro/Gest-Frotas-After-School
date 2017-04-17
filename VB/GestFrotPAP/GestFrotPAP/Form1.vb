@@ -6,6 +6,7 @@ Imports System.Runtime.InteropServices
 
 
 Public Class Form1
+    Public linhaSQL As String
     'ListBox
     Private Declare Function LockWindowUpdate Lib "user32" (ByVal hwndLock As IntPtr) As Int32
     Private Declare Function ShowScrollBar Lib "user32" (ByVal hwnd As IntPtr, ByVal wBar As Int32, ByVal bShow As Int32) As Int32
@@ -119,12 +120,13 @@ Public Class Form1
                 PnlUser.Hide()
             End If
         End If
-      
+
     End Sub
 
- 
+
 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
+        
         'Adiciona evento a todos os objetos do programa(Associados ao form1)(Objetos dentro de paneis necessitao de ser adicionados)
         AddHandler Me.MouseDown, AddressOf c_MouseDown
         For Each c As Control In Me.Controls
@@ -340,8 +342,10 @@ Public Class Form1
 
     Private Sub BtnImagemLogin_ButtonClickMasterRace(ByVal sender As Object, ByVal e As EventArgs) Handles BtnImagemLogin.ButtonClickMasterRace
         Botao(BtnImagemLogin)
+        linhaSQL = "Server=" + My.Settings.SqlDBServer + ";Database=" + My.Settings.SqlDBNome + ";Uid=" + My.Settings.SqlDBUser + ";Pwd=" + My.Settings.SqlDBConPass + ";Connect timeout=30;Convert Zero Datetime=True;"
         If Login(TxtUserLogin.Text, HashPassword(TxtPwdLogin.Text)) = True Then
             If DetalhesUtilizador.TipoUtilizadorCod = 1 Then 'Só Admin
+                Definicoes()
                 LoadOrder.MenuPrincipalPage()
                 BtnImagem2.Show()
                 BtnImagem3.Show()
@@ -372,7 +376,7 @@ Public Class Form1
                 BtnImagem7.Hide()
             End If
         Else
-
+            Exit Sub
         End If
         MenuPrincipal(0)
         'LoadOrder.l2()
@@ -621,7 +625,7 @@ Public Class Form1
         Else
             MsgBox("Selecione um abastecimento")
         End If
-    
+
     End Sub
 
 
@@ -844,5 +848,28 @@ Public Class Form1
 
     Private Sub BtnImagemAdminVeiculosInsert_ButtonClickMasterRace(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagemAdminVeiculosInsert.ButtonClickMasterRace
         Botao(BtnImagemAdminVeiculosInsert)
+    End Sub
+
+    Private Sub BtnImagem10_ButtonClickMasterRace_1(sender As Object, e As EventArgs) Handles BtnImagem10.ButtonClickMasterRace
+        PnlBDDef.Show()
+        PnlBDDef.BringToFront()
+        TxtBDDef.Text = My.Settings.SqlDBServer
+        TxtBDDef1.Text = My.Settings.SqlDBUser
+        TxtBDDef2.Text = My.Settings.SqlDBConPass
+        TxtBDDef3.Text = My.Settings.SqlDBNome
+    End Sub
+
+    Private Sub BtnImagemBDDefCancel_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemBDDefCancel.ButtonClickMasterRace
+        PnlBDDef.Hide()
+        PnlBDDef.SendToBack()
+    End Sub
+
+    Private Sub BtnImagemBDDefSave_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemBDDefSave.ButtonClickMasterRace
+        My.Settings.SqlDBServer = TxtBDDef.Text
+        My.Settings.SqlDBUser = TxtBDDef1.Text
+        My.Settings.SqlDBConPass = TxtBDDef2.Text
+        My.Settings.SqlDBNome = TxtBDDef3.Text
+        PnlBDDef.Hide()
+        PnlBDDef.SendToBack()
     End Sub
 End Class

@@ -30,7 +30,6 @@ Public Module Funcoes
                 Form1.Opacity = fade
                 Form1.Refresh()
                 Threading.Thread.Sleep(50)
-
             Next
         ElseIf Tipo = 1 Then
             For fade = 1.1 To 0.0 Step -0.3
@@ -40,4 +39,23 @@ Public Module Funcoes
             Next
         End If
     End Sub
+
+    Public Conversao As String
+    Public Simbolo As String
+    Public Distancia As String
+
+    Public Sub Definicoes()
+        My.Settings.SqlDistancia = "Mi"
+        If My.Settings.SqlDistancia = "Km" Then
+            Conversao = "1"
+            Simbolo = "KM"
+            Distancia = "Quilometros"
+        ElseIf My.Settings.SqlDistancia = "Mi" Then
+            Conversao = "1.69344"
+            Simbolo = "Mi"
+            Distancia = "Milhas"
+        End If
+    End Sub
+
+
 End Module
