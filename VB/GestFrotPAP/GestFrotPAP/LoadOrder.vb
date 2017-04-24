@@ -204,11 +204,12 @@
         Form1.PnlDefUtilizador.Height = Form1.Height - Form1.PnlBarraTop.Height
         Form1.PnlDefUtilizador.Width = Form1.Width
         'Veiculo
-        Form1.LblVeiMarcEmUso.Text = "Cod= " + DetalhesUtilizador.CodVeiculo.ToString + ""
-        Form1.LblVeiCorEmUso.Text = "Cor= " + DetalhesUtilizador.VeiCor.ToString + ""
-        Form1.LblVeiMarcEmUso.Text = "Marca= " + DetalhesUtilizador.VeiMarca.ToString + ""
-        Form1.LblVeiModelEmUso.Text = "Modelo= " + DetalhesUtilizador.VeiModelo.ToString + ""
-        Form1.LblVeiMatricEmUso.Text = "Matricula = " + DetalhesUtilizador.VeiMatricula.ToString + ""
+        MsgBox("CARROS")
+        'Form1.LblVeiMarcEmUso.Text = "Cod= " + DetalhesUtilizador.CodVeiculo.ToString + ""
+        'Form1.LblVeiCorEmUso.Text = "Cor= " + DetalhesUtilizador.VeiCor.ToString + ""
+        'Form1.LblVeiMarcEmUso.Text = "Marca= " + DetalhesUtilizador.VeiMarca.ToString + ""
+        'Form1.LblVeiModelEmUso.Text = "Modelo= " + DetalhesUtilizador.VeiModelo.ToString + ""
+        'Form1.LblVeiMatricEmUso.Text = "Matricula = " + DetalhesUtilizador.VeiMatricula.ToString + ""
         'Agenda
         'Form1.LblVeiProxInspEmUso.Text = "----------MUDAR NO SQL-------Proxima Inspecao = " + DetalhesUtilizador.VeiProxInspecao.ToString + ""
     End Sub

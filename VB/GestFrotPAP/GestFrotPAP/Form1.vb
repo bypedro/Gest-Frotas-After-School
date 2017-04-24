@@ -126,7 +126,7 @@ Public Class Form1
 
 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
-        
+        Definicoes()
         'Adiciona evento a todos os objetos do programa(Associados ao form1)(Objetos dentro de paneis necessitao de ser adicionados)
         AddHandler Me.MouseDown, AddressOf c_MouseDown
         For Each c As Control In Me.Controls
@@ -266,6 +266,7 @@ Public Class Form1
 
     Private Sub BtnImagem6_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagem6.ButtonClickMasterRace
         MenuPrincipal(5, True)
+        LblDef.Font = GetInstance(12, FontStyle.Bold)
         MsgBox("TODO: Quilometros->Milhas,Litros->Galões, Linguagem, Aspeto, Etc")
 
     End Sub
@@ -345,7 +346,6 @@ Public Class Form1
         linhaSQL = "Server=" + My.Settings.SqlDBServer + ";Database=" + My.Settings.SqlDBNome + ";Uid=" + My.Settings.SqlDBUser + ";Pwd=" + My.Settings.SqlDBConPass + ";Connect timeout=30;Convert Zero Datetime=True;"
         If Login(TxtUserLogin.Text, HashPassword(TxtPwdLogin.Text)) = True Then
             If DetalhesUtilizador.TipoUtilizadorCod = 1 Then 'Só Admin
-                Definicoes()
                 LoadOrder.MenuPrincipalPage()
                 BtnImagem2.Show()
                 BtnImagem3.Show()
@@ -356,7 +356,7 @@ Public Class Form1
                 BtnImagem7.Show()
             ElseIf DetalhesUtilizador.TipoUtilizadorCod = 2 Then
                 MsgBox("WIP")
-                Exit Sub
+
                 LoadOrder.MenuPrincipalPage()
                 BtnImagem2.Hide()
                 BtnImagem3.Hide()
@@ -366,7 +366,6 @@ Public Class Form1
                 BtnImagem7.Hide()
             Else
                 MsgBox("WIP")
-                Exit Sub
                 LoadOrder.MenuPrincipalPage()
                 BtnImagem2.Show()
                 BtnImagem3.Show()
@@ -379,6 +378,8 @@ Public Class Form1
             Exit Sub
         End If
         MenuPrincipal(0)
+
+
         'LoadOrder.l2()
     End Sub
 
@@ -467,7 +468,6 @@ Public Class Form1
             PnlMenu.Left = 200
             For a = 0 To NMenuPrincipal
                 BtnImagemMenuPrincipal(a).Left = 0
-
             Next
             BtnMenu1.zEstadoBotao = False
             BtnMenu1.resetbtn()
@@ -479,6 +479,9 @@ Public Class Form1
         LblUtilzadorMenu.Hide()
         PnlUser.Hide()
         PnlDefUtilizador.Hide()
+        'Limpar Utilizador Anterior
+        DetalhesUtilizador = New UtilizadorDetalhes
+
     End Sub
 
 
@@ -872,4 +875,6 @@ Public Class Form1
         PnlBDDef.Hide()
         PnlBDDef.SendToBack()
     End Sub
+
+
 End Class

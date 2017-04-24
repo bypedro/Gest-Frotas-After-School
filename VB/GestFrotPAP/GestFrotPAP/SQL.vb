@@ -3,7 +3,7 @@ Imports System.Net.Mail
 Module SQL
     Dim ligacao As New MySqlConnection("Server=" + My.Settings.SqlDBServer + ";Database=" + My.Settings.SqlDBNome + ";Uid=" + My.Settings.SqlDBUser + ";Pwd=" + My.Settings.SqlDBConPass + ";Connect timeout=30;Convert Zero Datetime=True;") 'MUDAR TALVEZ
     Dim adapter As New MySqlDataAdapter
-    Dim Comando As MySqlCommand
+    ' Dim Comando As MySqlCommand
     Public DetalhesUtilizador As New UtilizadorDetalhes
     Public todaysdate As String = String.Format("{0:yyyy/MM/dd}", DateTime.Now)
     Public Year As String = String.Format("{0:yyyy}", DateTime.Now)
@@ -12,53 +12,60 @@ Module SQL
     Public TabelaSelecionada As String = ""
     Public IDSelecionado As String = ""
 
-    Public Function Login(ByVal Utilizador As String, ByVal Password As String) As Boolean
+    Public Function VerificarLigacao() As Boolean
         ligacao = New MySqlConnection(Form1.linhaSQL)
+        Dim Comando As MySqlCommand
+        Dim ErroDB As Boolean = False
+        Try
+            ligacao.Open()
+            Comando = New MySqlCommand("select * from Utilizador", ligacao)
+            Comando.ExecuteScalar()
+            ligacao.Close()
+        Catch ex As Exception
+            ligacao.Close()
+            If ex.Message.Contains("is not allowed to connect to this MySQL server") Or ex.Message.Contains("Unable to connect") Then
+                MsgBox("Erro! Adresso do servidor errado ou servidor indisponivel")
+                ErroDB = True
+            ElseIf ex.Message.Contains("Access denied for user") Then
+                MsgBox("Erro! Credeciais para acesso ao servidor erradas")
+                ErroDB = True
+            ElseIf ex.Message.Contains("Unknown database") Or ex.Message.Contains("No database selected") Or ex.Message.Contains("doesn't exist") Then
+                MsgBox("Erro! Base de dados não existe ou é incorreta")
+                ErroDB = True
+            Else
+                MsgBox("Erro!")
+                ErroDB = True
+            End If
+        End Try
 
+        If ErroDB = True Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    Public Function Login(ByVal Utilizador As String, ByVal Password As String) As Boolean
         Dim max As MySqlCommand
         Dim ErroDB As Boolean = False
         Dim User As Object
         Dim str As String
         Dim str1 As String = ""
 
-        Try
-            ligacao.Open()
-            max = New MySqlCommand("select * from Utilizador", ligacao)
-            max.ExecuteScalar()
-            ligacao.Close()
-        Catch ex As Exception
-
-            ligacao.Close()
-            If ex.Message.Contains("is not allowed to connect to this MySQL server") Or ex.ToString.Contains("Unable to connect") Then
-                MsgBox("Erro! Adresso do servidor errado ou servidor indisponivel")
-                ErroDB = True
-            ElseIf ex.Message.Contains("Access denied for user") Then
-                MsgBox("Erro! Credeciais para acesso ao servidor erradas")
-                ErroDB = True
-            ElseIf ex.Message.Contains("Unknown database") Or ex.ToString.Contains("No database selected") Or ex.ToString.Contains("doesn't exist") Then
-                MsgBox("Erro! Base de dados não existe ou é incorreta")
-                ErroDB = True
-            Else
-                ErroDB = True
-            End If
-        End Try
-        If ErroDB = True Then
-            ErroDB = False
-            Return False
-            Exit Function
+        'CODIGO VERIFICAR LIGAÇAO
+        If VerificarLigacao() = True Then
+            Return (False)
         End If
-
 
 
         If Utilizador = "" Then
             Form1.LblUtilizadorLogin.Show()
             Form1.LblUtilizadorLogin.Text = "*Necessita  de Utilizador"
-            'MsgBox("FALTA UTILIZADOR")
             Return False
             Exit Function
         Else
             If LCase(Utilizador).Contains(LCase("@")) Then
-                Try 'Isto dáa
+                Try
                     max = New MySqlCommand("select Email from Utilizador where Email ='" + Utilizador + "'", ligacao)
                     ligacao.Open()
                     User = max.ExecuteScalar
@@ -82,14 +89,12 @@ Module SQL
                         Else
                             Form1.LblPasswordLogin.Show()
                             Form1.LblPasswordLogin.Text = "*Password Incorreta"
-                            ' MsgBox("Password errada label")
                             Return (False)
                             Exit Function
                         End If
                     Else
                         Form1.LblUtilizadorLogin.Show()
                         Form1.LblUtilizadorLogin.Text = "*Utilizador Inválido"
-                        ' MsgBox("Utilizador não existe")
                         Return (False)
                         Exit Function
                     End If
@@ -98,39 +103,37 @@ Module SQL
                     Return (False)
                 End Try
             Else
-                Try 'Isto dáa
-                    max = New MySqlCommand("select Nome_Registo from Utilizador where Nome_Registo ='" + Utilizador + "'", ligacao)
+                'Try
+                max = New MySqlCommand("select Nome_Registo from Utilizador where Nome_Registo ='" + Utilizador + "'", ligacao)
+                ligacao.Open()
+                User = max.ExecuteScalar
+                str = CType(User, String)
+                ligacao.Close()
+                If str <> "" Then
+                    max = New MySqlCommand("select Senha from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
                     ligacao.Open()
                     User = max.ExecuteScalar
                     str = CType(User, String)
                     ligacao.Close()
-                    If str <> "" Then
-                        max = New MySqlCommand("select Senha from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
-                        ligacao.Open()
-                        User = max.ExecuteScalar
-                        str = CType(User, String)
-                        ligacao.Close()
-                        If str = Password Then
-                            BuscarDadosUtilizador(Utilizador)
-                            Return (True)
-                            Exit Function
-                        Else
-                            Form1.LblPasswordLogin.Show()
-                            Form1.LblPasswordLogin.Text = "*Password Incorreta"
-                            'MsgBox("Password errada label") 'Label
-                            Return (False)
-                            Exit Function
-                        End If
+                    If str = Password Then
+                        BuscarDadosUtilizadorTeste(Utilizador)
+                        Return (True)
+                        Exit Function
                     Else
-                        Form1.LblUtilizadorLogin.Show()
-                        Form1.LblUtilizadorLogin.Text = "*Utilizador Inválido"
-                        'MsgBox("Utilizador não existe")
+                        Form1.LblPasswordLogin.Show()
+                        Form1.LblPasswordLogin.Text = "*Password Incorreta"
                         Return (False)
                         Exit Function
                     End If
-                Catch ex As Exception
-                    MsgBox("ERRO 1")
-                End Try
+                Else
+                    Form1.LblUtilizadorLogin.Show()
+                    Form1.LblUtilizadorLogin.Text = "*Utilizador Inválido"
+                    Return (False)
+                    Exit Function
+                End If
+                'Catch ex As Exception
+                MsgBox("ERRO 1")
+                'End Try
             End If
             Return (False)
         End If
@@ -234,6 +237,7 @@ Module SQL
 
     Public Function EditarUtilizador(ByVal Utilizador As String, ByVal NomeProprio As String, ByVal Apelido As String, ByVal DataNasc As String, ByVal DataContrat As String, ByVal PagamentoHora As String, ByVal Genero As String, ByVal Habilitacoes As String, ByVal Notas As String)
         Dim Comando As MySqlCommand
+        MsgBox("WIP Verificaçoes")
         Try
             'Comando = New MySqlCommand("update Utilizador set Nome_Registo='" + Utilizador + "'where CodUser='" + DetalhesUtilizador.CodUser + "'", ligacao)
             'update utilizador set Nome="LOL", Apelido="1" where cout="1"
@@ -245,7 +249,7 @@ Module SQL
             Return (True)
             Exit Function
         Catch ex As Exception
-            MsgBox("ERRO SQL INSERT")
+            MsgBox("ERRO SQL Edit")
             ligacao.Close()
             Return (False)
             Exit Function
@@ -322,6 +326,130 @@ Module SQL
     End Function
 
     'Buscar Dados
+    Public Sub BuscarDadosUtilizadorTeste(ByVal Utilizador As String)
+        Dim Objecto As Object 'APAGAR
+        Dim Comando As New MySqlCommand
+        Dim reader As MySqlDataReader
+        'Buscar Dados Utilizador
+        Comando.Connection = SQL.ligacao
+        Comando.CommandText = ("SELECT * FROM utilizador where Nome_Registo='" + Utilizador + "' ")
+        Try
+            ligacao.Open()
+            reader = Comando.ExecuteReader
+            While reader.Read
+                'Credenciais
+                DetalhesUtilizador.CodUser = reader.GetString("CodUser")
+                DetalhesUtilizador.NomeRegisto = reader.GetString("Nome_Registo")
+                DetalhesUtilizador.Senha = reader.GetString("Senha")
+                DetalhesUtilizador.TipoUtilizadorCod = reader.GetString("CodTipoU")
+                DetalhesUtilizador.Email = reader.GetString("Email")
+            End While
+            ligacao.Close()
+        Catch ex As Exception
+            ligacao.Close()
+            MsgBox(ex.Message)
+            Exit Sub
+        End Try
+
+        'Buscar Dados Secundarios do Utilizador
+        Comando = New MySqlCommand("SELECT * FROM utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
+        Try
+            ligacao.Open()
+            reader = Comando.ExecuteReader
+            While reader.Read
+                'Info Pessoal
+                DetalhesUtilizador.NomeProprio = reader.GetString("Nome_Proprio")
+                DetalhesUtilizador.Apelido = reader.GetString("Apelido")
+                DetalhesUtilizador.Genero = reader.GetString("Genero")
+                DetalhesUtilizador.DataNasc = reader("Data_Nascimento")
+                'Info Trabalhador
+                DetalhesUtilizador.DataContrat = reader("Data_Contratacao")
+                DetalhesUtilizador.PagamentoHora = reader("Pagamentos_Hora")
+                DetalhesUtilizador.Habilitações = reader("Habilitacoes")
+                DetalhesUtilizador.NotasContrato = reader("Notas_Contracto")
+                'Contato
+                DetalhesUtilizador.NotasContacto = reader.GetString("Notas_Contacto")
+                DetalhesUtilizador.NTelemovel = reader.GetString("N_Telemovel")
+                DetalhesUtilizador.NTelefone = reader.GetString("N_Telefone")
+                'Morada
+                DetalhesUtilizador.CidadeCod = reader.GetString("CodCi")
+                DetalhesUtilizador.Rua = reader.GetString("Rua")
+            End While
+            ligacao.Close()
+        Catch ex As Exception
+            ligacao.Close()
+            MsgBox(ex.Message)
+            Exit Sub
+        End Try
+
+
+        'Buscar Designaçao do Utilizador
+        Comando = New MySqlCommand("select Designacao from TipoUser where CodTipoU='" + DetalhesUtilizador.TipoUtilizadorCod.ToString + "'", ligacao)
+        Try
+            ligacao.Open()
+            reader = Comando.ExecuteReader
+            While reader.Read
+                'Credenciais
+                DetalhesUtilizador.TipoUtilizador = reader.GetString("Designacao")
+            End While
+            ligacao.Close()
+        Catch ex As Exception
+            ligacao.Close()
+            MsgBox(ex.Message)
+            Exit Sub
+        End Try
+
+        'Buscar Cidade
+        Comando = New MySqlCommand("select Nome,Codpais from Cidade where CodCi='" + DetalhesUtilizador.CidadeCod.ToString + "'", ligacao)
+        Try
+            ligacao.Open()
+            reader = Comando.ExecuteReader
+            While reader.Read
+                'Morada
+                DetalhesUtilizador.Cidade = reader.GetString("Nome")
+                DetalhesUtilizador.PaisCod = reader.GetString("Codpais")
+            End While
+            ligacao.Close()
+        Catch ex As Exception
+            ligacao.Close()
+            MsgBox(ex.Message)
+            Exit Sub
+        End Try
+
+        'Buscar Pais
+        Comando = New MySqlCommand("select Nome from Pais where Codpais='" + DetalhesUtilizador.PaisCod.ToString + "'", ligacao)
+        Try
+            ligacao.Open()
+            reader = Comando.ExecuteReader
+            While reader.Read
+                'Morada
+                DetalhesUtilizador.Pais = reader.GetString("Nome")
+            End While
+            ligacao.Close()
+        Catch ex As Exception
+            ligacao.Close()
+            MsgBox(ex.Message)
+            Exit Sub
+        End Try
+
+
+        'Veiculo
+        'DetalhesUtilizador.CodVeiculo = ""
+        'DetalhesUtilizador.VeiMarca = ""
+        'DetalhesUtilizador.VeiModelo = ""
+        'DetalhesUtilizador.VeiMatricula = ""
+        ' DetalhesUtilizador.VeiCor = ""
+
+
+        MsgBox("CHEGOU AQUI \END")
+        Exit Sub
+        'CODIGO TEMPORÀRIO PARA OPRIMIR OS UTILIZADORES QUE NÂO SÂO ADMINISTRADORES
+        If DetalhesUtilizador.TipoUtilizadorCod <> 1 Then
+            MsgBox("Utilizador Não disponivel")
+            Exit Sub
+        End If
+    End Sub
+
     Public Sub BuscarDadosUtilizador(ByVal Utilizador As String)
         Dim Comando As MySqlCommand
         Dim Objecto As Object
@@ -366,7 +494,7 @@ Module SQL
             MsgBox(ex.ToString)
             ligacao.Close()
         End Try
-       
+
         Try
             Comando = New MySqlCommand("select Nome_Registo from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
             ligacao.Open()
@@ -623,6 +751,8 @@ Module SQL
             MsgBox(ex.ToString)
             ligacao.Close()
         End Try
+
+
         Try
             If DetalhesUtilizador.CidadeCod <> 0 Then
                 Comando = New MySqlCommand("select nome from cidade where codci='" + DetalhesUtilizador.CidadeCod.ToString + "'", ligacao)
@@ -803,7 +933,6 @@ Module SQL
 
 
     End Sub
-
 
     ' SELECT * FROM veicondu where emuso="sim" and coduser="1"
     '  Comando = New MySqlCommand("select CodVei from pais where ='" + DetalhesUtilizador.CodUser + "'codpais='" + DetalhesUtilizador.CodUser + "'", ligacao)
@@ -1474,6 +1603,7 @@ Module SQL
 
 
     Public Sub InserirDados(ByVal Tabela As String)
+        Dim Comando As New MySqlCommand
         '
         'Variavel para juntar os campos ano/mes/dia
         '
@@ -1511,6 +1641,7 @@ Module SQL
     End Sub
 
     Public Sub EditarDados(ByVal Tabela As String)
+        Dim comando As New MySqlCommand
         '
         'Variavel para juntar os campos ano/mes/dia
         '
