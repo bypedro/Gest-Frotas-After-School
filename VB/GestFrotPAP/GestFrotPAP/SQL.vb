@@ -327,7 +327,6 @@ Module SQL
 
     'Buscar Dados
     Public Sub BuscarDadosUtilizadorTeste(ByVal Utilizador As String)
-        Dim Objecto As Object 'APAGAR
         Dim Comando As New MySqlCommand
         Dim reader As MySqlDataReader
         'Buscar Dados Utilizador
@@ -344,11 +343,13 @@ Module SQL
                 DetalhesUtilizador.TipoUtilizadorCod = reader.GetString("CodTipoU")
                 DetalhesUtilizador.Email = reader.GetString("Email")
             End While
-            ligacao.Close()
         Catch ex As Exception
-            ligacao.Close()
             MsgBox(ex.Message)
             Exit Sub
+        Finally
+            If ligacao.State = ConnectionState.Open Then
+                ligacao.Close()
+            End If
         End Try
 
         'Buscar Dados Secundarios do Utilizador
@@ -358,30 +359,83 @@ Module SQL
             reader = Comando.ExecuteReader
             While reader.Read
                 'Info Pessoal
-                DetalhesUtilizador.NomeProprio = reader.GetString("Nome_Proprio")
-                DetalhesUtilizador.Apelido = reader.GetString("Apelido")
-                DetalhesUtilizador.Genero = reader.GetString("Genero")
-                DetalhesUtilizador.DataNasc = reader("Data_Nascimento")
+                Try
+                    DetalhesUtilizador.NomeProprio = reader.GetString("Nome_Proprio")
+                Catch ex As Exception
+                    DetalhesUtilizador.NomeProprio = ""
+                End Try
+                Try
+                    DetalhesUtilizador.Apelido = reader.GetString("Apelido")
+                Catch ex As Exception
+                    DetalhesUtilizador.Apelido = ""
+                End Try
+                Try
+                    DetalhesUtilizador.Genero = reader.GetString("Genero")
+                Catch ex As Exception
+                    DetalhesUtilizador.Genero = ""
+                End Try
+                Try
+                    DetalhesUtilizador.DataNasc = reader("Data_Nascimento")
+                Catch ex As Exception
+                    DetalhesUtilizador.DataNasc = ""
+                End Try
                 'Info Trabalhador
-                DetalhesUtilizador.DataContrat = reader("Data_Contratacao")
-                DetalhesUtilizador.PagamentoHora = reader("Pagamentos_Hora")
-                DetalhesUtilizador.Habilitações = reader("Habilitacoes")
-                DetalhesUtilizador.NotasContrato = reader("Notas_Contracto")
+                Try
+                    DetalhesUtilizador.DataContrat = reader("Data_Contratacao")
+                Catch ex As Exception
+                    DetalhesUtilizador.DataContrat = ""
+                End Try
+                Try
+                    DetalhesUtilizador.PagamentoHora = reader("Pagamentos_Hora")
+                Catch ex As Exception
+                    DetalhesUtilizador.PagamentoHora = ""
+                End Try
+                Try
+                    DetalhesUtilizador.Habilitações = reader("Habilitacoes")
+                Catch ex As Exception
+                    DetalhesUtilizador.Habilitações = ""
+                End Try
+                Try
+                    DetalhesUtilizador.NotasContrato = reader("Notas_Contracto")
+                Catch ex As Exception
+                    DetalhesUtilizador.NotasContrato = ""
+                End Try
                 'Contato
-                DetalhesUtilizador.NotasContacto = reader.GetString("Notas_Contacto")
-                DetalhesUtilizador.NTelemovel = reader.GetString("N_Telemovel")
-                DetalhesUtilizador.NTelefone = reader.GetString("N_Telefone")
+                Try
+                    DetalhesUtilizador.NotasContacto = reader.GetString("Notas_Contacto")
+                Catch ex As Exception
+                    DetalhesUtilizador.NotasContacto = ""
+                End Try
+                Try
+                    DetalhesUtilizador.NTelemovel = reader.GetString("N_Telemovel")
+                Catch ex As Exception
+                    DetalhesUtilizador.NTelemovel = ""
+                End Try
+                Try
+                    DetalhesUtilizador.NTelefone = reader.GetString("N_Telefone")
+                Catch ex As Exception
+                    DetalhesUtilizador.NTelefone = ""
+                End Try
                 'Morada
-                DetalhesUtilizador.CidadeCod = reader.GetString("CodCi")
-                DetalhesUtilizador.Rua = reader.GetString("Rua")
+                Try
+                    DetalhesUtilizador.CidadeCod = reader.GetString("CodCi")
+                Catch ex As Exception
+                    DetalhesUtilizador.CidadeCod = 0
+                End Try
+                Try
+                    DetalhesUtilizador.Rua = reader.GetString("Rua")
+                Catch ex As Exception
+                    DetalhesUtilizador.Rua = ""
+                End Try
             End While
             ligacao.Close()
         Catch ex As Exception
-            ligacao.Close()
             MsgBox(ex.Message)
-            Exit Sub
+        Finally
+            If ligacao.State = ConnectionState.Open Then
+                ligacao.Close()
+            End If
         End Try
-
 
         'Buscar Designaçao do Utilizador
         Comando = New MySqlCommand("select Designacao from TipoUser where CodTipoU='" + DetalhesUtilizador.TipoUtilizadorCod.ToString + "'", ligacao)
@@ -416,6 +470,12 @@ Module SQL
             Exit Sub
         End Try
 
+        If DetalhesUtilizador.PaisCod = Nothing Then
+            DetalhesUtilizador.PaisCod = 0
+            MsgBox("Erro Pais")
+            Exit Sub
+        End If
+
         'Buscar Pais
         Comando = New MySqlCommand("select Nome from Pais where Codpais='" + DetalhesUtilizador.PaisCod.ToString + "'", ligacao)
         Try
@@ -432,13 +492,46 @@ Module SQL
             Exit Sub
         End Try
 
+        'Buscar Código do Veiculo
+        Comando = New MySqlCommand("select CodVei from Veicondu where coduser='" + DetalhesUtilizador.CodUser + "' and EmUso='sim'", ligacao)
+        Try
+            ligacao.Open()
+            reader = Comando.ExecuteReader
+            While reader.Read
+                'Codigo
+                DetalhesUtilizador.CodVeiculo = reader.GetString("CodVei")
+            End While
+            ligacao.Close()
+        Catch ex As Exception
+            ligacao.Close()
+            MsgBox(ex.Message)
+            Exit Sub
+        End Try
 
-        'Veiculo
-        'DetalhesUtilizador.CodVeiculo = ""
-        'DetalhesUtilizador.VeiMarca = ""
-        'DetalhesUtilizador.VeiModelo = ""
-        'DetalhesUtilizador.VeiMatricula = ""
-        ' DetalhesUtilizador.VeiCor = ""
+
+        MsgBox(DetalhesUtilizador.CodVeiculo)
+
+
+
+        'Buscar dados do Veiculo
+        Comando = New MySqlCommand("select * from veiculos where codVei='" + DetalhesUtilizador.CodUser + "'", ligacao)
+        Try
+            ligacao.Open()
+            reader = Comando.ExecuteReader
+            While reader.Read
+                'Dados
+                DetalhesUtilizador.VeiMarca = "Marca"
+                DetalhesUtilizador.VeiModelo = "Modelo"
+                DetalhesUtilizador.VeiMatricula = "Matricula"
+                DetalhesUtilizador.VeiCor = "Cor"
+            End While
+            ligacao.Close()
+        Catch ex As Exception
+            ligacao.Close()
+            MsgBox(ex.Message)
+            Exit Sub
+        End Try
+
 
 
         MsgBox("CHEGOU AQUI \END")
