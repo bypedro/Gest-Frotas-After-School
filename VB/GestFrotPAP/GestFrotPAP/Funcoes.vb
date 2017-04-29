@@ -45,7 +45,6 @@ Public Module Funcoes
     Public Distancia As String
 
     Public Sub Definicoes()
-        My.Settings.SqlDistancia = "Mi"
         If My.Settings.SqlDistancia = "Km" Then
             Conversao = "1"
             Simbolo = "KM"

@@ -21,7 +21,7 @@
     Private _Cidade As String = ""
     Private _CidadeCod As Integer = 0
     Private _Pais As String = ""
-    Private _PaisCod As String = ""
+    Private _PaisCod As Integer = 0
 
     'Carro
     Private _CodVeiculo As String = ""
@@ -211,11 +211,11 @@
         End Set
     End Property
 
-    Public Property PaisCod As String
+    Public Property PaisCod As Integer
         Get
             Return _PaisCod
         End Get
-        Set(ByVal value As String)
+        Set(ByVal value As Integer)
             _PaisCod = value
         End Set
     End Property
