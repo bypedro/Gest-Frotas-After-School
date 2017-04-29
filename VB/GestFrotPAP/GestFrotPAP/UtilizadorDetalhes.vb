@@ -1,39 +1,39 @@
 ﻿Public Class UtilizadorDetalhes
     'User
-    Private _CodUser As Integer
-    Private _NomeRegisto As String
-    Private _Senha As String
-    Private _NomeProprio As String
-    Private _Apelido As String
-    Private _Genero As String
-    Private _DataNasc As String
-    Private _DataContrat As String
-    Private _PagamentoHora As String
-    Private _Habilitações As String
-    Private _Rua As String
-    Private _NTelemovel As String
-    Private _NTelefone As String
-    Private _Email As String
-    Private _NotasContacto As String
-    Private _NotasContrato As String
-    Private _TipoUtilizador As String
-    Private _TipoUtilizadorCod As Integer
-    Private _Cidade As String
-    Private _CidadeCod As String
-    Private _Pais As String
-    Private _PaisCod As String
+    Private _CodUser As Integer = 0
+    Private _NomeRegisto As String = ""
+    Private _Senha As String = ""
+    Private _NomeProprio As String = ""
+    Private _Apelido As String = ""
+    Private _Genero As String = ""
+    Private _DataNasc As String = ""
+    Private _DataContrat As String = ""
+    Private _PagamentoHora As String = ""
+    Private _Habilitações As String = ""
+    Private _Rua As String = ""
+    Private _NTelemovel As String = ""
+    Private _NTelefone As String = ""
+    Private _Email As String = ""
+    Private _NotasContacto As String = ""
+    Private _NotasContrato As String = ""
+    Private _TipoUtilizador As String = ""
+    Private _TipoUtilizadorCod As Integer = 0
+    Private _Cidade As String = ""
+    Private _CidadeCod As Integer = 0
+    Private _Pais As String = ""
+    Private _PaisCod As String = ""
 
     'Carro
-    Private _CodVeiculo As String
-    Private _VeiMarca As String
-    Private _VeiModelo As String
-    Private _VeiMatricula As String
-    Private _VeiCor As String
+    Private _CodVeiculo As String = ""
+    Private _VeiMarca As String = ""
+    Private _VeiModelo As String = ""
+    Private _VeiMatricula As String = ""
+    Private _VeiCor As String = ""
     'KM?
 
     'Agenda
-    Private _VeiProxInspecao As String
-    Private _VeiProxManutencao As String
+    Private _VeiProxInspecao As String = ""
+    Private _VeiProxManutencao As String = ""
 
     'Historico
     Private _VeiUltiAbastecimento As String
