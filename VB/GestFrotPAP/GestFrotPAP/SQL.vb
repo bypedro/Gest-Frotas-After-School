@@ -1,6 +1,16 @@
 ﻿Imports MySql.Data.MySqlClient
 Imports System.Net.Mail
 Module SQL
+    'Caro colega programador:
+    '
+    'Quando escrevi este código, só Deus e eu sabíamos com funcionava
+    'Agora, SÓ Deus o  sabe!
+    '
+    'Para ti que estás a tentar otimiza-lo e falhaste, por favor, 
+    'aumenta o contador para adverter o teu proximo colega:
+    '
+    'Total_horas_perdidas_aqui = 23
+    '
     Dim ligacao As New MySqlConnection("Server=" + My.Settings.SqlDBServer + ";Database=" + My.Settings.SqlDBNome + ";Uid=" + My.Settings.SqlDBUser + ";Pwd=" + My.Settings.SqlDBConPass + ";Connect timeout=30;Convert Zero Datetime=True;") 'MUDAR TALVEZ
     Dim adapter As New MySqlDataAdapter
     ' Dim Comando As MySqlCommand

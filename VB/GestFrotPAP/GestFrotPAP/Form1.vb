@@ -2,10 +2,17 @@
 Imports System.Drawing.Drawing2D
 Imports System.Drawing.Text
 Imports System.Runtime.InteropServices
-
-
-
 Public Class Form1
+    'Caro colega programador:
+    '
+    'Quando escrevi este código, só Deus e eu sabíamos com funcionava
+    'Agora, SÓ Deus o  sabe!
+    '
+    'Para ti que estás a tentar otimiza-lo e falhaste, por favor, 
+    'aumenta o contador para adverter o teu proximo colega:
+    '
+    'Total_horas_perdidas_aqui = 5
+    '
     Public linhaSQL As String
     'ListBox
     Private Declare Function LockWindowUpdate Lib "user32" (ByVal hwndLock As IntPtr) As Int32
@@ -702,7 +709,7 @@ Public Class Form1
 
         'FIM DE AREA
 
-   
+
         Exit Sub
         If SQL.TabelaSelecionada = "AbastInsert" Then
             InserirDados("AbastInsert")
