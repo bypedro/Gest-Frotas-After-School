@@ -55,7 +55,7 @@ Module SQL
         Dim str1 As String = ""
 
         'CODIGO VERIFICAR LIGAÇAO
-        If VerificarLigacao() = True Then
+        If VerificarLigacao() Then
             Return (False)
         End If
 
@@ -258,23 +258,23 @@ Module SQL
         End Try
     End Function
 
-    Public Function UltimoKM() As Integer
-        Dim Max As Integer = 0
-        Dim KMDespesas As Integer = 0
-        Dim KMManutencao As Integer = 0
-        Dim KMAbastecimento As Integer = 0
+    Public Function UltimoKM() As Double
+        Dim Max As Double = 0
+        Dim KMDespesas As Double = 0
+        Dim KMManutencao As Double = 0
+        Dim KMAbastecimento As Double = 0
         Dim KM4 As String = 0
         Dim Comando As MySqlCommand
         Dim Objecto As Object
         Try
-            Comando = New MySqlCommand("select Max(Veiculo_KM) from despesas where efetuada='sim' and Codvei='" + DetalhesUtilizador.CodVeiculo.ToString + "'", ligacao)
+            Comando = New MySqlCommand("select Max(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2)) from despesas where efetuada='sim' and Codvei='" + DetalhesUtilizador.CodVeiculo.ToString + "'", ligacao)
             ligacao.Open()
             Objecto = Comando.ExecuteScalar
             If IsDBNull(Objecto) Then
                 KMDespesas = 0
                 ligacao.Close()
             Else
-                KMDespesas = CType(Objecto, Integer)
+                KMDespesas = CType(Objecto, Double)
                 ligacao.Close()
             End If
         Catch ex As Exception
@@ -282,14 +282,14 @@ Module SQL
             ligacao.Close()
         End Try
         Try
-            Comando = New MySqlCommand("select Max(Veiculo_KM) from manutencao where efetuada='sim' and Codvei='" + DetalhesUtilizador.CodVeiculo.ToString + "'", ligacao)
+            Comando = New MySqlCommand("select Max(ROUND((Veiculo_km/" + DistanciaConversao.ToString + "),2)) from manutencao where efetuada='sim' and Codvei='" + DetalhesUtilizador.CodVeiculo.ToString + "'", ligacao)
             ligacao.Open()
             Objecto = Comando.ExecuteScalar
             If IsDBNull(Objecto) Then
                 KMManutencao = 0
                 ligacao.Close()
             Else
-                KMManutencao = CType(Objecto, Integer)
+                KMManutencao = CType(Objecto, Double)
                 ligacao.Close()
             End If
         Catch ex As Exception
@@ -297,14 +297,14 @@ Module SQL
             ligacao.Close()
         End Try
         Try
-            Comando = New MySqlCommand("select Max(Veiculo_KM) from veiabast where Codvei='" + DetalhesUtilizador.CodVeiculo.ToString + "'", ligacao)
+            Comando = New MySqlCommand("select Max(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2)) from veiabast where Codvei='" + DetalhesUtilizador.CodVeiculo.ToString + "'", ligacao)
             ligacao.Open()
             Objecto = Comando.ExecuteScalar
             If IsDBNull(Objecto) Then
                 KMAbastecimento = 0
                 ligacao.Close()
             Else
-                KMAbastecimento = CType(Objecto, Integer)
+                KMAbastecimento = CType(Objecto, Double)
                 ligacao.Close()
             End If
         Catch ex As Exception
@@ -525,10 +525,10 @@ Module SQL
             reader = Comando.ExecuteReader
             While reader.Read
                 'Dados
-                DetalhesUtilizador.VeiMarca = "Marca"
-                DetalhesUtilizador.VeiModelo = "Modelo"
-                DetalhesUtilizador.VeiMatricula = "Matricula"
-                DetalhesUtilizador.VeiCor = "Cor"
+                DetalhesUtilizador.VeiMarca = reader.GetString("Marca")
+                DetalhesUtilizador.VeiModelo = reader.GetString("Modelo")
+                DetalhesUtilizador.VeiMatricula = reader.GetString("Matricula")
+                DetalhesUtilizador.VeiCor = reader.GetString("Cor")
             End While
             ligacao.Close()
         Catch ex As Exception
@@ -1042,12 +1042,13 @@ Module SQL
     '  Comando = New MySqlCommand("select CodVei from pais where ='" + DetalhesUtilizador.CodUser + "'codpais='" + DetalhesUtilizador.CodUser + "'", ligacao)
 
     Public Sub AbastecimentoVer()
+        Form1.LstVAbastecimento.Hide()
         Dim Tabelas As DataSet = New DataSet
         adapter.SelectCommand = New MySqlCommand
         adapter.SelectCommand.Connection = ligacao
         Dim itemcoll(100) As String
         'Trocar KM nas definições do programa..->
-        adapter.SelectCommand.CommandText = ("select CodVeiAbast,Data,Nome as Fornecedor,Quantidade,Valor,concat(Veiculo_km,' KM') as '" + "QuilometrosMUDAR" + "' ,concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as veiculo,Nome_Registo as Utilizador  from VeiCondu,veiabast,veiculos,fornecedores,Utilizador where VeiCondu.Codvei=Veiculos.Codvei and Veiculos.Codvei=Veiabast.CodVei and fornecedores.Codforn=Veiabast.Codforn and Utilizador.CodUser=Veiabast.Coduser and VeiCondu.EmUso='Sim' and Utilizador.CodUser='" + DetalhesUtilizador.CodUser + "'order by CodVeiAbast DESC")
+        adapter.SelectCommand.CommandText = ("select CodVeiAbast,Data,Nome as Fornecedor,concat(ROUND((quantidade/" + VolumeConversao().ToString + "),2),' " + VolumeSimbolo() + "') as 'Quantidade',concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "' ,concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador  from VeiCondu,veiabast,veiculos,fornecedores,Utilizador where VeiCondu.Codvei=Veiculos.Codvei and Veiculos.Codvei=Veiabast.CodVei and fornecedores.Codforn=Veiabast.Codforn and Utilizador.CodUser=Veiabast.Coduser and VeiCondu.EmUso='Sim' and Utilizador.CodUser='" + DetalhesUtilizador.CodUser + "'order by CodVeiAbast DESC")
         Try
             ligacao.Open()
             adapter.Fill(Tabelas, "Abastecimento")
@@ -1074,14 +1075,16 @@ Module SQL
             Form1.LstVAbastecimento.Items.Add(lvi)
         Next
         ListViewSize("LstVAbastecimento")
+        Form1.LstVAbastecimento.Show()
     End Sub
 
     Public Sub ManutencaoVer()
+        Form1.LstVManu.Hide()
         Dim Tabelas As DataSet = New DataSet
         adapter.SelectCommand = New MySqlCommand
         adapter.SelectCommand.Connection = ligacao
         Dim itemcoll(100) As String 'ROUND((Veiculo_km/1.69),2
-        adapter.SelectCommand.CommandText = ("select Codmanu,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipoManu.Nome as Tipo,Valor,concat(ROUND((Veiculo_km/" + Conversao + "),2),' " + Simbolo + "') as '" + Distancia + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veiculo,Nome_Registo as Utilizador from Utilizador,VeiCondu,Manutencao,veiculos,fornecedores,tipomanu where VeiCondu.Codvei=Veiculos.Codvei and Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and Utilizador.CodUser=Manutencao.Coduser and efetuada='Sim' and EmUso='Sim' and Manutencao.CodUser='" + DetalhesUtilizador.CodUser + "'")
+        adapter.SelectCommand.CommandText = ("select Codmanu,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipoManu.Nome as Tipo,concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao.ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veiculo,Nome_Registo as Utilizador from Utilizador,VeiCondu,Manutencao,veiculos,fornecedores,tipomanu where VeiCondu.Codvei=Veiculos.Codvei and Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and Utilizador.CodUser=Manutencao.Coduser and efetuada='Sim' and EmUso='Sim' and Manutencao.CodUser='" + DetalhesUtilizador.CodUser + "'")
         Try
             ligacao.Open()
             adapter.Fill(Tabelas, "Manutencao")
@@ -1108,15 +1111,17 @@ Module SQL
             Form1.LstVManu.Items.Add(lvi)
         Next
         ListViewSize("LstVManu")
+        Form1.LstVManu.Show()
     End Sub
 
     Public Sub DespesasVer()
+        Form1.LstVDesp.Hide()
         Dim Tabelas As DataSet = New DataSet
         adapter.SelectCommand = New MySqlCommand
         adapter.SelectCommand.Connection = ligacao
         Dim itemcoll(100) As String
         '"select CodVeiAbast,Data,Nome as Fornecedor,Quantidade,Valor,concat(Veiculo_km,' KM') as Quilometros ,concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as veiculo,Nome_Registo as Utilizador  from veiabast,veiculos,fornecedores,Utilizador where Veiculos.Codvei=Veiabast.CodVei and fornecedores.Codforn=Veiabast.Codforn and Utilizador.CodUser=Veiabast.Coduser and Utilizador.CodUser='" + DetalhesUtilizador.CodUser + "'"
-        adapter.SelectCommand.CommandText = ("select Coddesp,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipodesp.nome as Tipo ,Valor,concat(Veiculo_km,' KM') as '" + "QuilometrosMUDAR" + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as veiculo,Nome_Registo as Utilizador from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Sim'  and Veiculos.CodVei='" + DetalhesUtilizador.CodVeiculo.ToString + "' order by Veiculo_km")
+        adapter.SelectCommand.CommandText = ("select Coddesp,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipodesp.nome as Tipo ,concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as veiculo,Nome_Registo as Utilizador from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Sim'  and Veiculos.CodVei='" + DetalhesUtilizador.CodVeiculo.ToString + "' order by Veiculo_km")
         Try
             ligacao.Open()
             adapter.Fill(Tabelas, "Despesas")
@@ -1143,9 +1148,12 @@ Module SQL
             Form1.LstVDesp.Items.Add(lvi)
         Next
         ListViewSize("LstVDesp")
+        Form1.LstVDesp.Show()
     End Sub
 
     Public Sub AgendaVer() 'LstVAgendaManu
+        Form1.LstVAgendaDesp.Hide()
+        Form1.LstVAgendaManu.Hide()
         Dim Manutencao As DataSet = New DataSet
         adapter.SelectCommand = New MySqlCommand
         adapter.SelectCommand.Connection = ligacao
@@ -1209,9 +1217,12 @@ Module SQL
             Form1.LstVAgendaDesp.Items.Add(lvi)
         Next
         ListViewSize("LstVAgendaDesp")
+        Form1.LstVAgendaDesp.Show()
+        Form1.LstVAgendaManu.Show()
     End Sub
 
     Public Sub UtilizadorVer()
+        Form1.LstVAdminUtilizador.Hide()
         Dim Tabelas As DataSet = New DataSet
         adapter.SelectCommand = New MySqlCommand
         adapter.SelectCommand.Connection = ligacao
@@ -1244,9 +1255,11 @@ Module SQL
             Form1.LstVAdminUtilizador.Items.Add(lvi)
         Next
         ListViewSize("LstVUtilizador")
+        Form1.LstVAdminUtilizador.Show()
     End Sub
 
     Public Sub VeiculoVer()
+        Form1.LstVAdminVeiculo.Hide()
         Dim Tabelas As DataSet = New DataSet
         adapter.SelectCommand = New MySqlCommand
         adapter.SelectCommand.Connection = ligacao
@@ -1279,10 +1292,12 @@ Module SQL
             Form1.LstVAdminVeiculo.Items.Add(lvi)
         Next
         ListViewSize("LstVVeiculo")
+        Form1.LstVAdminVeiculo.Show()
     End Sub
 
 
     Public Sub FornecedorVer()
+        Form1.LstVAdminFornecedores.Hide()
         Dim Tabelas As DataSet = New DataSet
         adapter.SelectCommand = New MySqlCommand
         adapter.SelectCommand.Connection = ligacao
@@ -1315,6 +1330,7 @@ Module SQL
             Form1.LstVAdminFornecedores.Items.Add(lvi)
         Next
         ListViewSize("LstVAdminFornecedores")
+        Form1.LstVAdminFornecedores.Show()
     End Sub
 
     Public Sub DetalhesAbast(ByVal Cod As String) 'Mudar Metodo
@@ -1323,16 +1339,16 @@ Module SQL
         Form1.LblAbastCOD.Text = "Codigo: " + Cod
         Comando = New MySqlCommand
         Comando.Connection = ligacao
-        Comando.CommandText = ("select CodVeiAbast,Data,notas,concat(Nome_Proprio,' ',Apelido) as Utilizador,concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veiculo,concat(Veiculo_KM,' KM') as '" + "QuilometrosMUDAR" + "',Quantidade,Valor,fornecedores.Nome as Fornecedor from veiabast,Utilizador,Veiculos,fornecedores where fornecedores.codforn=Veiabast.codforn and Veiculos.CodVei=Veiabast.CodVei and utilizador.coduser=Veiabast.CoDuser and CodVeiAbast=" + Cod + " ")
+        Comando.CommandText = ("select CodVeiAbast,Data,notas,concat(Nome_Proprio,' ',Apelido) as Utilizador,concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veiculo,concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(ROUND((quantidade/" + VolumeConversao().ToString + "),2),' " + VolumeSimbolo() + "') as 'Quantidade',concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',fornecedores.Nome as Fornecedor from veiabast,Utilizador,Veiculos,fornecedores where fornecedores.codforn=Veiabast.codforn and Veiculos.CodVei=Veiabast.CodVei and utilizador.coduser=Veiabast.CoDuser and CodVeiAbast=" + Cod + " ")
         Try
             ligacao.Open()
             reader = Comando.ExecuteReader
             While reader.Read
-                Form1.LblAbastData.Text = "Data: " + reader.GetString("data")
+                Form1.LblAbastData.Text = "Data: " + reader("data")
                 Form1.TxtAbastNota.Text = reader.GetString("notas")
                 Form1.LblAbastUtilizador.Text = "Utilizador: " + reader.GetString("Utilizador")
                 Form1.LblAbastVeiculo.Text = "Veiculo: " + reader.GetString("Veiculo")
-                Form1.LblAbastKM.Text = "KM: " + reader.GetString("QuilometrosMUDAR")
+                Form1.LblAbastKM.Text = "KM: " + reader.GetString(DistanciaDistancia)
                 Form1.LblAbastQuantidade.Text = "Quantidade: " + reader.GetString("Quantidade")
                 Form1.LblAbastValor.Text = "Valor: " + reader.GetString("Valor")
                 Form1.LblAbastFornecedor.Text = "Fornecedores: " + reader.GetString("Fornecedor")
@@ -1351,7 +1367,7 @@ Module SQL
         Form1.LblDespCod.Text = "Código: " + Cod
         Comando = New MySqlCommand
         Comando.Connection = ligacao
-        Comando.CommandText = ("select CodDesp,nota,Data_Efetuada as Data,tipodesp.Nome as Tipo,Valor,concat(Veiculo_km,' KM') as '" + "QuilometrosMUDAR" + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veiculo,fornecedores.Nome as Fornecedor from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Sim' and CodDesp=" + Cod + " ")
+        Comando.CommandText = ("select CodDesp,nota,Data_Efetuada as Data,tipodesp.Nome as Tipo,concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veiculo,fornecedores.Nome as Fornecedor from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Sim' and CodDesp=" + Cod + " ")
         Try
             ligacao.Open()
             reader = Comando.ExecuteReader
@@ -1359,7 +1375,7 @@ Module SQL
                 Form1.LblDespData.Text = "Data: " + reader("Data")
                 Form1.LblDespTipo.Text = "Tipo: " + reader.GetString("Tipo")
                 Form1.LblDespValor.Text = "Valor: " + reader.GetString("Valor")
-                Form1.LblDespKM.Text = "KM: " + reader.GetString("QuilometrosMUDAR")
+                Form1.LblDespKM.Text = "KM: " + reader.GetString(DistanciaDistancia)
                 Form1.LblDespVeiculo.Text = "Veiculo: " + reader.GetString("Veiculo")
                 Form1.Label7.Text = "Fornecedor: " + reader.GetString("Fornecedor")
                 Form1.TxtDespNota.Text = reader.GetString("Nota")
@@ -1378,7 +1394,7 @@ Module SQL
         Form1.LblManuCOD.Text = "Código: " + Cod
         Comando = New MySqlCommand
         Comando.Connection = ligacao
-        Comando.CommandText = ("select Codmanu,nota,Data_Efetuada as Data,tipomanu.Nome as Tipo,Valor,concat(Veiculo_km,' KM') as '" + "QuilometrosMUDAR" + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veiculo,fornecedores.Nome as Fornecedor from manutencao,Veiculos,Fornecedores,Utilizador,Tipomanu where manutencao.codvei=veiculos.codvei and manutencao.codforn=Fornecedores.codforn and manutencao.coduser=Utilizador.coduser and manutencao.codtipom=tipomanu.codtipom and efetuada='sim' and codmanu=" + Cod + " ")
+        Comando.CommandText = ("select Codmanu,nota,Data_Efetuada as Data,tipomanu.Nome as Tipo,concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veiculo,fornecedores.Nome as Fornecedor from manutencao,Veiculos,Fornecedores,Utilizador,Tipomanu where manutencao.codvei=veiculos.codvei and manutencao.codforn=Fornecedores.codforn and manutencao.coduser=Utilizador.coduser and manutencao.codtipom=tipomanu.codtipom and efetuada='sim' and codmanu=" + Cod + " ")
         Try
             ligacao.Open()
             reader = Comando.ExecuteReader
@@ -1386,7 +1402,7 @@ Module SQL
                 Form1.LblManuData.Text = "Data: " + reader("Data")
                 Form1.LblManuTipo.Text = "Tipo: " + reader.GetString("Tipo")
                 Form1.LblManuValor.Text = "Valor: " + reader.GetString("Valor")
-                Form1.LblManuKM.Text = "KM: " + reader.GetString("QuilometrosMUDAR")
+                Form1.LblManuKM.Text = "KM: " + reader.GetString(DistanciaDistancia)
                 Form1.LblManuVeiculo.Text = "Veiculo: " + reader.GetString("Veiculo")
                 Form1.LblManuFornecedor.Text = "Fornecedor: " + reader.GetString("Fornecedor")
                 Form1.TxtManuNota.Text = reader.GetString("Nota")

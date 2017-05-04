@@ -1,7 +1,15 @@
 ﻿Imports System.Text
 Imports System.Security.Cryptography
 Imports System.Runtime.InteropServices
+Imports System.Text.RegularExpressions
+
 Public Module Funcoes
+
+
+
+
+
+
     Public Function HashPassword(ByVal Password As String) As String
         Dim pwd As String = Password
         Dim hasher As New Security.Cryptography.SHA256Managed()
@@ -18,6 +26,23 @@ Public Module Funcoes
         Next
         Return False
     End Function
+
+    Function VerificarEspaco(ByVal StringToCheck As String)
+        For i = 0 To StringToCheck.Length - 1
+            If StringToCheck.Chars(i) = " " Then
+                Return True
+            End If
+        Next
+        Return False
+    End Function
+
+    Function VerificarKmString(ByVal StringToCheck As String) As Boolean
+        Dim Valido(StringToCheck - 1) As Boolean
+
+    End Function
+
+
+
 
     <DllImport("user32.dll", CharSet:=CharSet.Auto)> _
     Public Function SendMessage(ByVal hWnd As IntPtr, ByVal msg As Integer, ByVal wParam As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lParam As String) As Int32
@@ -40,21 +65,81 @@ Public Module Funcoes
         End If
     End Sub
 
-    Public Conversao As String
-    Public Simbolo As String
-    Public Distancia As String
-
-    Public Sub Definicoes()
+    Function DistanciaConversao() As String
         If My.Settings.SqlDistancia = "Km" Then
-            Conversao = "1"
-            Simbolo = "KM"
-            Distancia = "Quilometros"
+            Return "1"
         ElseIf My.Settings.SqlDistancia = "Mi" Then
-            Conversao = "1.69344"
-            Simbolo = "Mi"
-            Distancia = "Milhas"
+            Return "1.609344"
         End If
-    End Sub
+        Return 1
+    End Function
+    Function DistanciaSimbolo() As String
+        If My.Settings.SqlDistancia = "Km" Then
+            Return "KM"
+        ElseIf My.Settings.SqlDistancia = "Mi" Then
+            Return "Mi"
+        End If
+        Return ""
+    End Function
+    Function DistanciaDistancia() As String
+        If My.Settings.SqlDistancia = "Km" Then
+            Return "Quilometros"
+        ElseIf My.Settings.SqlDistancia = "Mi" Then
+            Return "Milhas"
+        End If
+        Return ""
+    End Function
 
+    Function MoedaConversao() As String
+        If My.Settings.SqlMoeda = "Euro" Then
+            Return "1"
+        ElseIf My.Settings.SqlMoeda = "Dolar" Then
+            Return "0.913673313"
+        End If
+        Return 1
+    End Function
+    Function MoedaSimbolo() As String
+        If My.Settings.SqlMoeda = "Euro" Then
+            Return "€"
+        ElseIf My.Settings.SqlMoeda = "Dolar" Then
+            Return "US$"
+        End If
+        Return 1
+    End Function
+
+    Function MoedaMoeda() As String
+        If My.Settings.SqlMoeda = "Euro" Then
+            Return "Euro"
+        ElseIf My.Settings.SqlMoeda = "Dolar" Then
+            Return "Dolar"
+        End If
+        Return 1
+    End Function
+
+    Function VolumeConversao() As String
+        If My.Settings.SqlVolume = "L" Then
+            Return "1"
+        ElseIf My.Settings.SqlVolume = "UsGal" Then
+            Return "3.78541178"
+        End If
+        Return 1
+    End Function
+    Function VolumeSimbolo() As String
+        If My.Settings.SqlVolume = "L" Then
+            Return "L"
+        ElseIf My.Settings.SqlVolume = "UsGal" Then
+            Return "US Gal"
+        End If
+        Return 1
+    End Function
+
+    Function VolumeVolume() As String
+        If My.Settings.SqlVolume = "Euro" Then
+            Return "Litros"
+        ElseIf My.Settings.SqlVolume = "Dolar" Then
+            Return "Galões"
+        End If
+        Return 1
+    End Function
 
 End Module

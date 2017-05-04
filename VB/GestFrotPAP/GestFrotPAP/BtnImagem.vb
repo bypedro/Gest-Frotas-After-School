@@ -146,6 +146,10 @@ Public Class BtnImagem
 
     Public Event ButtonClickMasterRace(ByVal sender As System.Object, ByVal e As System.EventArgs)
 
+    Public Event ButtonEnterMasterRace(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
+    Public Event ButtonLeaveMasterRace(ByVal sender As System.Object, ByVal e As System.EventArgs)
+
     Private Sub Objetos(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PctImagem.Click, LblTexto.Click, Me.Click
         EventoClick()
         RaiseEvent ButtonClickMasterRace(Me, EventArgs.Empty)
@@ -156,10 +160,13 @@ Public Class BtnImagem
         If _EstadoBotao = False Then
             Me.BackColor = _CorHover
         End If
+        RaiseEvent ButtonEnterMasterRace(Me, EventArgs.Empty)
     End Sub
     Private Sub Btnleave(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.MouseLeave, PctImagem.MouseLeave, LblTexto.MouseLeave
         If _EstadoBotao = False Then
             Me.BackColor = CorFundo
         End If
+        RaiseEvent ButtonLeaveMasterRace(Me, EventArgs.Empty)
     End Sub
+
 End Class

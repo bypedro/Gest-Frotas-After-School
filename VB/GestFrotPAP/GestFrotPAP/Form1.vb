@@ -126,7 +126,6 @@ Public Class Form1
 
 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
-        Definicoes()
         'Adiciona evento a todos os objetos do programa(Associados ao form1)(Objetos dentro de paneis necessitao de ser adicionados)
         AddHandler Me.MouseDown, AddressOf c_MouseDown
         For Each c As Control In Me.Controls
@@ -267,8 +266,42 @@ Public Class Form1
     Private Sub BtnImagem6_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagem6.ButtonClickMasterRace
         MenuPrincipal(5, True)
         LblDef.Font = GetInstance(12, FontStyle.Bold)
-        MsgBox("TODO: Quilometros->Milhas,Litros->Galões, Linguagem, Aspeto, Etc")
+        If My.Settings.SqlDistancia = "Km" Then
+            BtnImagemDistancia.Texto = "Km"
+            BtnImagemDistancia.Left = 5
+            BtnImagemDistanciaOff.Texto = "Mi"
+            BtnImagemDistanciaOff.Left = 100 - 5
+        ElseIf My.Settings.SqlDistancia = "Mi" Then
+            BtnImagemDistancia.Left = 100 - 5
+            BtnImagemDistancia.Texto = "Mi"
+            BtnImagemDistanciaOff.Texto = "Km"
+            BtnImagemDistanciaOff.Left = 5
+        End If
 
+        If My.Settings.SqlMoeda = "Euro" Then
+            BtnImagemDinheiro.Texto = "€"
+            BtnImagemDinheiro.Left = 5
+            BtnImagemDinheiroOff.Texto = "US$"
+            BtnImagemDinheiroOff.Left = 100 - 5
+        ElseIf My.Settings.SqlMoeda = "Dolar" Then
+            BtnImagemDinheiro.Left = 100 - 5
+            BtnImagemDinheiro.Texto = "US$"
+            BtnImagemDinheiroOff.Texto = "€"
+            BtnImagemDinheiroOff.Left = 5
+        End If
+        If My.Settings.SqlVolume = "L" Then
+            BtnImagemVolume.Texto = "L"
+            BtnImagemVolume.Left = 5
+            BtnImagemVolumeOff.Texto = "Us Gal"
+            BtnImagemVolumeOff.Left = 100 - 5
+        ElseIf My.Settings.SqlVolume = "UsGal" Then
+            BtnImagemVolume.Texto = "Us Gal"
+            BtnImagemVolume.Left = 100 - 5
+            BtnImagemVolumeOff.Texto = "L"
+            BtnImagemVolumeOff.Left = 5
+        End If
+
+        MsgBox("TODO: Quilometros->Milhas,Litros->Galões, Linguagem, Aspeto, Etc")
     End Sub
 
     Private Sub BtnImagem7_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagem7.ButtonClickMasterRace
@@ -398,21 +431,6 @@ Public Class Form1
         End If
     End Sub
     Private Sub Panel2_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles PnlBarraTop.MouseUp
-        drag = False
-    End Sub
-
-    Private Sub PanelInserir_MouseDown(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Panel1.MouseDown
-        drag = True
-        mousex = Windows.Forms.Cursor.Position.X - Panel1.Left
-        mousey = Windows.Forms.Cursor.Position.Y - Panel1.Top
-    End Sub
-    Private Sub PanelInserir_MouseMove(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Panel1.MouseMove
-        If drag Then
-            Panel1.Top = Windows.Forms.Cursor.Position.Y - mousey
-            Panel1.Left = Windows.Forms.Cursor.Position.X - mousex
-        End If
-    End Sub
-    Private Sub PanelInserir_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles Panel1.MouseUp
         drag = False
     End Sub
 
@@ -556,11 +574,6 @@ Public Class Form1
         MenuAgenda(1)
     End Sub
 
-
-
-
-
-
     Private Sub LstVAbastecimento_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LstVAbastecimento.Click
         DetalhesAbast(LstVAbastecimento.SelectedItems(0).Text)
     End Sub
@@ -609,9 +622,6 @@ Public Class Form1
         DetalhesFornecedorAdmin(LstVAdminFornecedores.SelectedItems(0).Text)
     End Sub
 
-
-
-
     Private Sub BtnImagemAbastInsert_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemAbastInsert.ButtonClickMasterRace
         Botao(BtnImagemAbastInsert)
         Panel1.Show()
@@ -631,7 +641,6 @@ Public Class Form1
 
     End Sub
 
-
     Private Sub BtnImagemManuInsert_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemManuInsert.ButtonClickMasterRace
         Botao(BtnImagemManuInsert)
         Panel1.Show()
@@ -650,9 +659,6 @@ Public Class Form1
         End If
     End Sub
 
-
-
-
     Private Sub BtnImagemDespInsert_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemDespInsert.ButtonClickMasterRace
         Botao(BtnImagemDespInsert)
         Panel1.Show()
@@ -670,9 +676,6 @@ Public Class Form1
             MsgBox("Selecione um abastecimento")
         End If
     End Sub
-
-
-
 
     '
     'PANEL DE EDITAR E INSERIR
@@ -693,6 +696,14 @@ Public Class Form1
 
     Private Sub BtnImagemInserirInserir_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemInserirInserir.ButtonClickMasterRace
         Botao(BtnImagemInserirInserir)
+        'AREA DE TESTE
+        MsgBox(VerificarKmString(TxtInserirNota.Text))
+
+
+        'FIM DE AREA
+
+   
+        Exit Sub
         If SQL.TabelaSelecionada = "AbastInsert" Then
             InserirDados("AbastInsert")
             AbastecimentoVer()
@@ -739,6 +750,9 @@ Public Class Form1
         LblInserirDataAgendada.Text = "Data Efetuada:"
         LblInserirQuilometros.Text = "Quilometros:"
         TxtInserirQuilometros.Enabled = True
+        CmbInserirAno.Invalidate()
+        CmbInserirDia.Invalidate()
+        CmbInserirMes.Invalidate()
     End Sub
 
     Private Sub BtnImagemAgendaDespInsert_ButtonClickMasterRace(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagemAgendaDespInsert.ButtonClickMasterRace
@@ -876,5 +890,82 @@ Public Class Form1
         PnlBDDef.SendToBack()
     End Sub
 
+    Private Sub BtnDistancia()
+        If My.Settings.SqlDistancia = "Km" Then
+            My.Settings.SqlDistancia = "Mi"
+            BtnImagemDistancia.Texto = "Mi"
+            BtnImagemDistancia.Left = 100 - 5
+            BtnImagemDistanciaOff.Texto = "Km"
+            BtnImagemDistanciaOff.Left = 5
+        ElseIf My.Settings.SqlDistancia = "Mi" Then
+            My.Settings.SqlDistancia = "Km"
+            BtnImagemDistancia.Texto = "Km"
+            BtnImagemDistancia.Left = 5
+            BtnImagemDistanciaOff.Texto = "Mi"
+            BtnImagemDistanciaOff.Left = 100 - 5
+        End If
+    End Sub
+
+    Private Sub BtnDinheiro()
+        If My.Settings.SqlMoeda = "Euro" Then
+            My.Settings.SqlMoeda = "Dolar"
+            BtnImagemDinheiro.Texto = "US$"
+            BtnImagemDinheiro.Left = 100 - 5
+            BtnImagemDinheiroOff.Texto = "€"
+            BtnImagemDinheiroOff.Left = 5
+        ElseIf My.Settings.SqlMoeda = "Dolar" Then
+            My.Settings.SqlMoeda = "Euro"
+            BtnImagemDinheiro.Texto = "€"
+            BtnImagemDinheiro.Left = 5
+            BtnImagemDinheiroOff.Texto = "US$"
+            BtnImagemDinheiroOff.Left = 100 - 5
+        End If
+    End Sub
+
+    Private Sub BtnVolume()
+        If My.Settings.SqlVolume = "L" Then
+            My.Settings.SqlVolume = "UsGal"
+            BtnImagemVolume.Texto = "Us Gal"
+            BtnImagemVolume.Left = 100 - 5
+            BtnImagemVolumeOff.Texto = "L"
+            BtnImagemVolumeOff.Left = 5
+        ElseIf My.Settings.SqlVolume = "UsGal" Then
+            My.Settings.SqlVolume = "L"
+            BtnImagemVolume.Texto = "L"
+            BtnImagemVolume.Left = 5
+            BtnImagemVolumeOff.Texto = "Us Gal"
+            BtnImagemVolumeOff.Left = 100 - 5
+        End If
+    End Sub
+
+    Private Sub BtnImagemDistanciaOff_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemDistanciaOff.ButtonClickMasterRace
+        Botao(BtnImagemDistanciaOff)
+        BtnDistancia()
+    End Sub
+
+    Private Sub BtnImagemDinheiroOff_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemDinheiroOff.ButtonClickMasterRace
+        Botao(BtnImagemDinheiroOff)
+        BtnDinheiro()
+    End Sub
+
+    Private Sub BtnImagemVolume_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemVolume.ButtonClickMasterRace
+        Botao(BtnImagemVolume)
+        BtnVolume()
+    End Sub
+
+    Private Sub BtnImagemVolumeOff_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemVolumeOff.ButtonClickMasterRace
+        Botao(BtnImagemVolumeOff)
+        BtnVolume()
+    End Sub
+
+    Private Sub BtnImagemDistancia_ButtonClickMasterRace_1(sender As Object, e As EventArgs) Handles BtnImagemDistancia.ButtonClickMasterRace
+        Botao(BtnImagemDistancia)
+        BtnDistancia()
+    End Sub
+
+    Private Sub BtnImagemDinheiro_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemDinheiro.ButtonClickMasterRace
+        Botao(BtnImagemDinheiro)
+        BtnDinheiro()
+    End Sub
 
 End Class
