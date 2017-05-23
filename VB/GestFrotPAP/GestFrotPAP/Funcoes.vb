@@ -4,11 +4,14 @@ Imports System.Runtime.InteropServices
 Imports System.Text.RegularExpressions
 
 Public Module Funcoes
+    'ListBox
+    Private Declare Function LockWindowUpdate Lib "user32" (ByVal hwndLock As IntPtr) As Int32
+    Private Declare Function ShowScrollBar Lib "user32" (ByVal hwnd As IntPtr, ByVal wBar As Int32, ByVal bShow As Int32) As Int32
+    Private Const SB_VERT = 1
 
-
-
-
-
+    <DllImport("user32.dll", CharSet:=CharSet.Auto)> _
+    Public Function SendMessage(ByVal hWnd As IntPtr, ByVal msg As Integer, ByVal wParam As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lParam As String) As Int32
+    End Function
 
     Public Function HashPassword(ByVal Password As String) As String
         Dim pwd As String = Password
@@ -36,31 +39,19 @@ Public Module Funcoes
         Return False
     End Function
 
-    Function VerificarKmString(ByVal StringToCheck As String) As Boolean
-        Dim Valido(StringToCheck - 1) As Boolean
-
-    End Function
-
-
-
-
-    <DllImport("user32.dll", CharSet:=CharSet.Auto)> _
-    Public Function SendMessage(ByVal hWnd As IntPtr, ByVal msg As Integer, ByVal wParam As Integer, <MarshalAs(UnmanagedType.LPWStr)> ByVal lParam As String) As Int32
-    End Function
-
     Public Sub Fade(ByVal Tipo As Integer) ' 0 para entrar 1 para sair Por em outro sitio? 
         Dim fade As Double
         If Tipo = 0 Then
             For fade = 0.0 To 1.1 Step 0.2
                 Form1.Opacity = fade
                 Form1.Refresh()
-                Threading.Thread.Sleep(50)
+                Threading.Thread.Sleep(25)
             Next
         ElseIf Tipo = 1 Then
             For fade = 1.1 To 0.0 Step -0.3
                 Form1.Opacity = fade
                 Form1.Refresh()
-                Threading.Thread.Sleep(50)
+                Threading.Thread.Sleep(25)
             Next
         End If
     End Sub

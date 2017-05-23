@@ -9,7 +9,7 @@ Module SQL
     'Para ti que estás a tentar otimiza-lo e falhaste, por favor, 
     'aumenta o contador para adverter o teu proximo colega:
     '
-    'Total_horas_perdidas_aqui = 23
+    'Total_horas_perdidas_aqui = 24
     '
     Dim ligacao As New MySqlConnection("Server=" + My.Settings.SqlDBServer + ";Database=" + My.Settings.SqlDBNome + ";Uid=" + My.Settings.SqlDBUser + ";Pwd=" + My.Settings.SqlDBConPass + ";Connect timeout=30;Convert Zero Datetime=True;") 'MUDAR TALVEZ
     Dim adapter As New MySqlDataAdapter
@@ -113,43 +113,51 @@ Module SQL
                 Catch ex As Exception
                     MsgBox("ERRO 0")
                     Return (False)
+                Finally
+                    If ligacao.State = ConnectionState.Open Then
+                        ligacao.Close()
+                    End If
                 End Try
             Else
-                'Try
-                max = New MySqlCommand("select Nome_Registo from Utilizador where Nome_Registo ='" + Utilizador + "'", ligacao)
-                ligacao.Open()
-                User = max.ExecuteScalar
-                str = CType(User, String)
-                ligacao.Close()
-                If str <> "" Then
-                    max = New MySqlCommand("select Senha from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
+                Try
+                    max = New MySqlCommand("select Nome_Registo from Utilizador where Nome_Registo ='" + Utilizador + "'", ligacao)
                     ligacao.Open()
                     User = max.ExecuteScalar
                     str = CType(User, String)
                     ligacao.Close()
-                    If str = Password Then
-                        BuscarDadosUtilizadorTeste(Utilizador)
-                        Return (True)
-                        Exit Function
+                    If str <> "" Then
+                        max = New MySqlCommand("select Senha from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
+                        ligacao.Open()
+                        User = max.ExecuteScalar
+                        str = CType(User, String)
+                        ligacao.Close()
+                        If str = Password Then
+                            BuscarDadosUtilizador(Utilizador)
+                            Return (True)
+                            Exit Function
+                        Else
+                            Form1.LblPasswordLogin.Show()
+                            Form1.LblPasswordLogin.Text = "*Password Incorreta"
+                            Return (False)
+                            Exit Function
+                        End If
                     Else
-                        Form1.LblPasswordLogin.Show()
-                        Form1.LblPasswordLogin.Text = "*Password Incorreta"
+                        Form1.LblUtilizadorLogin.Show()
+                        Form1.LblUtilizadorLogin.Text = "*Utilizador Inválido"
                         Return (False)
                         Exit Function
                     End If
-                Else
-                    Form1.LblUtilizadorLogin.Show()
-                    Form1.LblUtilizadorLogin.Text = "*Utilizador Inválido"
+                Catch ex As Exception
+                    MsgBox("ERRO 1")
                     Return (False)
-                    Exit Function
-                End If
-                'Catch ex As Exception
-                MsgBox("ERRO 1")
-                'End Try
+                Finally
+                    If ligacao.State = ConnectionState.Open Then
+                        ligacao.Close()
+                    End If
+                End Try
             End If
             Return (False)
         End If
-
     End Function
 
     Public Function RegistarUtilizador(ByVal Utilizador As String, ByVal Password1 As String, ByVal Password2 As String, ByVal Email As String) As Boolean
@@ -339,7 +347,7 @@ Module SQL
 
 
     'Buscar Dados
-    Public Sub BuscarDadosUtilizadorTeste(ByVal Utilizador As String)
+    Public Sub BuscarDadosUtilizador(ByVal Utilizador As String)
         Dim CampoEmFalta As Boolean = False 'Por Publica 
         Dim Comando As New MySqlCommand
         Dim reader As MySqlDataReader
@@ -550,11 +558,8 @@ Module SQL
         If CampoEmFalta = True Then
             MsgBox("Campos em Falta! Edite o seu perfil.")
             Exit Sub
-
         End If
 
-
-        MsgBox("CHEGOU AQUI \END")
         Exit Sub
         'CODIGO TEMPORÀRIO PARA OPRIMIR OS UTILIZADORES QUE NÂO SÂO ADMINISTRADORES
         If DetalhesUtilizador.TipoUtilizadorCod <> 1 Then
@@ -564,784 +569,47 @@ Module SQL
 
     End Sub
 
-    Public Sub BuscarDadosUtilizador(ByVal Utilizador As String)
-        Dim Comando As MySqlCommand
-        Dim Objecto As Object
-
+    Public Sub TabelaVer(ByVal LstV As ListView, ByVal LinhaSql As String, ByVal Tabela As String)
+        LstV.Hide()
+        Dim Dados As DataSet = New DataSet
+        adapter.SelectCommand = New MySqlCommand
+        adapter.SelectCommand.Connection = ligacao
+        Dim itemcoll(100) As String
+        adapter.SelectCommand.CommandText = LinhaSql
         Try
-            Comando = New MySqlCommand("select CodTipoU from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
             ligacao.Open()
-            Objecto = Comando.ExecuteScalar
-            If IsDBNull(Objecto) Then
-                DetalhesUtilizador.TipoUtilizadorCod = 0
-                MsgBox("ERRO Tipo Utilizador Cod")
-                ligacao.Close()
-
-            Else
-                DetalhesUtilizador.TipoUtilizadorCod = CType(Objecto, String)
-                ligacao.Close()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
+            adapter.Fill(Dados, Tabela)
             ligacao.Close()
-        End Try
-
-        'CODIGO TEMPORÀRIO PARA OPRIMIR OS UTILIZADORES QUE NÂO SÂO ADMINISTRADORES
-        If DetalhesUtilizador.TipoUtilizadorCod <> 1 Then
-            MsgBox("Utilizador Não disponivel")
+        Catch ex As Exception
+            MsgBox("ERRO" + Tabela + "!")
             Exit Sub
-        End If
-
-        Try
-            Comando = New MySqlCommand("select CodUser from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
-            ligacao.Open()
-            Objecto = Comando.ExecuteScalar
-            If IsDBNull(Objecto) Then
-                DetalhesUtilizador.CodUser = "Não tem" 'Mudar
-                MsgBox("ERRO CODUSER")
-                ligacao.Close()
-            Else
-                DetalhesUtilizador.CodUser = CType(Objecto, String)
+        Finally
+            If ligacao.State = ConnectionState.Open Then
                 ligacao.Close()
             End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
         End Try
-
-        Try
-            Comando = New MySqlCommand("select Nome_Registo from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
-            ligacao.Open()
-            Objecto = Comando.ExecuteScalar
-            If IsDBNull(Objecto) Then
-                DetalhesUtilizador.NomeRegisto = "Não tem" 'Mudar
-                MsgBox("ERRO Nome Registo")
-                ligacao.Close()
-            Else
-                DetalhesUtilizador.NomeRegisto = CType(Objecto, String)
-                ligacao.Close()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-        Try
-            Comando = New MySqlCommand("select Senha from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
-            ligacao.Open()
-            Objecto = Comando.ExecuteScalar
-            If IsDBNull(Objecto) Then
-                DetalhesUtilizador.Senha = "Não tem" 'Mudar
-                MsgBox("ERRO Senha")
-                ligacao.Close()
-            Else
-                DetalhesUtilizador.Senha = CType(Objecto, String)
-                ligacao.Close()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-        Try
-            Comando = New MySqlCommand("select Nome_Proprio from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
-            ligacao.Open()
-            Objecto = Comando.ExecuteScalar
-            If IsDBNull(Objecto) Then
-                DetalhesUtilizador.NomeProprio = "Não tem" 'Mudar
-                MsgBox("ERRO Nome_Proprio")
-                ligacao.Close()
-            Else
-                DetalhesUtilizador.NomeProprio = CType(Objecto, String)
-                ligacao.Close()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-        Try
-            Comando = New MySqlCommand("select Apelido from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
-            ligacao.Open()
-            Objecto = Comando.ExecuteScalar
-            If IsDBNull(Objecto) Then
-                DetalhesUtilizador.Apelido = "Não tem" 'Mudar
-                MsgBox("ERRO Apelido")
-                ligacao.Close()
-            Else
-                DetalhesUtilizador.Apelido = CType(Objecto, String)
-                ligacao.Close()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-        Try
-            Comando = New MySqlCommand("select Genero from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
-            ligacao.Open()
-            Objecto = Comando.ExecuteScalar
-            If IsDBNull(Objecto) Then
-                DetalhesUtilizador.Genero = "Não tem"
-                MsgBox("ERRO Genero")
-                ligacao.Close()
-            Else
-                DetalhesUtilizador.Genero = CType(Objecto, String)
-                ligacao.Close()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-        Try
-            Comando = New MySqlCommand("select Data_Nascimento from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
-            ligacao.Open()
-            Objecto = Comando.ExecuteScalar
-            If IsDBNull(Objecto) Then
-                DetalhesUtilizador.DataNasc = "Não tem"
-                MsgBox("ERRO Data Nascimento")
-                ligacao.Close()
-            Else
-                DetalhesUtilizador.DataNasc = CType(Objecto, String)
-                ligacao.Close()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-        Try
-            Comando = New MySqlCommand("select Data_Contratacao from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
-            ligacao.Open()
-            Objecto = Comando.ExecuteScalar
-            If IsDBNull(Objecto) Then
-                DetalhesUtilizador.DataContrat = "Não tem"
-                MsgBox("ERRO Data Contratacao")
-                ligacao.Close()
-            Else
-                DetalhesUtilizador.DataContrat = CType(Objecto, String)
-                ligacao.Close()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-        Try
-            Comando = New MySqlCommand("select Pagamentos_Hora from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
-            ligacao.Open()
-            Objecto = Comando.ExecuteScalar
-            If IsDBNull(Objecto) Then
-                DetalhesUtilizador.PagamentoHora = "Não tem"
-                MsgBox("ERRO Pagamentos Hora")
-                ligacao.Close()
-            Else
-                DetalhesUtilizador.PagamentoHora = CType(Objecto, String)
-                ligacao.Close()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-        Try
-            Comando = New MySqlCommand("select Habilitacoes from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
-            ligacao.Open()
-            Objecto = Comando.ExecuteScalar
-            If IsDBNull(Objecto) Then
-                DetalhesUtilizador.Habilitações = "Não tem"
-                MsgBox("ERRO Habilitacoes")
-                ligacao.Close()
-            Else
-                DetalhesUtilizador.Habilitações = CType(Objecto, String)
-                ligacao.Close()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-        Try
-            Comando = New MySqlCommand("select Rua from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
-            ligacao.Open()
-            Objecto = Comando.ExecuteScalar
-            If IsDBNull(Objecto) Then
-                DetalhesUtilizador.Rua = "Não tem"
-                MsgBox("ERRO Rua")
-                ligacao.Close()
-            Else
-                DetalhesUtilizador.Rua = CType(Objecto, String)
-                ligacao.Close()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-        Try
-            Comando = New MySqlCommand("select N_Telemovel from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
-            ligacao.Open()
-            Objecto = Comando.ExecuteScalar
-            If IsDBNull(Objecto) Then
-                DetalhesUtilizador.NTelemovel = "Não tem"
-                MsgBox("ERRO N_Telemovel")
-                ligacao.Close()
-            Else
-                DetalhesUtilizador.NTelemovel = CType(Objecto, String)
-                ligacao.Close()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-        Try
-            Comando = New MySqlCommand("select N_Telefone from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
-            ligacao.Open()
-            Objecto = Comando.ExecuteScalar
-            If IsDBNull(Objecto) Then
-                DetalhesUtilizador.NTelefone = "Não tem"
-                MsgBox("ERRO N_Telefone")
-                ligacao.Close()
-            Else
-                DetalhesUtilizador.NTelefone = CType(Objecto, String)
-                ligacao.Close()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-        Try
-            Comando = New MySqlCommand("select Email from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
-            ligacao.Open()
-            Objecto = Comando.ExecuteScalar
-            If IsDBNull(Objecto) Then
-                DetalhesUtilizador.Email = "Não tem"
-                MsgBox("ERRO Email")
-                ligacao.Close()
-            Else
-                DetalhesUtilizador.Email = CType(Objecto, String)
-                ligacao.Close()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-        Try
-            Comando = New MySqlCommand("select Notas_Contacto from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
-            ligacao.Open()
-            Objecto = Comando.ExecuteScalar
-            If IsDBNull(Objecto) Then
-                DetalhesUtilizador.NotasContacto = "Não tem"
-                MsgBox("ERRO Notas Contacto")
-                ligacao.Close()
-            Else
-                DetalhesUtilizador.NotasContacto = CType(Objecto, String)
-                ligacao.Close()
-            End If
-        Catch ex As Exception
-            ligacao.Close()
-        End Try
-        Try
-            Comando = New MySqlCommand("select Notas_Contracto from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
-            ligacao.Open()
-            Objecto = Comando.ExecuteScalar
-            If IsDBNull(Objecto) Then
-                DetalhesUtilizador.NotasContrato = "Não tem"
-                MsgBox("ERRO Notas Contracto")
-                ligacao.Close()
-            Else
-                DetalhesUtilizador.NotasContrato = CType(Objecto, String)
-                ligacao.Close()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-
-        Try
-            Comando = New MySqlCommand("select Codci from Utilizador where Nome_Registo='" + Utilizador + "'", ligacao)
-            ligacao.Open()
-            Objecto = Comando.ExecuteScalar
-            If IsDBNull(Objecto) Then
-                DetalhesUtilizador.CidadeCod = 0
-                MsgBox("ERRO Cidade Cod")
-                ligacao.Close()
-            Else
-                DetalhesUtilizador.CidadeCod = CType(Objecto, Integer)
-                ligacao.Close()
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-
-
-        Try
-            If DetalhesUtilizador.CidadeCod <> 0 Then
-                Comando = New MySqlCommand("select nome from cidade where codci='" + DetalhesUtilizador.CidadeCod.ToString + "'", ligacao)
-                ligacao.Open()
-                Objecto = Comando.ExecuteScalar
-                If IsDBNull(Objecto) Then
-                    DetalhesUtilizador.Cidade = "Não tem"
-                    MsgBox("ERRO Cidade nome")
-                    ligacao.Close()
-                Else
-                    DetalhesUtilizador.Cidade = CType(Objecto, String)
-                    ligacao.Close()
-                End If
-            Else
-                DetalhesUtilizador.Cidade = "Não tem"
-                MsgBox("ERRO Cidade nome")
-            End If
-
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-
-        Try
-            If DetalhesUtilizador.CidadeCod <> 0 Then
-                Comando = New MySqlCommand("select codpais from cidade where codci='" + DetalhesUtilizador.CidadeCod.ToString + "'", ligacao)
-                ligacao.Open()
-                Objecto = Comando.ExecuteScalar
-                If IsDBNull(Objecto) Then
-                    DetalhesUtilizador.PaisCod = "Não tem"
-                    MsgBox("ERRO codpais")
-                    ligacao.Close()
-                Else
-                    DetalhesUtilizador.PaisCod = CType(Objecto, String)
-                    ligacao.Close()
-                End If
-            Else
-                DetalhesUtilizador.PaisCod = "Não tem"
-                MsgBox("ERRO codpais")
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-        Try
-            If DetalhesUtilizador.CidadeCod <> 0 Then
-                Comando = New MySqlCommand("select nome from pais where codpais='" + DetalhesUtilizador.PaisCod + "'", ligacao)
-                ligacao.Open()
-                Objecto = Comando.ExecuteScalar
-                If IsDBNull(Objecto) Then
-                    DetalhesUtilizador.Pais = "Não tem"
-                    MsgBox("ERRO Pais nome")
-                    ligacao.Close()
-                Else
-                    DetalhesUtilizador.Pais = CType(Objecto, String)
-                    ligacao.Close()
-                End If
-            Else
-                DetalhesUtilizador.Pais = "Não tem"
-                MsgBox("ERRO Pais nome")
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-
-        'Carro
-        Try
-            If DetalhesUtilizador.CodUser <> 0 Then
-                Comando = New MySqlCommand("select CodVei from Veicondu where coduser='" + DetalhesUtilizador.CodUser + "' and emuso='sim'", ligacao)
-                ligacao.Open()
-                Objecto = Comando.ExecuteScalar
-                If IsDBNull(Objecto) Then
-                    DetalhesUtilizador.CodVeiculo = "Não tem"
-                    MsgBox("ERRO CodVei nome")
-                    ligacao.Close()
-                Else
-                    DetalhesUtilizador.CodVeiculo = CType(Objecto, String)
-                    ligacao.Close()
-                End If
-            Else
-                DetalhesUtilizador.CodVeiculo = "Não tem"
-                MsgBox("ERRO CodVei nome")
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-
-        Try
-            If DetalhesUtilizador.CodVeiculo <> 0 Then
-                Comando = New MySqlCommand("select cor from veiculos where codvei='" + DetalhesUtilizador.CodVeiculo.ToString + "'", ligacao)
-                ligacao.Open()
-                Objecto = Comando.ExecuteScalar
-                If IsDBNull(Objecto) Then
-                    DetalhesUtilizador.VeiCor = "Não tem"
-                    MsgBox("ERRO VeiCor nome")
-                    ligacao.Close()
-                Else
-                    DetalhesUtilizador.VeiCor = CType(Objecto, String)
-                    ligacao.Close()
-                End If
-            Else
-                DetalhesUtilizador.VeiCor = "Não tem"
-                MsgBox("ERRO VeiCor nome")
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-
-        Try
-            If DetalhesUtilizador.CodVeiculo <> 0 Then
-                Comando = New MySqlCommand("select marca from veiculos where codvei='" + DetalhesUtilizador.CodVeiculo.ToString + "'", ligacao)
-                ligacao.Open()
-                Objecto = Comando.ExecuteScalar
-                If IsDBNull(Objecto) Then
-                    DetalhesUtilizador.VeiMarca = "Não tem"
-                    MsgBox("ERRO Marca")
-                    ligacao.Close()
-                Else
-                    DetalhesUtilizador.VeiMarca = CType(Objecto, String)
-                    ligacao.Close()
-                End If
-            Else
-                DetalhesUtilizador.VeiMarca = "Não tem"
-                MsgBox("ERRO Marca")
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-
-        Try
-            If DetalhesUtilizador.CodVeiculo <> 0 Then
-                Comando = New MySqlCommand("select modelo from veiculos where codvei='" + DetalhesUtilizador.CodVeiculo.ToString + "'", ligacao)
-                ligacao.Open()
-                Objecto = Comando.ExecuteScalar
-                If IsDBNull(Objecto) Then
-                    DetalhesUtilizador.VeiModelo = "Não tem"
-                    MsgBox("ERRO Modelo")
-                    ligacao.Close()
-                Else
-                    DetalhesUtilizador.VeiModelo = CType(Objecto, String)
-                    ligacao.Close()
-                End If
-            Else
-                DetalhesUtilizador.VeiModelo = "Não tem"
-                MsgBox("ERRO Modelo")
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-
-        Try
-            If DetalhesUtilizador.CodVeiculo <> 0 Then
-                Comando = New MySqlCommand("select matricula from veiculos where codvei='" + DetalhesUtilizador.CodVeiculo.ToString + "'", ligacao)
-                ligacao.Open()
-                Objecto = Comando.ExecuteScalar
-                If IsDBNull(Objecto) Then
-                    DetalhesUtilizador.VeiMatricula = "Não tem"
-                    MsgBox("ERRO matricula")
-                    ligacao.Close()
-                Else
-                    DetalhesUtilizador.VeiMatricula = CType(Objecto, String)
-                    ligacao.Close()
-                End If
-            Else
-                DetalhesUtilizador.VeiMatricula = "Não tem"
-                MsgBox("ERRO matricula")
-            End If
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-            ligacao.Close()
-        End Try
-        'Agenda
-
-
+        LstV.Font = GetInstance(8, FontStyle.Bold)
+        LstV.Clear()
+        Dim i As Integer = 0
+        Dim j As Integer = 0
+        ' adding the columns in ListView
+        For i = 0 To Dados.Tables(0).Columns.Count - 1
+            LstV.Columns.Add(Dados.Tables(0).Columns(i).ColumnName.ToString())
+        Next
+        'Now adding the Items in Listview
+        For i = 0 To Dados.Tables(0).Rows.Count - 1
+            For j = 0 To Dados.Tables(0).Columns.Count - 1
+                itemcoll(j) = Dados.Tables(0).Rows(i)(j)
+            Next
+            Dim lvi As New ListViewItem(itemcoll)
+            LstV.Items.Add(lvi)
+        Next
+        ListViewSize(Tabela)
+        LstV.Show()
     End Sub
 
     ' SELECT * FROM veicondu where emuso="sim" and coduser="1"
     '  Comando = New MySqlCommand("select CodVei from pais where ='" + DetalhesUtilizador.CodUser + "'codpais='" + DetalhesUtilizador.CodUser + "'", ligacao)
-
-    Public Sub AbastecimentoVer()
-        Form1.LstVAbastecimento.Hide()
-        Dim Tabelas As DataSet = New DataSet
-        adapter.SelectCommand = New MySqlCommand
-        adapter.SelectCommand.Connection = ligacao
-        Dim itemcoll(100) As String
-        'Trocar KM nas definições do programa..->
-        adapter.SelectCommand.CommandText = ("select CodVeiAbast,Data,Nome as Fornecedor,concat(ROUND((quantidade/" + VolumeConversao().ToString + "),2),' " + VolumeSimbolo() + "') as 'Quantidade',concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "' ,concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador  from VeiCondu,veiabast,veiculos,fornecedores,Utilizador where VeiCondu.Codvei=Veiculos.Codvei and Veiculos.Codvei=Veiabast.CodVei and fornecedores.Codforn=Veiabast.Codforn and Utilizador.CodUser=Veiabast.Coduser and VeiCondu.EmUso='Sim' and Utilizador.CodUser='" + DetalhesUtilizador.CodUser + "'order by CodVeiAbast DESC")
-        Try
-            ligacao.Open()
-            adapter.Fill(Tabelas, "Abastecimento")
-            ligacao.Close()
-        Catch ex As Exception
-            ligacao.Close()
-            MsgBox("ERRO abastecimento")
-            Exit Sub
-        End Try
-        Form1.LstVAbastecimento.Font = GetInstance(8, FontStyle.Bold)
-        Form1.LstVAbastecimento.Clear()
-        Dim i As Integer = 0
-        Dim j As Integer = 0
-        ' adding the columns in ListView
-        For i = 0 To Tabelas.Tables(0).Columns.Count - 1
-            Form1.LstVAbastecimento.Columns.Add(Tabelas.Tables(0).Columns(i).ColumnName.ToString())
-        Next
-        'Now adding the Items in Listview
-        For i = 0 To Tabelas.Tables(0).Rows.Count - 1
-            For j = 0 To Tabelas.Tables(0).Columns.Count - 1
-                itemcoll(j) = Tabelas.Tables(0).Rows(i)(j)
-            Next
-            Dim lvi As New ListViewItem(itemcoll)
-            Form1.LstVAbastecimento.Items.Add(lvi)
-        Next
-        ListViewSize("LstVAbastecimento")
-        Form1.LstVAbastecimento.Show()
-    End Sub
-
-    Public Sub ManutencaoVer()
-        Form1.LstVManu.Hide()
-        Dim Tabelas As DataSet = New DataSet
-        adapter.SelectCommand = New MySqlCommand
-        adapter.SelectCommand.Connection = ligacao
-        Dim itemcoll(100) As String 'ROUND((Veiculo_km/1.69),2
-        adapter.SelectCommand.CommandText = ("select Codmanu,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipoManu.Nome as Tipo,concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao.ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veiculo,Nome_Registo as Utilizador from Utilizador,VeiCondu,Manutencao,veiculos,fornecedores,tipomanu where VeiCondu.Codvei=Veiculos.Codvei and Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and Utilizador.CodUser=Manutencao.Coduser and efetuada='Sim' and EmUso='Sim' and Manutencao.CodUser='" + DetalhesUtilizador.CodUser + "'")
-        Try
-            ligacao.Open()
-            adapter.Fill(Tabelas, "Manutencao")
-            ligacao.Close()
-        Catch ex As Exception
-            ligacao.Close()
-            MsgBox(ex.ToString)
-            Exit Sub
-        End Try
-        Form1.LstVManu.Font = GetInstance(8, FontStyle.Bold)
-        Form1.LstVManu.Clear()
-        Dim i As Integer = 0
-        Dim j As Integer = 0
-        ' adding the columns in ListView
-        For i = 0 To Tabelas.Tables(0).Columns.Count - 1
-            Form1.LstVManu.Columns.Add(Tabelas.Tables(0).Columns(i).ColumnName.ToString())
-        Next
-        'Now adding the Items in Listview
-        For i = 0 To Tabelas.Tables(0).Rows.Count - 1
-            For j = 0 To Tabelas.Tables(0).Columns.Count - 1
-                itemcoll(j) = Tabelas.Tables(0).Rows(i)(j)
-            Next
-            Dim lvi As New ListViewItem(itemcoll)
-            Form1.LstVManu.Items.Add(lvi)
-        Next
-        ListViewSize("LstVManu")
-        Form1.LstVManu.Show()
-    End Sub
-
-    Public Sub DespesasVer()
-        Form1.LstVDesp.Hide()
-        Dim Tabelas As DataSet = New DataSet
-        adapter.SelectCommand = New MySqlCommand
-        adapter.SelectCommand.Connection = ligacao
-        Dim itemcoll(100) As String
-        '"select CodVeiAbast,Data,Nome as Fornecedor,Quantidade,Valor,concat(Veiculo_km,' KM') as Quilometros ,concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as veiculo,Nome_Registo as Utilizador  from veiabast,veiculos,fornecedores,Utilizador where Veiculos.Codvei=Veiabast.CodVei and fornecedores.Codforn=Veiabast.Codforn and Utilizador.CodUser=Veiabast.Coduser and Utilizador.CodUser='" + DetalhesUtilizador.CodUser + "'"
-        adapter.SelectCommand.CommandText = ("select Coddesp,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipodesp.nome as Tipo ,concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as veiculo,Nome_Registo as Utilizador from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Sim'  and Veiculos.CodVei='" + DetalhesUtilizador.CodVeiculo.ToString + "' order by Veiculo_km")
-        Try
-            ligacao.Open()
-            adapter.Fill(Tabelas, "Despesas")
-            ligacao.Close()
-        Catch ex As Exception
-            ligacao.Close()
-            MsgBox("ERRO Despesas")
-            Exit Sub
-        End Try
-        Form1.LstVDesp.Font = GetInstance(8, FontStyle.Bold)
-        Form1.LstVDesp.Clear()
-        Dim i As Integer = 0
-        Dim j As Integer = 0
-        ' adding the columns in ListView
-        For i = 0 To Tabelas.Tables(0).Columns.Count - 1
-            Form1.LstVDesp.Columns.Add(Tabelas.Tables(0).Columns(i).ColumnName.ToString())
-        Next
-        'Now adding the Items in Listview
-        For i = 0 To Tabelas.Tables(0).Rows.Count - 1
-            For j = 0 To Tabelas.Tables(0).Columns.Count - 1
-                itemcoll(j) = Tabelas.Tables(0).Rows(i)(j)
-            Next
-            Dim lvi As New ListViewItem(itemcoll)
-            Form1.LstVDesp.Items.Add(lvi)
-        Next
-        ListViewSize("LstVDesp")
-        Form1.LstVDesp.Show()
-    End Sub
-
-    Public Sub AgendaVer() 'LstVAgendaManu
-        Form1.LstVAgendaDesp.Hide()
-        Form1.LstVAgendaManu.Hide()
-        Dim Manutencao As DataSet = New DataSet
-        adapter.SelectCommand = New MySqlCommand
-        adapter.SelectCommand.Connection = ligacao
-        Dim itemcoll(100) As String
-        adapter.SelectCommand.CommandText = ("select Codmanu,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as veiculo,tipoManu.Nome as Tipo, LembrarPor as 'Lembrar por:' from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "")
-        Try
-            ligacao.Open()
-            adapter.Fill(Manutencao, "AgendaManu")
-            ligacao.Close()
-        Catch ex As Exception
-            ligacao.Close()
-            MsgBox("ERRO AgendaManu")
-            Exit Sub
-        End Try
-        Form1.LstVAgendaManu.Font = GetInstance(8, FontStyle.Bold)
-        Form1.LstVAgendaManu.Clear()
-        Dim i As Integer = 0
-        Dim j As Integer = 0
-        ' adding the columns in ListView
-        For i = 0 To Manutencao.Tables(0).Columns.Count - 1
-            Form1.LstVAgendaManu.Columns.Add(Manutencao.Tables(0).Columns(i).ColumnName.ToString())
-        Next
-        'Now adding the Items in Listview
-        For i = 0 To Manutencao.Tables(0).Rows.Count - 1
-            For j = 0 To Manutencao.Tables(0).Columns.Count - 1
-                itemcoll(j) = Manutencao.Tables(0).Rows(i)(j)
-            Next
-            Dim lvi As New ListViewItem(itemcoll)
-            Form1.LstVAgendaManu.Items.Add(lvi)
-        Next
-        ListViewSize("LstVAgendaManu")
-
-        '
-        'Desp
-        Dim Despesa As DataSet = New DataSet
-        adapter.SelectCommand = New MySqlCommand
-        adapter.SelectCommand.Connection = ligacao
-        adapter.SelectCommand.CommandText = ("select CodDesp,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as veiculo,TipoDesp.Nome as Tipo, LembrarPor as 'Lembrar por:' from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "")
-        Try
-            ligacao.Open()
-            adapter.Fill(Despesa, "AgendaDesp")
-            ligacao.Close()
-        Catch ex As Exception
-            ligacao.Close()
-            MsgBox(ex.ToString)
-            MsgBox("ERRO AgendaDesp")
-            Exit Sub
-        End Try
-        Form1.LstVAgendaDesp.Font = GetInstance(8, FontStyle.Bold)
-        Form1.LstVAgendaDesp.Clear()
-        ' adding the columns in ListView
-        For i = 0 To Despesa.Tables(0).Columns.Count - 1
-            Form1.LstVAgendaDesp.Columns.Add(Despesa.Tables(0).Columns(i).ColumnName.ToString())
-        Next
-        'Now adding the Items in Listview
-        For i = 0 To Despesa.Tables(0).Rows.Count - 1
-            For j = 0 To Despesa.Tables(0).Columns.Count - 1
-                itemcoll(j) = Despesa.Tables(0).Rows(i)(j)
-            Next
-            Dim lvi As New ListViewItem(itemcoll)
-            Form1.LstVAgendaDesp.Items.Add(lvi)
-        Next
-        ListViewSize("LstVAgendaDesp")
-        Form1.LstVAgendaDesp.Show()
-        Form1.LstVAgendaManu.Show()
-    End Sub
-
-    Public Sub UtilizadorVer()
-        Form1.LstVAdminUtilizador.Hide()
-        Dim Tabelas As DataSet = New DataSet
-        adapter.SelectCommand = New MySqlCommand
-        adapter.SelectCommand.Connection = ligacao
-        Dim itemcoll(100) As String
-        'Trocar KM nas definições do programa..->
-        adapter.SelectCommand.CommandText = ("Select CodUser,CodUser as 'Codigo',Nome_Registo as 'Nome de Registo',Designacao as 'Designação' from utilizador, TipoUser where Utilizador.CodtipoU=TipoUser.CodTipoU order by CodUser")
-        Try
-            ligacao.Open()
-            adapter.Fill(Tabelas, "Utilizador")
-            ligacao.Close()
-        Catch ex As Exception
-            ligacao.Close()
-            MsgBox("ERRO UtilizadorVer")
-            Exit Sub
-        End Try
-        Form1.LstVAdminUtilizador.Font = GetInstance(8, FontStyle.Bold)
-        Form1.LstVAdminUtilizador.Clear()
-        Dim i As Integer = 0
-        Dim j As Integer = 0
-        ' adding the columns in ListView
-        For i = 0 To Tabelas.Tables(0).Columns.Count - 1
-            Form1.LstVAdminUtilizador.Columns.Add(Tabelas.Tables(0).Columns(i).ColumnName.ToString())
-        Next
-        'Now adding the Items in Listview
-        For i = 0 To Tabelas.Tables(0).Rows.Count - 1
-            For j = 0 To Tabelas.Tables(0).Columns.Count - 1
-                itemcoll(j) = Tabelas.Tables(0).Rows(i)(j)
-            Next
-            Dim lvi As New ListViewItem(itemcoll)
-            Form1.LstVAdminUtilizador.Items.Add(lvi)
-        Next
-        ListViewSize("LstVUtilizador")
-        Form1.LstVAdminUtilizador.Show()
-    End Sub
-
-    Public Sub VeiculoVer()
-        Form1.LstVAdminVeiculo.Hide()
-        Dim Tabelas As DataSet = New DataSet
-        adapter.SelectCommand = New MySqlCommand
-        adapter.SelectCommand.Connection = ligacao
-        Dim itemcoll(100) As String
-        'Trocar KM nas definições do programa..->
-        adapter.SelectCommand.CommandText = ("Select Codvei,Codvei as Codigo, Matricula, TipoVei.Nome as 'Tipo de Veiculo' from Veiculos,TipoVei where veiculos.CodtipoV=TipoVei.CodTipoV")
-        Try
-            ligacao.Open()
-            adapter.Fill(Tabelas, "Veiculo")
-            ligacao.Close()
-        Catch ex As Exception
-            ligacao.Close()
-            MsgBox("ERRO VeiculoVer")
-            Exit Sub
-        End Try
-        Form1.LstVAdminVeiculo.Font = GetInstance(8, FontStyle.Bold)
-        Form1.LstVAdminVeiculo.Clear()
-        Dim i As Integer = 0
-        Dim j As Integer = 0
-        ' adding the columns in ListView
-        For i = 0 To Tabelas.Tables(0).Columns.Count - 1
-            Form1.LstVAdminVeiculo.Columns.Add(Tabelas.Tables(0).Columns(i).ColumnName.ToString())
-        Next
-        'Now adding the Items in Listview
-        For i = 0 To Tabelas.Tables(0).Rows.Count - 1
-            For j = 0 To Tabelas.Tables(0).Columns.Count - 1
-                itemcoll(j) = Tabelas.Tables(0).Rows(i)(j)
-            Next
-            Dim lvi As New ListViewItem(itemcoll)
-            Form1.LstVAdminVeiculo.Items.Add(lvi)
-        Next
-        ListViewSize("LstVVeiculo")
-        Form1.LstVAdminVeiculo.Show()
-    End Sub
-
-
-    Public Sub FornecedorVer()
-        Form1.LstVAdminFornecedores.Hide()
-        Dim Tabelas As DataSet = New DataSet
-        adapter.SelectCommand = New MySqlCommand
-        adapter.SelectCommand.Connection = ligacao
-        Dim itemcoll(100) As String
-        'Trocar KM nas definições do programa..->
-        adapter.SelectCommand.CommandText = ("Select Codforn,Codforn as Codigo, Fornecedores.Nome ,tipoFor.Nome as 'Tipo de Fornecedor' from fornecedores,Tipofor where fornecedores.Codtipof=tipoFor.Codtipof")
-        Try
-            ligacao.Open()
-            adapter.Fill(Tabelas, "Veiculo")
-            ligacao.Close()
-        Catch ex As Exception
-            ligacao.Close()
-            MsgBox("ERRO VeiculoVer")
-            Exit Sub
-        End Try
-        Form1.LstVAdminFornecedores.Font = GetInstance(8, FontStyle.Bold)
-        Form1.LstVAdminFornecedores.Clear()
-        Dim i As Integer = 0
-        Dim j As Integer = 0
-        ' adding the columns in ListView
-        For i = 0 To Tabelas.Tables(0).Columns.Count - 1
-            Form1.LstVAdminFornecedores.Columns.Add(Tabelas.Tables(0).Columns(i).ColumnName.ToString())
-        Next
-        'Now adding the Items in Listview
-        For i = 0 To Tabelas.Tables(0).Rows.Count - 1
-            For j = 0 To Tabelas.Tables(0).Columns.Count - 1
-                itemcoll(j) = Tabelas.Tables(0).Rows(i)(j)
-            Next
-            Dim lvi As New ListViewItem(itemcoll)
-            Form1.LstVAdminFornecedores.Items.Add(lvi)
-        Next
-        ListViewSize("LstVAdminFornecedores")
-        Form1.LstVAdminFornecedores.Show()
-    End Sub
 
     Public Sub DetalhesAbast(ByVal Cod As String) 'Mudar Metodo
         Dim Comando As MySqlCommand
@@ -1357,7 +625,7 @@ Module SQL
                 Form1.LblAbastData.Text = "Data: " + reader("data")
                 Form1.TxtAbastNota.Text = reader.GetString("notas")
                 Form1.LblAbastUtilizador.Text = "Utilizador: " + reader.GetString("Utilizador")
-                Form1.LblAbastVeiculo.Text = "Veiculo: " + reader.GetString("Veiculo")
+                Form1.LblAbastVeiculo.Text = "Veículo: " + reader.GetString("Veiculo")
                 Form1.LblAbastKM.Text = "KM: " + reader.GetString(DistanciaDistancia)
                 Form1.LblAbastQuantidade.Text = "Quantidade: " + reader.GetString("Quantidade")
                 Form1.LblAbastValor.Text = "Valor: " + reader.GetString("Valor")
@@ -1386,7 +654,7 @@ Module SQL
                 Form1.LblDespTipo.Text = "Tipo: " + reader.GetString("Tipo")
                 Form1.LblDespValor.Text = "Valor: " + reader.GetString("Valor")
                 Form1.LblDespKM.Text = "KM: " + reader.GetString(DistanciaDistancia)
-                Form1.LblDespVeiculo.Text = "Veiculo: " + reader.GetString("Veiculo")
+                Form1.LblDespVeiculo.Text = "Veículo: " + reader.GetString("Veiculo")
                 Form1.Label7.Text = "Fornecedor: " + reader.GetString("Fornecedor")
                 Form1.TxtDespNota.Text = reader.GetString("Nota")
             End While
@@ -1413,7 +681,7 @@ Module SQL
                 Form1.LblManuTipo.Text = "Tipo: " + reader.GetString("Tipo")
                 Form1.LblManuValor.Text = "Valor: " + reader.GetString("Valor")
                 Form1.LblManuKM.Text = "KM: " + reader.GetString(DistanciaDistancia)
-                Form1.LblManuVeiculo.Text = "Veiculo: " + reader.GetString("Veiculo")
+                Form1.LblManuVeiculo.Text = "Veículo: " + reader.GetString("Veiculo")
                 Form1.LblManuFornecedor.Text = "Fornecedor: " + reader.GetString("Fornecedor")
                 Form1.TxtManuNota.Text = reader.GetString("Nota")
             End While
@@ -1466,7 +734,7 @@ Module SQL
         Form1.LblAdminVeiculoCod.Text = "Código: " + Cod
         Comando = New MySqlCommand
         Comando.Connection = ligacao
-        Comando.CommandText = ("select CodVei,Matricula,Marca,Modelo,Cor,Ano,tipocom.Nome as 'Tipo de Combustivel',tipovei.Nome as 'Tipo de Veiculo' from veiculos,tipocom,tipovei where veiculos.CodtipoV=TipoVei.CodTipoV and Veiculos.CodtipoC=TipoCom.CodTipoc and codvei=" + Cod + " ")
+        Comando.CommandText = ("select CodVei,Matricula,Marca,Modelo,Cor,Ano,tipocom.Nome as 'Tipo de Combustivel',tipovei.Nome as 'Tipo de Veículo' from veiculos,tipocom,tipovei where veiculos.CodtipoV=TipoVei.CodTipoV and Veiculos.CodtipoC=TipoCom.CodTipoc and codvei=" + Cod + " ")
         Try
             ligacao.Open()
             reader = Comando.ExecuteReader
@@ -1518,7 +786,7 @@ Module SQL
         Form1.LblAgendaDespCod.Text = "Código: " + Cod
         Comando = New MySqlCommand
         Comando.Connection = ligacao
-        Comando.CommandText = ("select Coddesp,nota,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' Matricula:',Matricula) as veiculo,tipodesp.Nome as Tipo, LembrarPor as 'Lembrar por:' from Despesas,veiculos,fornecedores,tipodesp where Veiculos.Codvei=Despesas.CodVei and fornecedores.Codforn=Despesas.Codforn and tipodesp.CodtipoD=Despesas.CodtipoD and efetuada='Nao' and CodDesp='" + Cod + "'")
+        Comando.CommandText = ("select Coddesp,nota,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' Matricula:',Matricula) as Veiculo,tipodesp.Nome as Tipo, LembrarPor as 'Lembrar por:' from Despesas,veiculos,fornecedores,tipodesp where Veiculos.Codvei=Despesas.CodVei and fornecedores.Codforn=Despesas.Codforn and tipodesp.CodtipoD=Despesas.CodtipoD and efetuada='Nao' and CodDesp='" + Cod + "'")
         Try
             ligacao.Open()
             reader = Comando.ExecuteReader
@@ -1527,7 +795,7 @@ Module SQL
                 Form1.LblAgendaDespTipo.Text = "Tipo: " + reader.GetString("Tipo")
                 Form1.LblAgendaDespKMAgendado.Text = "KM Agendados: " + reader.GetString("KM Agendados")
                 Form1.LblAgendaDespLembrarPor.Text = "Lembrar por: " + reader.GetString("Lembrar por:")
-                Form1.LblAgendaDespVeiculo.Text = "Veiculo: " + reader.GetString("Veiculo")
+                Form1.LblAgendaDespVeiculo.Text = "Veículo: " + reader.GetString("Veiculo")
                 Form1.TxtAgendaDespNota.Text = reader.GetString("Nota")
             End While
             ligacao.Close()
@@ -1544,7 +812,7 @@ Module SQL
         Form1.LblAgendaManuCod.Text = "Código: " + Cod
         Comando = New MySqlCommand
         Comando.Connection = ligacao
-        Comando.CommandText = ("select CodManu,nota,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' Matricula:',Matricula) as veiculo,tipomanu.Nome as Tipo, LembrarPor as 'Lembrar por:' from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=Manutencao.CodVei and fornecedores.Codforn=Manutencao.Codforn and TipoManu.CodtipoM=Manutencao.CodtipoM and efetuada='Nao' and Codmanu='" + Cod + "'")
+        Comando.CommandText = ("select CodManu,nota,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' Matricula:',Matricula) as Veiculo,tipomanu.Nome as Tipo, LembrarPor as 'Lembrar por:' from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=Manutencao.CodVei and fornecedores.Codforn=Manutencao.Codforn and TipoManu.CodtipoM=Manutencao.CodtipoM and efetuada='Nao' and Codmanu='" + Cod + "'")
         Try
             ligacao.Open()
             reader = Comando.ExecuteReader
@@ -1553,7 +821,7 @@ Module SQL
                 Form1.LblAgendaManuTipo.Text = "Tipo: " + reader.GetString("Tipo")
                 Form1.LblAgendaManuKMAgendado.Text = "KM Agendados: " + reader.GetString("KM Agendados")
                 Form1.LblAgendaManuLembrarpor.Text = "Lembrar por: " + reader.GetString("Lembrar por:")
-                Form1.LblAgendaManuVeiculo.Text = "Veiculo: " + reader.GetString("Veiculo")
+                Form1.LblAgendaManuVeiculo.Text = "Veículo: " + reader.GetString("Veiculo")
                 Form1.TxtAgendaManuNota.Text = reader.GetString("Nota")
             End While
             ligacao.Close()
@@ -1565,6 +833,7 @@ Module SQL
     End Sub
 
     Public Sub Inserir_EditarTabelaSQL(ByVal Tabela As String, Optional ByVal Id As String = "")
+        MsgBox("WIP! VERIFICAR DATA!!!")
         Dim Manutencao As DataSet = New DataSet
         Dim reader As MySqlDataReader
         adapter.SelectCommand = New MySqlCommand
@@ -1840,5 +1109,4 @@ Module SQL
             Exit Sub
         End Try
     End Sub
-
 End Module

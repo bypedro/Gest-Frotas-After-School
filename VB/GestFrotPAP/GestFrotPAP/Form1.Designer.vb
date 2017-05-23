@@ -221,6 +221,7 @@ Partial Class Form1
         Me.LblInserirManuTipo = New System.Windows.Forms.Label()
         Me.LstInserirTipo = New System.Windows.Forms.ListBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.LblInserirTituloAdmin = New System.Windows.Forms.Label()
         Me.PnlBDDef = New System.Windows.Forms.Panel()
@@ -229,7 +230,6 @@ Partial Class Form1
         Me.TxtBDDef1 = New System.Windows.Forms.TextBox()
         Me.TxtBDDef = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
         Me.BtnImagemInserirCancelar = New GestFrotPAP.BtnImagem()
         Me.BtnImagemInserirInserir = New GestFrotPAP.BtnImagem()
         Me.BtnImagemVolume = New GestFrotPAP.BtnImagem()
@@ -833,9 +833,9 @@ Partial Class Form1
         Me.LblAbastVeiculo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblAbastVeiculo.Location = New System.Drawing.Point(5, 70)
         Me.LblAbastVeiculo.Name = "LblAbastVeiculo"
-        Me.LblAbastVeiculo.Size = New System.Drawing.Size(53, 13)
+        Me.LblAbastVeiculo.Size = New System.Drawing.Size(55, 13)
         Me.LblAbastVeiculo.TabIndex = 23
-        Me.LblAbastVeiculo.Text = "Veiculo:"
+        Me.LblAbastVeiculo.Text = "Veículo:"
         '
         'LblAbastUtilizador
         '
@@ -2614,6 +2614,13 @@ Partial Class Form1
         Me.Panel1.TabIndex = 17
         Me.Panel1.Visible = False
         '
+        'DateTimePicker1
+        '
+        Me.DateTimePicker1.Location = New System.Drawing.Point(168, 229)
+        Me.DateTimePicker1.Name = "DateTimePicker1"
+        Me.DateTimePicker1.Size = New System.Drawing.Size(200, 20)
+        Me.DateTimePicker1.TabIndex = 31
+        '
         'Panel8
         '
         Me.Panel8.Controls.Add(Me.LblInserirTituloAdmin)
@@ -2688,13 +2695,6 @@ Partial Class Form1
         Me.Label15.Size = New System.Drawing.Size(145, 13)
         Me.Label15.TabIndex = 2
         Me.Label15.Text = "Definições da base de dados"
-        '
-        'DateTimePicker1
-        '
-        Me.DateTimePicker1.Location = New System.Drawing.Point(168, 229)
-        Me.DateTimePicker1.Name = "DateTimePicker1"
-        Me.DateTimePicker1.Size = New System.Drawing.Size(200, 20)
-        Me.DateTimePicker1.TabIndex = 31
         '
         'BtnImagemInserirCancelar
         '
