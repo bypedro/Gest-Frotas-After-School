@@ -550,12 +550,6 @@ Public Class Form1
         End If
     End Sub
 
-
-
-
-
-
-
     'SubMenus
     '
     'Definições de Utilizador
@@ -577,6 +571,7 @@ Public Class Form1
     Private Sub BtnImagemAgendaDesp_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemAgendaDesp.ButtonClickMasterRace
         MenuAgenda(1)
     End Sub
+
 
     Private Sub LstVAbastecimento_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LstVAbastecimento.Click
         DetalhesAbast(LstVAbastecimento.SelectedItems(0).Text)
@@ -600,7 +595,11 @@ Public Class Form1
 
     Private Sub LstVUtilizador_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LstVAdminUtilizador.Click
         BtnImagemAdminUtilizadorAtivar.EstadoBotao = True
-        DetalhesUtilizadorAdmin(LstVAdminUtilizador.SelectedItems(0).Text)
+        Try
+            DetalhesUtilizadorAdmin(LstVAdminUtilizador.SelectedItems(0).Text)
+        Catch ex As Exception
+        End Try
+
         If LstVAdminUtilizador.SelectedItems.Count > 0 Then
             If LstVAdminUtilizador.SelectedItems(0).SubItems(3).Text() = "Admin" Then
                 BtnImagemAdminUtilizadorAtivar.Texto = "Editar"
@@ -619,7 +618,6 @@ Public Class Form1
 
     Private Sub LstVAdminVeiculoClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LstVAdminVeiculo.Click
         DetalhesVeiculosAdmin(LstVAdminVeiculo.SelectedItems(0).Text)
-
     End Sub
 
     Private Sub LstVAdminFornecedoresClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LstVAdminFornecedores.Click
@@ -642,7 +640,6 @@ Public Class Form1
         Else
             MsgBox("Selecione um abastecimento")
         End If
-
     End Sub
 
     Private Sub BtnImagemManuInsert_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemManuInsert.ButtonClickMasterRace
@@ -702,7 +699,7 @@ Public Class Form1
         Botao(BtnImagemInserirInserir)
         'AREA DE TESTE
 
-
+        'Exit Sub
         'FIM DE AREA
         If SQL.TabelaSelecionada = "AbastInsert" Then
             InserirDados("AbastInsert")

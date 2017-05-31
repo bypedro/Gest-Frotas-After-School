@@ -2,6 +2,7 @@
 Imports System.Security.Cryptography
 Imports System.Runtime.InteropServices
 Imports System.Text.RegularExpressions
+Imports System.Math
 
 Public Module Funcoes
     'ListBox
@@ -85,7 +86,7 @@ Public Module Funcoes
         If My.Settings.SqlMoeda = "Euro" Then
             Return "1"
         ElseIf My.Settings.SqlMoeda = "Dolar" Then
-            Return "0.913673313"
+            Return "1.12235"
         End If
         Return 1
     End Function
@@ -129,6 +130,33 @@ Public Module Funcoes
             Return "Litros"
         ElseIf My.Settings.SqlVolume = "Dolar" Then
             Return "Galões"
+        End If
+        Return 1
+    End Function
+
+    Function ConverterDistancia(ByVal Distancia As String) As String
+        If My.Settings.SqlDistancia = "Km" Then
+            Return Distancia * 1
+        ElseIf My.Settings.SqlDistancia = "Mi" Then
+            Return Round(Distancia * 1.609344, 2) '1.609344->Valor de 1Mi em Km
+        End If
+        Return 1
+    End Function
+
+    Function ConverterMoeda(ByVal Moeda As String) As String
+        If My.Settings.SqlMoeda = "Euro" Then
+            Return Moeda * 1
+        ElseIf My.Settings.SqlMoeda = "Dolar" Then
+            Return Round(Moeda / 1.12235, 2) '1.12235->Valor de 1€ em Dolar
+        End If
+        Return 1
+    End Function
+
+    Function ConverterVolume(ByVal Volume As String) As String
+        If My.Settings.SqlVolume = "L" Then
+            Return Volume * 1
+        ElseIf My.Settings.SqlVolume = "UsGal" Then
+            Return Volume * 3.78541178 '3.78541178-> Valor de 1UsGal em L
         End If
         Return 1
     End Function
