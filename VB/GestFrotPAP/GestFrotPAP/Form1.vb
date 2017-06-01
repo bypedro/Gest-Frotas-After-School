@@ -15,7 +15,7 @@ Public Class Form1
     '
     Public linhaSQL As String
 
-    Dim NMenuPrincipal As Integer = 6 'Nº butões
+    Dim NMenuPrincipal As Integer = 7 'Nº butões
     Dim BtnImagemMenuPrincipal(NMenuPrincipal) As BtnImagem
     Dim panelMenuPrincipal(NMenuPrincipal) As Panel
 
@@ -174,6 +174,7 @@ Public Class Form1
         panelMenuPrincipal(4) = Panel5
         panelMenuPrincipal(5) = Panel6
         panelMenuPrincipal(6) = Panel7
+        panelMenuPrincipal(7) = Panel9
         BtnImagemMenuPrincipal(0) = BtnImagem1
         BtnImagemMenuPrincipal(1) = BtnImagem2
         BtnImagemMenuPrincipal(2) = BtnImagem3
@@ -181,6 +182,7 @@ Public Class Form1
         BtnImagemMenuPrincipal(4) = BtnImagem5
         BtnImagemMenuPrincipal(5) = BtnImagem6
         BtnImagemMenuPrincipal(6) = BtnImagem7
+        BtnImagemMenuPrincipal(7) = BtnImagem11
         '
         'Menu Agenda
         '
@@ -415,7 +417,7 @@ Public Class Form1
             Exit Sub
         End If
         MenuPrincipal(0)
-
+        PnlMenu.Show()
 
         'LoadOrder.l2()
     End Sub
@@ -971,4 +973,7 @@ Public Class Form1
         BtnDinheiro()
     End Sub
 
+    Private Sub BtnImagem11_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagem11.ButtonClickMasterRace
+        MenuPrincipal(7, True)
+    End Sub
 End Class

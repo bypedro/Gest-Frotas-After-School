@@ -230,6 +230,17 @@ Partial Class Form1
         Me.TxtBDDef1 = New System.Windows.Forms.TextBox()
         Me.TxtBDDef = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
+        Me.Panel9 = New System.Windows.Forms.Panel()
+        Me.LblRelatorios = New System.Windows.Forms.Label()
+        Me.BtnImagem11 = New GestFrotPAP.BtnImagem()
+        Me.BtnImagem7 = New GestFrotPAP.BtnImagem()
+        Me.BtnImagem6 = New GestFrotPAP.BtnImagem()
+        Me.BtnImagem5 = New GestFrotPAP.BtnImagem()
+        Me.BtnMenu1 = New GestFrotPAP.BtnMenu()
+        Me.BtnImagem1 = New GestFrotPAP.BtnImagem()
+        Me.BtnImagem2 = New GestFrotPAP.BtnImagem()
+        Me.BtnImagem4 = New GestFrotPAP.BtnImagem()
+        Me.BtnImagem3 = New GestFrotPAP.BtnImagem()
         Me.BtnImagemInserirCancelar = New GestFrotPAP.BtnImagem()
         Me.BtnImagemInserirInserir = New GestFrotPAP.BtnImagem()
         Me.BtnImagemVolume = New GestFrotPAP.BtnImagem()
@@ -277,14 +288,6 @@ Partial Class Form1
         Me.BtnDefUtilizadorInfoEdit = New GestFrotPAP.BtnImagem()
         Me.BtnImagemDespEdit = New GestFrotPAP.BtnImagem()
         Me.BtnImagemDespInsert = New GestFrotPAP.BtnImagem()
-        Me.BtnImagem7 = New GestFrotPAP.BtnImagem()
-        Me.BtnImagem6 = New GestFrotPAP.BtnImagem()
-        Me.BtnImagem5 = New GestFrotPAP.BtnImagem()
-        Me.BtnMenu1 = New GestFrotPAP.BtnMenu()
-        Me.BtnImagem1 = New GestFrotPAP.BtnImagem()
-        Me.BtnImagem2 = New GestFrotPAP.BtnImagem()
-        Me.BtnImagem4 = New GestFrotPAP.BtnImagem()
-        Me.BtnImagem3 = New GestFrotPAP.BtnImagem()
         Me.PnlMenu.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.PnlBarraTop.SuspendLayout()
@@ -328,11 +331,13 @@ Partial Class Form1
         Me.Panel1.SuspendLayout()
         Me.Panel8.SuspendLayout()
         Me.PnlBDDef.SuspendLayout()
+        Me.Panel9.SuspendLayout()
         Me.SuspendLayout()
         '
         'PnlMenu
         '
         Me.PnlMenu.BackColor = System.Drawing.Color.FromArgb(CType(CType(39, Byte), Integer), CType(CType(39, Byte), Integer), CType(CType(39, Byte), Integer))
+        Me.PnlMenu.Controls.Add(Me.BtnImagem11)
         Me.PnlMenu.Controls.Add(Me.BtnImagem7)
         Me.PnlMenu.Controls.Add(Me.BtnImagem6)
         Me.PnlMenu.Controls.Add(Me.BtnImagem5)
@@ -347,6 +352,7 @@ Partial Class Form1
         Me.PnlMenu.Name = "PnlMenu"
         Me.PnlMenu.Size = New System.Drawing.Size(201, 476)
         Me.PnlMenu.TabIndex = 5
+        Me.PnlMenu.Visible = False
         '
         'PictureBox1
         '
@@ -2696,6 +2702,166 @@ Partial Class Form1
         Me.Label15.TabIndex = 2
         Me.Label15.Text = "Definições da base de dados"
         '
+        'Panel9
+        '
+        Me.Panel9.BackColor = System.Drawing.Color.FromArgb(CType(CType(54, Byte), Integer), CType(CType(54, Byte), Integer), CType(CType(54, Byte), Integer))
+        Me.Panel9.Controls.Add(Me.LblRelatorios)
+        Me.Panel9.ForeColor = System.Drawing.Color.White
+        Me.Panel9.Location = New System.Drawing.Point(32, 30)
+        Me.Panel9.Name = "Panel9"
+        Me.Panel9.Size = New System.Drawing.Size(968, 470)
+        Me.Panel9.TabIndex = 20
+        Me.Panel9.Visible = False
+        '
+        'LblRelatorios
+        '
+        Me.LblRelatorios.AutoSize = True
+        Me.LblRelatorios.ForeColor = System.Drawing.Color.White
+        Me.LblRelatorios.Location = New System.Drawing.Point(15, 10)
+        Me.LblRelatorios.Name = "LblRelatorios"
+        Me.LblRelatorios.Size = New System.Drawing.Size(54, 13)
+        Me.LblRelatorios.TabIndex = 32
+        Me.LblRelatorios.Text = "Relatórios"
+        '
+        'BtnImagem11
+        '
+        Me.BtnImagem11.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.BtnImagem11.CorFundo = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.BtnImagem11.CorHover = System.Drawing.Color.Gray
+        Me.BtnImagem11.CorSelecionado = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.BtnImagem11.CorTexto = System.Drawing.Color.White
+        Me.BtnImagem11.EstadoBotao = False
+        Me.BtnImagem11.Imagem = Global.GestFrotPAP.My.Resources.Resources.toolbox
+        Me.BtnImagem11.Location = New System.Drawing.Point(0, 371)
+        Me.BtnImagem11.Name = "BtnImagem11"
+        Me.BtnImagem11.Size = New System.Drawing.Size(200, 44)
+        Me.BtnImagem11.TabIndex = 9
+        Me.BtnImagem11.TamanhoLetra = 10
+        Me.BtnImagem11.Texto = "Relatórios"
+        '
+        'BtnImagem7
+        '
+        Me.BtnImagem7.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.BtnImagem7.CorFundo = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.BtnImagem7.CorHover = System.Drawing.Color.Gray
+        Me.BtnImagem7.CorSelecionado = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.BtnImagem7.CorTexto = System.Drawing.Color.White
+        Me.BtnImagem7.EstadoBotao = False
+        Me.BtnImagem7.Imagem = Global.GestFrotPAP.My.Resources.Resources.toolbox
+        Me.BtnImagem7.Location = New System.Drawing.Point(0, 326)
+        Me.BtnImagem7.Name = "BtnImagem7"
+        Me.BtnImagem7.Size = New System.Drawing.Size(200, 44)
+        Me.BtnImagem7.TabIndex = 8
+        Me.BtnImagem7.TamanhoLetra = 10
+        Me.BtnImagem7.Texto = "Administração"
+        '
+        'BtnImagem6
+        '
+        Me.BtnImagem6.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.BtnImagem6.CorFundo = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.BtnImagem6.CorHover = System.Drawing.Color.Gray
+        Me.BtnImagem6.CorSelecionado = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.BtnImagem6.CorTexto = System.Drawing.Color.White
+        Me.BtnImagem6.EstadoBotao = False
+        Me.BtnImagem6.Imagem = Global.GestFrotPAP.My.Resources.Resources.gears_configuration_tool
+        Me.BtnImagem6.Location = New System.Drawing.Point(0, 281)
+        Me.BtnImagem6.Name = "BtnImagem6"
+        Me.BtnImagem6.Size = New System.Drawing.Size(200, 44)
+        Me.BtnImagem6.TabIndex = 7
+        Me.BtnImagem6.TamanhoLetra = 10
+        Me.BtnImagem6.Texto = "Definições"
+        '
+        'BtnImagem5
+        '
+        Me.BtnImagem5.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.BtnImagem5.CorFundo = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.BtnImagem5.CorHover = System.Drawing.Color.Gray
+        Me.BtnImagem5.CorSelecionado = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.BtnImagem5.CorTexto = System.Drawing.Color.White
+        Me.BtnImagem5.EstadoBotao = False
+        Me.BtnImagem5.Imagem = Global.GestFrotPAP.My.Resources.Resources.weekly_calendar
+        Me.BtnImagem5.Location = New System.Drawing.Point(0, 236)
+        Me.BtnImagem5.Name = "BtnImagem5"
+        Me.BtnImagem5.Size = New System.Drawing.Size(200, 44)
+        Me.BtnImagem5.TabIndex = 6
+        Me.BtnImagem5.TamanhoLetra = 10
+        Me.BtnImagem5.Texto = "Agenda"
+        '
+        'BtnMenu1
+        '
+        Me.BtnMenu1.BackColor = System.Drawing.Color.Transparent
+        Me.BtnMenu1.BackgroundImage = Global.GestFrotPAP.My.Resources.Resources.menu
+        Me.BtnMenu1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.BtnMenu1.Location = New System.Drawing.Point(168, 3)
+        Me.BtnMenu1.Name = "BtnMenu1"
+        Me.BtnMenu1.Size = New System.Drawing.Size(32, 32)
+        Me.BtnMenu1.TabIndex = 4
+        Me.BtnMenu1.zEstadoBotao = True
+        '
+        'BtnImagem1
+        '
+        Me.BtnImagem1.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.BtnImagem1.CorFundo = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.BtnImagem1.CorHover = System.Drawing.Color.Gray
+        Me.BtnImagem1.CorSelecionado = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.BtnImagem1.CorTexto = System.Drawing.Color.White
+        Me.BtnImagem1.EstadoBotao = True
+        Me.BtnImagem1.Imagem = Global.GestFrotPAP.My.Resources.Resources.home_silhouette
+        Me.BtnImagem1.Location = New System.Drawing.Point(0, 56)
+        Me.BtnImagem1.Name = "BtnImagem1"
+        Me.BtnImagem1.Size = New System.Drawing.Size(200, 44)
+        Me.BtnImagem1.TabIndex = 0
+        Me.BtnImagem1.TamanhoLetra = 10
+        Me.BtnImagem1.Texto = "Home"
+        '
+        'BtnImagem2
+        '
+        Me.BtnImagem2.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.BtnImagem2.CorFundo = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.BtnImagem2.CorHover = System.Drawing.Color.Gray
+        Me.BtnImagem2.CorSelecionado = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.BtnImagem2.CorTexto = System.Drawing.Color.White
+        Me.BtnImagem2.EstadoBotao = False
+        Me.BtnImagem2.Imagem = Global.GestFrotPAP.My.Resources.Resources.gas_station
+        Me.BtnImagem2.Location = New System.Drawing.Point(0, 101)
+        Me.BtnImagem2.Name = "BtnImagem2"
+        Me.BtnImagem2.Size = New System.Drawing.Size(200, 44)
+        Me.BtnImagem2.TabIndex = 1
+        Me.BtnImagem2.TamanhoLetra = 10
+        Me.BtnImagem2.Texto = "Abastecimento"
+        '
+        'BtnImagem4
+        '
+        Me.BtnImagem4.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.BtnImagem4.CorFundo = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.BtnImagem4.CorHover = System.Drawing.Color.Gray
+        Me.BtnImagem4.CorSelecionado = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.BtnImagem4.CorTexto = System.Drawing.Color.White
+        Me.BtnImagem4.EstadoBotao = False
+        Me.BtnImagem4.Imagem = CType(resources.GetObject("BtnImagem4.Imagem"), System.Drawing.Bitmap)
+        Me.BtnImagem4.Location = New System.Drawing.Point(0, 191)
+        Me.BtnImagem4.Name = "BtnImagem4"
+        Me.BtnImagem4.Size = New System.Drawing.Size(200, 44)
+        Me.BtnImagem4.TabIndex = 3
+        Me.BtnImagem4.TamanhoLetra = 10
+        Me.BtnImagem4.Texto = "Despesas"
+        '
+        'BtnImagem3
+        '
+        Me.BtnImagem3.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.BtnImagem3.CorFundo = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
+        Me.BtnImagem3.CorHover = System.Drawing.Color.Gray
+        Me.BtnImagem3.CorSelecionado = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
+        Me.BtnImagem3.CorTexto = System.Drawing.Color.White
+        Me.BtnImagem3.EstadoBotao = False
+        Me.BtnImagem3.Imagem = Global.GestFrotPAP.My.Resources.Resources.wrench
+        Me.BtnImagem3.Location = New System.Drawing.Point(0, 146)
+        Me.BtnImagem3.Name = "BtnImagem3"
+        Me.BtnImagem3.Size = New System.Drawing.Size(200, 44)
+        Me.BtnImagem3.TabIndex = 2
+        Me.BtnImagem3.TamanhoLetra = 10
+        Me.BtnImagem3.Texto = "Manutenção"
+        '
         'BtnImagemInserirCancelar
         '
         Me.BtnImagemInserirCancelar.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
@@ -3448,135 +3614,14 @@ Partial Class Form1
         Me.BtnImagemDespInsert.TamanhoLetra = 10
         Me.BtnImagemDespInsert.Texto = "Inserir"
         '
-        'BtnImagem7
-        '
-        Me.BtnImagem7.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.BtnImagem7.CorFundo = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.BtnImagem7.CorHover = System.Drawing.Color.Gray
-        Me.BtnImagem7.CorSelecionado = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
-        Me.BtnImagem7.CorTexto = System.Drawing.Color.White
-        Me.BtnImagem7.EstadoBotao = False
-        Me.BtnImagem7.Imagem = Global.GestFrotPAP.My.Resources.Resources.toolbox
-        Me.BtnImagem7.Location = New System.Drawing.Point(0, 326)
-        Me.BtnImagem7.Name = "BtnImagem7"
-        Me.BtnImagem7.Size = New System.Drawing.Size(200, 44)
-        Me.BtnImagem7.TabIndex = 8
-        Me.BtnImagem7.TamanhoLetra = 10
-        Me.BtnImagem7.Texto = "Administração"
-        '
-        'BtnImagem6
-        '
-        Me.BtnImagem6.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.BtnImagem6.CorFundo = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.BtnImagem6.CorHover = System.Drawing.Color.Gray
-        Me.BtnImagem6.CorSelecionado = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
-        Me.BtnImagem6.CorTexto = System.Drawing.Color.White
-        Me.BtnImagem6.EstadoBotao = False
-        Me.BtnImagem6.Imagem = Global.GestFrotPAP.My.Resources.Resources.gears_configuration_tool
-        Me.BtnImagem6.Location = New System.Drawing.Point(0, 281)
-        Me.BtnImagem6.Name = "BtnImagem6"
-        Me.BtnImagem6.Size = New System.Drawing.Size(200, 44)
-        Me.BtnImagem6.TabIndex = 7
-        Me.BtnImagem6.TamanhoLetra = 10
-        Me.BtnImagem6.Texto = "Definições"
-        '
-        'BtnImagem5
-        '
-        Me.BtnImagem5.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.BtnImagem5.CorFundo = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.BtnImagem5.CorHover = System.Drawing.Color.Gray
-        Me.BtnImagem5.CorSelecionado = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
-        Me.BtnImagem5.CorTexto = System.Drawing.Color.White
-        Me.BtnImagem5.EstadoBotao = False
-        Me.BtnImagem5.Imagem = Global.GestFrotPAP.My.Resources.Resources.weekly_calendar
-        Me.BtnImagem5.Location = New System.Drawing.Point(0, 236)
-        Me.BtnImagem5.Name = "BtnImagem5"
-        Me.BtnImagem5.Size = New System.Drawing.Size(200, 44)
-        Me.BtnImagem5.TabIndex = 6
-        Me.BtnImagem5.TamanhoLetra = 10
-        Me.BtnImagem5.Texto = "Agenda"
-        '
-        'BtnMenu1
-        '
-        Me.BtnMenu1.BackColor = System.Drawing.Color.Transparent
-        Me.BtnMenu1.BackgroundImage = Global.GestFrotPAP.My.Resources.Resources.menu
-        Me.BtnMenu1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.BtnMenu1.Location = New System.Drawing.Point(168, 3)
-        Me.BtnMenu1.Name = "BtnMenu1"
-        Me.BtnMenu1.Size = New System.Drawing.Size(32, 32)
-        Me.BtnMenu1.TabIndex = 4
-        Me.BtnMenu1.zEstadoBotao = True
-        '
-        'BtnImagem1
-        '
-        Me.BtnImagem1.BackColor = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
-        Me.BtnImagem1.CorFundo = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.BtnImagem1.CorHover = System.Drawing.Color.Gray
-        Me.BtnImagem1.CorSelecionado = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
-        Me.BtnImagem1.CorTexto = System.Drawing.Color.White
-        Me.BtnImagem1.EstadoBotao = True
-        Me.BtnImagem1.Imagem = Global.GestFrotPAP.My.Resources.Resources.home_silhouette
-        Me.BtnImagem1.Location = New System.Drawing.Point(0, 56)
-        Me.BtnImagem1.Name = "BtnImagem1"
-        Me.BtnImagem1.Size = New System.Drawing.Size(200, 44)
-        Me.BtnImagem1.TabIndex = 0
-        Me.BtnImagem1.TamanhoLetra = 10
-        Me.BtnImagem1.Texto = "Home"
-        '
-        'BtnImagem2
-        '
-        Me.BtnImagem2.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.BtnImagem2.CorFundo = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.BtnImagem2.CorHover = System.Drawing.Color.Gray
-        Me.BtnImagem2.CorSelecionado = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
-        Me.BtnImagem2.CorTexto = System.Drawing.Color.White
-        Me.BtnImagem2.EstadoBotao = False
-        Me.BtnImagem2.Imagem = Global.GestFrotPAP.My.Resources.Resources.gas_station
-        Me.BtnImagem2.Location = New System.Drawing.Point(0, 101)
-        Me.BtnImagem2.Name = "BtnImagem2"
-        Me.BtnImagem2.Size = New System.Drawing.Size(200, 44)
-        Me.BtnImagem2.TabIndex = 1
-        Me.BtnImagem2.TamanhoLetra = 10
-        Me.BtnImagem2.Texto = "Abastecimento"
-        '
-        'BtnImagem4
-        '
-        Me.BtnImagem4.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.BtnImagem4.CorFundo = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.BtnImagem4.CorHover = System.Drawing.Color.Gray
-        Me.BtnImagem4.CorSelecionado = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
-        Me.BtnImagem4.CorTexto = System.Drawing.Color.White
-        Me.BtnImagem4.EstadoBotao = False
-        Me.BtnImagem4.Imagem = CType(resources.GetObject("BtnImagem4.Imagem"), System.Drawing.Bitmap)
-        Me.BtnImagem4.Location = New System.Drawing.Point(0, 191)
-        Me.BtnImagem4.Name = "BtnImagem4"
-        Me.BtnImagem4.Size = New System.Drawing.Size(200, 44)
-        Me.BtnImagem4.TabIndex = 3
-        Me.BtnImagem4.TamanhoLetra = 10
-        Me.BtnImagem4.Texto = "Despesas"
-        '
-        'BtnImagem3
-        '
-        Me.BtnImagem3.BackColor = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.BtnImagem3.CorFundo = System.Drawing.Color.FromArgb(CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer), CType(CType(66, Byte), Integer))
-        Me.BtnImagem3.CorHover = System.Drawing.Color.Gray
-        Me.BtnImagem3.CorSelecionado = System.Drawing.Color.FromArgb(CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer), CType(CType(88, Byte), Integer))
-        Me.BtnImagem3.CorTexto = System.Drawing.Color.White
-        Me.BtnImagem3.EstadoBotao = False
-        Me.BtnImagem3.Imagem = Global.GestFrotPAP.My.Resources.Resources.wrench
-        Me.BtnImagem3.Location = New System.Drawing.Point(0, 146)
-        Me.BtnImagem3.Name = "BtnImagem3"
-        Me.BtnImagem3.Size = New System.Drawing.Size(200, 44)
-        Me.BtnImagem3.TabIndex = 2
-        Me.BtnImagem3.TamanhoLetra = 10
-        Me.BtnImagem3.Texto = "Manutenção"
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(54, Byte), Integer), CType(CType(54, Byte), Integer), CType(CType(54, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1069, 500)
+        Me.Controls.Add(Me.PnlMenu)
+        Me.Controls.Add(Me.Panel9)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.PnlUser)
         Me.Controls.Add(Me.Panel6)
@@ -3591,7 +3636,6 @@ Partial Class Form1
         Me.Controls.Add(Me.PnlBarraTop)
         Me.Controls.Add(Me.Panel8)
         Me.Controls.Add(Me.Panel4)
-        Me.Controls.Add(Me.PnlMenu)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -3669,6 +3713,8 @@ Partial Class Form1
         Me.Panel8.PerformLayout()
         Me.PnlBDDef.ResumeLayout(False)
         Me.PnlBDDef.PerformLayout()
+        Me.Panel9.ResumeLayout(False)
+        Me.Panel9.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -3933,5 +3979,8 @@ Partial Class Form1
     Friend WithEvents BtnImagemVolume As GestFrotPAP.BtnImagem
     Friend WithEvents BtnImagemVolumeOff As GestFrotPAP.BtnImagem
     Friend WithEvents DateTimePicker1 As System.Windows.Forms.DateTimePicker
+    Friend WithEvents Panel9 As System.Windows.Forms.Panel
+    Friend WithEvents LblRelatorios As System.Windows.Forms.Label
+    Friend WithEvents BtnImagem11 As GestFrotPAP.BtnImagem
 
 End Class
