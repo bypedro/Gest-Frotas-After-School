@@ -231,7 +231,31 @@ Partial Class Form1
         Me.TxtBDDef = New System.Windows.Forms.TextBox()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.Panel9 = New System.Windows.Forms.Panel()
-        Me.LblRelatorios = New System.Windows.Forms.Label()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.GrpRelatorio = New System.Windows.Forms.GroupBox()
+        Me.LblRelatorio2 = New System.Windows.Forms.Label()
+        Me.LblRelatorio1 = New System.Windows.Forms.Label()
+        Me.LblRelatorioTotalDesp = New System.Windows.Forms.Label()
+        Me.LblRelatorioTotalManu = New System.Windows.Forms.Label()
+        Me.LblRelatorioTotalAbast = New System.Windows.Forms.Label()
+        Me.LblRelatorioTotal = New System.Windows.Forms.Label()
+        Me.LblRelatorioLeg3 = New System.Windows.Forms.Label()
+        Me.LblRelatorioLeg2 = New System.Windows.Forms.Label()
+        Me.LblRelatorioLeg1 = New System.Windows.Forms.Label()
+        Me.ShapeContainer2 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
+        Me.RectangleShape6 = New Microsoft.VisualBasic.PowerPacks.RectangleShape()
+        Me.RectangleShape5 = New Microsoft.VisualBasic.PowerPacks.RectangleShape()
+        Me.RectangleShape4 = New Microsoft.VisualBasic.PowerPacks.RectangleShape()
+        Me.ChkGraf1 = New System.Windows.Forms.CheckBox()
+        Me.ChkGraf2 = New System.Windows.Forms.CheckBox()
+        Me.CmbLista = New System.Windows.Forms.ComboBox()
+        Me.ChkGraf3 = New System.Windows.Forms.CheckBox()
+        Me.LblRelatorioTitulo = New System.Windows.Forms.Label()
+        Me.LblRelatorio = New System.Windows.Forms.Label()
+        Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
+        Me.RectangleShape3 = New Microsoft.VisualBasic.PowerPacks.RectangleShape()
+        Me.RectangleShape2 = New Microsoft.VisualBasic.PowerPacks.RectangleShape()
+        Me.RectangleShape1 = New Microsoft.VisualBasic.PowerPacks.RectangleShape()
         Me.BtnImagem11 = New GestFrotPAP.BtnImagem()
         Me.BtnImagem7 = New GestFrotPAP.BtnImagem()
         Me.BtnImagem6 = New GestFrotPAP.BtnImagem()
@@ -332,6 +356,7 @@ Partial Class Form1
         Me.Panel8.SuspendLayout()
         Me.PnlBDDef.SuspendLayout()
         Me.Panel9.SuspendLayout()
+        Me.GrpRelatorio.SuspendLayout()
         Me.SuspendLayout()
         '
         'PnlMenu
@@ -2705,7 +2730,15 @@ Partial Class Form1
         'Panel9
         '
         Me.Panel9.BackColor = System.Drawing.Color.FromArgb(CType(CType(54, Byte), Integer), CType(CType(54, Byte), Integer), CType(CType(54, Byte), Integer))
-        Me.Panel9.Controls.Add(Me.LblRelatorios)
+        Me.Panel9.Controls.Add(Me.Button1)
+        Me.Panel9.Controls.Add(Me.GrpRelatorio)
+        Me.Panel9.Controls.Add(Me.ChkGraf1)
+        Me.Panel9.Controls.Add(Me.ChkGraf2)
+        Me.Panel9.Controls.Add(Me.CmbLista)
+        Me.Panel9.Controls.Add(Me.ChkGraf3)
+        Me.Panel9.Controls.Add(Me.LblRelatorioTitulo)
+        Me.Panel9.Controls.Add(Me.LblRelatorio)
+        Me.Panel9.Controls.Add(Me.ShapeContainer1)
         Me.Panel9.ForeColor = System.Drawing.Color.White
         Me.Panel9.Location = New System.Drawing.Point(32, 30)
         Me.Panel9.Name = "Panel9"
@@ -2713,15 +2746,245 @@ Partial Class Form1
         Me.Panel9.TabIndex = 20
         Me.Panel9.Visible = False
         '
-        'LblRelatorios
+        'Button1
         '
-        Me.LblRelatorios.AutoSize = True
-        Me.LblRelatorios.ForeColor = System.Drawing.Color.White
-        Me.LblRelatorios.Location = New System.Drawing.Point(15, 10)
-        Me.LblRelatorios.Name = "LblRelatorios"
-        Me.LblRelatorios.Size = New System.Drawing.Size(54, 13)
-        Me.LblRelatorios.TabIndex = 32
-        Me.LblRelatorios.Text = "Relatórios"
+        Me.Button1.ForeColor = System.Drawing.Color.Black
+        Me.Button1.Location = New System.Drawing.Point(727, 56)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 40
+        Me.Button1.Text = "Procurar"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'GrpRelatorio
+        '
+        Me.GrpRelatorio.Controls.Add(Me.LblRelatorio2)
+        Me.GrpRelatorio.Controls.Add(Me.LblRelatorio1)
+        Me.GrpRelatorio.Controls.Add(Me.LblRelatorioTotalDesp)
+        Me.GrpRelatorio.Controls.Add(Me.LblRelatorioTotalManu)
+        Me.GrpRelatorio.Controls.Add(Me.LblRelatorioTotalAbast)
+        Me.GrpRelatorio.Controls.Add(Me.LblRelatorioTotal)
+        Me.GrpRelatorio.Controls.Add(Me.LblRelatorioLeg3)
+        Me.GrpRelatorio.Controls.Add(Me.LblRelatorioLeg2)
+        Me.GrpRelatorio.Controls.Add(Me.LblRelatorioLeg1)
+        Me.GrpRelatorio.Controls.Add(Me.ShapeContainer2)
+        Me.GrpRelatorio.Location = New System.Drawing.Point(130, 88)
+        Me.GrpRelatorio.Name = "GrpRelatorio"
+        Me.GrpRelatorio.Size = New System.Drawing.Size(672, 320)
+        Me.GrpRelatorio.TabIndex = 39
+        Me.GrpRelatorio.TabStop = False
+        Me.GrpRelatorio.Text = "Dados"
+        '
+        'LblRelatorio2
+        '
+        Me.LblRelatorio2.AutoSize = True
+        Me.LblRelatorio2.Location = New System.Drawing.Point(14, 133)
+        Me.LblRelatorio2.Name = "LblRelatorio2"
+        Me.LblRelatorio2.Size = New System.Drawing.Size(150, 13)
+        Me.LblRelatorio2.TabIndex = 9
+        Me.LblRelatorio2.Text = "Utilizador com maior consumo:"
+        '
+        'LblRelatorio1
+        '
+        Me.LblRelatorio1.AutoSize = True
+        Me.LblRelatorio1.Location = New System.Drawing.Point(15, 114)
+        Me.LblRelatorio1.Name = "LblRelatorio1"
+        Me.LblRelatorio1.Size = New System.Drawing.Size(142, 13)
+        Me.LblRelatorio1.TabIndex = 8
+        Me.LblRelatorio1.Text = "Veiculo com maior consumo:"
+        '
+        'LblRelatorioTotalDesp
+        '
+        Me.LblRelatorioTotalDesp.AutoSize = True
+        Me.LblRelatorioTotalDesp.Location = New System.Drawing.Point(15, 95)
+        Me.LblRelatorioTotalDesp.Name = "LblRelatorioTotalDesp"
+        Me.LblRelatorioTotalDesp.Size = New System.Drawing.Size(142, 13)
+        Me.LblRelatorioTotalDesp.TabIndex = 7
+        Me.LblRelatorioTotalDesp.Text = "Dinheiro gasto em Despesas"
+        '
+        'LblRelatorioTotalManu
+        '
+        Me.LblRelatorioTotalManu.AutoSize = True
+        Me.LblRelatorioTotalManu.Location = New System.Drawing.Point(15, 73)
+        Me.LblRelatorioTotalManu.Name = "LblRelatorioTotalManu"
+        Me.LblRelatorioTotalManu.Size = New System.Drawing.Size(158, 13)
+        Me.LblRelatorioTotalManu.TabIndex = 6
+        Me.LblRelatorioTotalManu.Text = "Dinheiro gasto em Manutenção:"
+        '
+        'LblRelatorioTotalAbast
+        '
+        Me.LblRelatorioTotalAbast.AutoSize = True
+        Me.LblRelatorioTotalAbast.Location = New System.Drawing.Point(15, 52)
+        Me.LblRelatorioTotalAbast.Name = "LblRelatorioTotalAbast"
+        Me.LblRelatorioTotalAbast.Size = New System.Drawing.Size(155, 13)
+        Me.LblRelatorioTotalAbast.TabIndex = 5
+        Me.LblRelatorioTotalAbast.Text = "Dinheiro gasto em Combustivel:"
+        '
+        'LblRelatorioTotal
+        '
+        Me.LblRelatorioTotal.AutoSize = True
+        Me.LblRelatorioTotal.Location = New System.Drawing.Point(15, 29)
+        Me.LblRelatorioTotal.Name = "LblRelatorioTotal"
+        Me.LblRelatorioTotal.Size = New System.Drawing.Size(78, 13)
+        Me.LblRelatorioTotal.TabIndex = 4
+        Me.LblRelatorioTotal.Text = "Dinheiro gasto:"
+        '
+        'LblRelatorioLeg3
+        '
+        Me.LblRelatorioLeg3.AutoSize = True
+        Me.LblRelatorioLeg3.Location = New System.Drawing.Point(215, 300)
+        Me.LblRelatorioLeg3.Name = "LblRelatorioLeg3"
+        Me.LblRelatorioLeg3.Size = New System.Drawing.Size(82, 13)
+        Me.LblRelatorioLeg3.TabIndex = 3
+        Me.LblRelatorioLeg3.Text = "Abastecimentos"
+        '
+        'LblRelatorioLeg2
+        '
+        Me.LblRelatorioLeg2.AutoSize = True
+        Me.LblRelatorioLeg2.Location = New System.Drawing.Point(127, 300)
+        Me.LblRelatorioLeg2.Name = "LblRelatorioLeg2"
+        Me.LblRelatorioLeg2.Size = New System.Drawing.Size(54, 13)
+        Me.LblRelatorioLeg2.TabIndex = 2
+        Me.LblRelatorioLeg2.Text = "Despesas"
+        '
+        'LblRelatorioLeg1
+        '
+        Me.LblRelatorioLeg1.AutoSize = True
+        Me.LblRelatorioLeg1.Location = New System.Drawing.Point(26, 300)
+        Me.LblRelatorioLeg1.Name = "LblRelatorioLeg1"
+        Me.LblRelatorioLeg1.Size = New System.Drawing.Size(67, 13)
+        Me.LblRelatorioLeg1.TabIndex = 1
+        Me.LblRelatorioLeg1.Text = "Manutenção"
+        '
+        'ShapeContainer2
+        '
+        Me.ShapeContainer2.Location = New System.Drawing.Point(3, 16)
+        Me.ShapeContainer2.Margin = New System.Windows.Forms.Padding(0)
+        Me.ShapeContainer2.Name = "ShapeContainer2"
+        Me.ShapeContainer2.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.RectangleShape6, Me.RectangleShape5, Me.RectangleShape4})
+        Me.ShapeContainer2.Size = New System.Drawing.Size(666, 301)
+        Me.ShapeContainer2.TabIndex = 0
+        Me.ShapeContainer2.TabStop = False
+        '
+        'RectangleShape6
+        '
+        Me.RectangleShape6.FillColor = System.Drawing.Color.Blue
+        Me.RectangleShape6.FillStyle = Microsoft.VisualBasic.PowerPacks.FillStyle.Solid
+        Me.RectangleShape6.Location = New System.Drawing.Point(193, 275)
+        Me.RectangleShape6.Name = "RectangleShape6"
+        Me.RectangleShape6.Size = New System.Drawing.Size(15, 15)
+        '
+        'RectangleShape5
+        '
+        Me.RectangleShape5.FillColor = System.Drawing.Color.Green
+        Me.RectangleShape5.FillStyle = Microsoft.VisualBasic.PowerPacks.FillStyle.Solid
+        Me.RectangleShape5.Location = New System.Drawing.Point(106, 275)
+        Me.RectangleShape5.Name = "RectangleShape5"
+        Me.RectangleShape5.Size = New System.Drawing.Size(15, 15)
+        '
+        'RectangleShape4
+        '
+        Me.RectangleShape4.BackColor = System.Drawing.Color.Red
+        Me.RectangleShape4.FillColor = System.Drawing.Color.Red
+        Me.RectangleShape4.FillStyle = Microsoft.VisualBasic.PowerPacks.FillStyle.Solid
+        Me.RectangleShape4.Location = New System.Drawing.Point(5, 275)
+        Me.RectangleShape4.Name = "RectangleShape4"
+        Me.RectangleShape4.Size = New System.Drawing.Size(15, 15)
+        '
+        'ChkGraf1
+        '
+        Me.ChkGraf1.AutoSize = True
+        Me.ChkGraf1.Checked = True
+        Me.ChkGraf1.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ChkGraf1.Location = New System.Drawing.Point(829, 16)
+        Me.ChkGraf1.Name = "ChkGraf1"
+        Me.ChkGraf1.Size = New System.Drawing.Size(108, 17)
+        Me.ChkGraf1.TabIndex = 38
+        Me.ChkGraf1.Text = "Relatório de Final"
+        Me.ChkGraf1.UseVisualStyleBackColor = True
+        '
+        'ChkGraf2
+        '
+        Me.ChkGraf2.AutoSize = True
+        Me.ChkGraf2.Location = New System.Drawing.Point(829, 40)
+        Me.ChkGraf2.Name = "ChkGraf2"
+        Me.ChkGraf2.Size = New System.Drawing.Size(129, 17)
+        Me.ChkGraf2.TabIndex = 37
+        Me.ChkGraf2.Text = "Relatório de Utilizador"
+        Me.ChkGraf2.UseVisualStyleBackColor = True
+        '
+        'CmbLista
+        '
+        Me.CmbLista.FormattingEnabled = True
+        Me.CmbLista.Location = New System.Drawing.Point(542, 57)
+        Me.CmbLista.Name = "CmbLista"
+        Me.CmbLista.Size = New System.Drawing.Size(173, 21)
+        Me.CmbLista.TabIndex = 36
+        '
+        'ChkGraf3
+        '
+        Me.ChkGraf3.AutoSize = True
+        Me.ChkGraf3.Location = New System.Drawing.Point(829, 65)
+        Me.ChkGraf3.Name = "ChkGraf3"
+        Me.ChkGraf3.Size = New System.Drawing.Size(123, 17)
+        Me.ChkGraf3.TabIndex = 35
+        Me.ChkGraf3.Text = "Relatório de Veículo"
+        Me.ChkGraf3.UseVisualStyleBackColor = True
+        '
+        'LblRelatorioTitulo
+        '
+        Me.LblRelatorioTitulo.AutoSize = True
+        Me.LblRelatorioTitulo.ForeColor = System.Drawing.Color.White
+        Me.LblRelatorioTitulo.Location = New System.Drawing.Point(15, 66)
+        Me.LblRelatorioTitulo.Name = "LblRelatorioTitulo"
+        Me.LblRelatorioTitulo.Size = New System.Drawing.Size(35, 13)
+        Me.LblRelatorioTitulo.TabIndex = 34
+        Me.LblRelatorioTitulo.Text = "Título"
+        '
+        'LblRelatorio
+        '
+        Me.LblRelatorio.AutoSize = True
+        Me.LblRelatorio.ForeColor = System.Drawing.Color.White
+        Me.LblRelatorio.Location = New System.Drawing.Point(15, 10)
+        Me.LblRelatorio.Name = "LblRelatorio"
+        Me.LblRelatorio.Size = New System.Drawing.Size(54, 13)
+        Me.LblRelatorio.TabIndex = 32
+        Me.LblRelatorio.Text = "Relatórios"
+        '
+        'ShapeContainer1
+        '
+        Me.ShapeContainer1.Location = New System.Drawing.Point(0, 0)
+        Me.ShapeContainer1.Margin = New System.Windows.Forms.Padding(0)
+        Me.ShapeContainer1.Name = "ShapeContainer1"
+        Me.ShapeContainer1.Shapes.AddRange(New Microsoft.VisualBasic.PowerPacks.Shape() {Me.RectangleShape3, Me.RectangleShape2, Me.RectangleShape1})
+        Me.ShapeContainer1.Size = New System.Drawing.Size(968, 470)
+        Me.ShapeContainer1.TabIndex = 33
+        Me.ShapeContainer1.TabStop = False
+        '
+        'RectangleShape3
+        '
+        Me.RectangleShape3.FillColor = System.Drawing.Color.Blue
+        Me.RectangleShape3.FillStyle = Microsoft.VisualBasic.PowerPacks.FillStyle.Solid
+        Me.RectangleShape3.Location = New System.Drawing.Point(15, 308)
+        Me.RectangleShape3.Name = "RectangleShape3"
+        Me.RectangleShape3.Size = New System.Drawing.Size(75, 100)
+        '
+        'RectangleShape2
+        '
+        Me.RectangleShape2.FillColor = System.Drawing.Color.Green
+        Me.RectangleShape2.FillStyle = Microsoft.VisualBasic.PowerPacks.FillStyle.Solid
+        Me.RectangleShape2.Location = New System.Drawing.Point(15, 208)
+        Me.RectangleShape2.Name = "RectangleShape2"
+        Me.RectangleShape2.Size = New System.Drawing.Size(75, 100)
+        '
+        'RectangleShape1
+        '
+        Me.RectangleShape1.BackColor = System.Drawing.Color.Red
+        Me.RectangleShape1.FillColor = System.Drawing.Color.Red
+        Me.RectangleShape1.FillStyle = Microsoft.VisualBasic.PowerPacks.FillStyle.Solid
+        Me.RectangleShape1.Location = New System.Drawing.Point(15, 108)
+        Me.RectangleShape1.Name = "RectangleShape1"
+        Me.RectangleShape1.Size = New System.Drawing.Size(75, 100)
         '
         'BtnImagem11
         '
@@ -3715,6 +3978,8 @@ Partial Class Form1
         Me.PnlBDDef.PerformLayout()
         Me.Panel9.ResumeLayout(False)
         Me.Panel9.PerformLayout()
+        Me.GrpRelatorio.ResumeLayout(False)
+        Me.GrpRelatorio.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -3980,7 +4245,31 @@ Partial Class Form1
     Friend WithEvents BtnImagemVolumeOff As GestFrotPAP.BtnImagem
     Friend WithEvents DateTimePicker1 As System.Windows.Forms.DateTimePicker
     Friend WithEvents Panel9 As System.Windows.Forms.Panel
-    Friend WithEvents LblRelatorios As System.Windows.Forms.Label
+    Friend WithEvents LblRelatorio As System.Windows.Forms.Label
     Friend WithEvents BtnImagem11 As GestFrotPAP.BtnImagem
+    Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
+    Friend WithEvents RectangleShape3 As Microsoft.VisualBasic.PowerPacks.RectangleShape
+    Friend WithEvents RectangleShape2 As Microsoft.VisualBasic.PowerPacks.RectangleShape
+    Friend WithEvents RectangleShape1 As Microsoft.VisualBasic.PowerPacks.RectangleShape
+    Friend WithEvents GrpRelatorio As System.Windows.Forms.GroupBox
+    Friend WithEvents ChkGraf1 As System.Windows.Forms.CheckBox
+    Friend WithEvents ChkGraf2 As System.Windows.Forms.CheckBox
+    Friend WithEvents CmbLista As System.Windows.Forms.ComboBox
+    Friend WithEvents ChkGraf3 As System.Windows.Forms.CheckBox
+    Friend WithEvents LblRelatorioTitulo As System.Windows.Forms.Label
+    Friend WithEvents LblRelatorioLeg3 As System.Windows.Forms.Label
+    Friend WithEvents LblRelatorioLeg2 As System.Windows.Forms.Label
+    Friend WithEvents LblRelatorioLeg1 As System.Windows.Forms.Label
+    Friend WithEvents ShapeContainer2 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
+    Friend WithEvents RectangleShape6 As Microsoft.VisualBasic.PowerPacks.RectangleShape
+    Friend WithEvents RectangleShape5 As Microsoft.VisualBasic.PowerPacks.RectangleShape
+    Friend WithEvents RectangleShape4 As Microsoft.VisualBasic.PowerPacks.RectangleShape
+    Friend WithEvents LblRelatorio2 As System.Windows.Forms.Label
+    Friend WithEvents LblRelatorio1 As System.Windows.Forms.Label
+    Friend WithEvents LblRelatorioTotalDesp As System.Windows.Forms.Label
+    Friend WithEvents LblRelatorioTotalManu As System.Windows.Forms.Label
+    Friend WithEvents LblRelatorioTotalAbast As System.Windows.Forms.Label
+    Friend WithEvents LblRelatorioTotal As System.Windows.Forms.Label
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 
 End Class

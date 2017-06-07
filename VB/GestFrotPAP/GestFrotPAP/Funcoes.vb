@@ -143,11 +143,15 @@ Public Module Funcoes
         Return 1
     End Function
 
-    Function ConverterMoeda(ByVal Moeda As String) As String
+    Function ConverterMoeda(ByVal Moeda As String, Optional ByVal Oposto As Boolean = False) As String
         If My.Settings.SqlMoeda = "Euro" Then
             Return Moeda * 1
         ElseIf My.Settings.SqlMoeda = "Dolar" Then
-            Return Round(Moeda / 1.12235, 2) '1.12235->Valor de 1€ em Dolar
+            If Oposto = True Then
+                Return Round(Moeda * 1.12235, 2) '1.12235->Valor de 1€ em Dolar 
+            Else
+                Return Round(Moeda / 1.12235, 2) '1.12235->Valor de 1€ em Dolar
+            End If
         End If
         Return 1
     End Function
@@ -160,5 +164,46 @@ Public Module Funcoes
         End If
         Return 1
     End Function
+
+    Public Sub Grafico(ByVal AbastecimentoValor As Decimal, ByVal despesaValor As Decimal, ByVal manutencaoValor As Decimal)
+        If AbastecimentoValor = 0 And despesaValor = 0 And manutencaoValor = 0 Then
+            MsgBox("Sem Despesas Efectuadas")
+            'Handles a falta do despesas
+            Exit Sub
+        End If
+        Dim TotalValor As Decimal
+        TotalValor = AbastecimentoValor + despesaValor + manutencaoValor
+        'Manutenção
+        Dim ManuPercent As Decimal
+        Dim AlturaManu As Integer
+        ManuPercent = (manutencaoValor * 100) / TotalValor
+        AlturaManu = 300 * Convert.ToInt32(ManuPercent) / 100
+        'Abastecimento
+        Dim AbastPercent As Decimal
+        Dim AlturaAbast As Integer
+        AbastPercent = (AbastecimentoValor * 100) / TotalValor
+        AlturaAbast = 300 * Convert.ToInt32(AbastPercent) / 100
+        'Despesa
+        Dim DespPercent As Decimal
+        Dim AlturaDesp As Integer
+        DespPercent = (despesaValor * 100) / TotalValor
+        AlturaDesp = 300 * Convert.ToInt32(DespPercent) / 100
+
+        Form1.RectangleShape1.Height = AlturaManu
+        Form1.RectangleShape2.Height = AlturaDesp
+        Form1.RectangleShape3.Height = AlturaAbast
+        Form1.RectangleShape3.Top = Form1.GrpRelatorio.Bottom - Form1.RectangleShape3.Height
+        Form1.RectangleShape2.Top = Form1.RectangleShape3.Top - Form1.RectangleShape2.Height
+        Form1.RectangleShape1.Top = Form1.RectangleShape2.Top - Form1.RectangleShape1.Height
+
+        Form1.LblRelatorioTotal.Text = "Dinheiro gasto: " + TotalValor.ToString + MoedaSimbolo().ToString
+        Form1.LblRelatorioTotalAbast.Text = "Dinheiro gasto em Combustivel: " + AbastecimentoValor.ToString + MoedaSimbolo().ToString
+        Form1.LblRelatorioTotalManu.Text = "Dinheiro gasto em Manutenção: " + manutencaoValor.ToString + MoedaSimbolo().ToString
+        Form1.LblRelatorioTotalDesp.Text = "Dinheiro gasto em Despesas: " + despesaValor.ToString + MoedaSimbolo().ToString
+
+        Form1.LblRelatorio1.Text = CarroMaisCaro()
+        'Form1.LblRelatorio2.Text = UtilizadorMaisCaro()
+
+    End Sub
 
 End Module

@@ -1007,10 +1007,11 @@ Module SQL
     Public Sub InserirDados(ByVal Tabela As String)
         Dim Comando As New MySqlCommand
         '
-        'Variavel para juntar os campos ano/mes/dia
+        'Variavel Data
         '
         Dim Data As String
-        Data = Form1.CmbInserirAno.Text + "-" + Form1.CmbInserirMes.Text + "-" + Form1.CmbInserirDia.Text
+        'Data = Form1.CmbInserirAno.Text + "-" + Form1.CmbInserirMes.Text + "-" + Form1.CmbInserirDia.Text
+        Data = String.Format("{0:yyyy-MM-dd}", Form1.DateTimePicker1.Value.Date)
         '
         'Selecionar comando para inserir
         '
@@ -1112,4 +1113,349 @@ Module SQL
             Exit Sub
         End Try
     End Sub
+
+    Private Sub VerDadosCMBGRAF(ByVal SQL As String, ByVal Campo As String, ByVal ID As String, ByVal Cmb As ComboBox)
+        Dim Dados As DataSet = New DataSet
+        adapter.SelectCommand = New MySqlCommand
+        adapter.SelectCommand.Connection = ligacao
+        adapter.SelectCommand.CommandText = SQL
+        Try
+            ligacao.Open()
+            adapter.Fill(Dados, "CMB")
+            ligacao.Close()
+        Catch ex As Exception
+            MsgBox("ERRO" + "CMB" + "!")
+            Exit Sub
+        Finally
+            If ligacao.State = ConnectionState.Open Then
+                ligacao.Close()
+            End If
+        End Try
+        Cmb.DataSource = Dados.Tables(0)
+        Cmb.DisplayMember = Campo
+        Cmb.ValueMember = ID
+        'MAY GOD BE WITH THIS PIECE OF CODE!
+    End Sub
+
+
+
+    Public RELATORIO As String
+    Public Sub RelatorioSelecionado(ByVal Pesquisa As String)
+        If Pesquisa.Contains("CodUser") Then
+            VerDadosCMBGRAF("select CodUser,concat(Nome_Proprio, ' ', Apelido)as Utilizador from utilizador", "Utilizador", "CodUser", Form1.CmbLista)
+        ElseIf Pesquisa.Contains("CodVei") Then
+            VerDadosCMBGRAF("Select CodVei,concat(Marca, ' ', Modelo,' ',Ano,' Matricula:',Matricula) as Veiculo from veiculos", "Veiculo", "CodVei", Form1.CmbLista)
+        End If
+        RELATORIO = Pesquisa
+    End Sub
+
+
+    Public Sub GraficoSelecionado(Optional ByVal Pesquisa As String = "", Optional ByVal Cod As String = "")
+        Dim Comando As New MySqlCommand
+        Dim reader As MySqlDataReader
+        Comando.Connection = SQL.ligacao
+        Dim despesaValor As Decimal = 0
+        Dim manutencaoValor As Decimal = 0
+        Dim AbastecimentoValor As Decimal = 0
+        Dim FinalString As String
+        FinalString = Pesquisa + Cod
+        'Despesa
+        Comando.CommandText = "SELECT ROUND(sum(valor*" + MoedaConversao().ToString + "),2) as Despesa FROM despesas " + FinalString
+        Try
+            ligacao.Open()
+            reader = Comando.ExecuteReader
+            While reader.Read
+                despesaValor = Convert.ToDecimal(reader("Despesa"))
+            End While
+        Catch ex As Exception
+           
+        Finally
+            If ligacao.State = ConnectionState.Open Then
+                ligacao.Close()
+            End If
+        End Try
+        'Manutenção
+        Comando.CommandText = " SELECT ROUND(sum(Valor*" + MoedaConversao().ToString + "),2) as Manutencao FROM manutencao " + FinalString
+        Try
+            ligacao.Open()
+            reader = Comando.ExecuteReader
+            While reader.Read
+                manutencaoValor = Convert.ToDecimal(reader("Manutencao"))
+            End While
+        Catch ex As Exception
+            
+        Finally
+            If ligacao.State = ConnectionState.Open Then
+                ligacao.Close()
+            End If
+        End Try
+        'Abastecimento
+        Comando.CommandText = "  SELECT ROUND(sum(Valor*" + MoedaConversao().ToString + "),2) as Abastecimento FROM veiabast " + FinalString
+        Try
+            ligacao.Open()
+            reader = Comando.ExecuteReader
+            While reader.Read
+                AbastecimentoValor = Convert.ToDecimal(reader("Abastecimento"))
+            End While
+        Catch ex As Exception
+
+        Finally
+            If ligacao.State = ConnectionState.Open Then
+                ligacao.Close()
+            End If
+        End Try
+        Grafico(AbastecimentoValor, despesaValor, manutencaoValor)
+    End Sub
+
+    Public Function CarroMaisCaro() As String
+        Dim Comando As New MySqlCommand
+        Dim reader As MySqlDataReader
+        Comando.Connection = SQL.ligacao
+        Dim listID As New List(Of String)
+        Dim listValor As New List(Of String)
+        Dim IdCount As String
+        Dim Veiculo As String = ""
+
+
+        listValor.Clear()
+        listID.Clear()
+
+        Comando.CommandText = "select codvei as cod from veiculos"
+        Try
+            ligacao.Open()
+            reader = Comando.ExecuteReader
+            While reader.Read
+                listID.Add(reader("cod"))
+            End While
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            If ligacao.State = ConnectionState.Open Then
+                ligacao.Close()
+            End If
+        End Try
+
+        Comando.CommandText = "select count(codvei) as cod from veiculos"
+        Try
+            ligacao.Open()
+            reader = Comando.ExecuteReader
+            While reader.Read
+                Idcount = (reader("cod"))
+            End While
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            If ligacao.State = ConnectionState.Open Then
+                ligacao.Close()
+            End If
+        End Try
+
+        Dim ValorCarro(IdCount) As Integer
+
+        For i As Integer = 0 To listID.Count - 1
+            Comando.CommandText = "select valor from valormaxbycodveimanu where codvei=" + listID(i).ToString
+            Try
+                ligacao.Open()
+                reader = Comando.ExecuteReader
+                While reader.Read
+                    ValorCarro(i) = ValorCarro(i) + reader.GetInt32("Valor")
+                End While
+            Catch ex As Exception
+                MsgBox("erro! " + ex.Message)
+            Finally
+                If ligacao.State = ConnectionState.Open Then
+                    ligacao.Close()
+                End If
+            End Try
+        Next
+
+        For i As Integer = 0 To listID.Count - 1
+            Comando.CommandText = "select valor from valormaxbycodveiabast where codvei=" + listID(i).ToString
+            Try
+                ligacao.Open()
+                reader = Comando.ExecuteReader
+                While reader.Read
+                    ValorCarro(i) = ValorCarro(i) + reader.GetInt32("Valor")
+                End While
+            Catch ex As Exception
+                MsgBox("erro! " + ex.Message)
+            Finally
+                If ligacao.State = ConnectionState.Open Then
+                    ligacao.Close()
+                End If
+            End Try
+        Next
+
+        For i As Integer = 0 To listID.Count - 1
+            Comando.CommandText = "select valor from valormaxbycodveidesp where codvei=" + listID(i).ToString
+            Try
+                ligacao.Open()
+                reader = Comando.ExecuteReader
+                While reader.Read
+                    ValorCarro(i) = ValorCarro(i) + reader.GetInt32("Valor")
+                End While
+            Catch ex As Exception
+                MsgBox("erro! " + ex.Message)
+            Finally
+                If ligacao.State = ConnectionState.Open Then
+                    ligacao.Close()
+                End If
+            End Try
+        Next
+
+
+        Dim maior As Integer = 0
+        Dim maiorid As Integer = 0
+        Dim veiculoFinal As String = ""
+        For i As Integer = 0 To IdCount - 1
+            If ValorCarro(i) > maior Then
+                Comando.CommandText = "select concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veiculo  from veiculos where codvei=" + (i + 1).ToString
+                Try
+                    ligacao.Open()
+                    reader = Comando.ExecuteReader
+                    While reader.Read
+                        Veiculo = reader("Veiculo")
+                    End While
+                Catch ex As Exception
+                    MsgBox("erro! " + ex.Message)
+                Finally
+                    If ligacao.State = ConnectionState.Open Then
+                        ligacao.Close()
+                    End If
+                End Try
+                maior = ValorCarro(i)
+                maiorid = i
+                veiculoFinal = Veiculo
+            End If
+        Next
+        Dim ValorCarroFinal As String
+        ValorCarroFinal = ConverterMoeda((ValorCarro(maiorid)).ToString, True)
+        Return (veiculoFinal + " (" + ValorCarroFinal + MoedaSimbolo() + ")")
+    End Function
+
+
+    Public Function UtilizadorMaisCaro() As String 'Desativado
+        Dim Comando As New MySqlCommand
+        Dim reader As MySqlDataReader
+        Comando.Connection = SQL.ligacao
+        Dim listID As New List(Of String)
+        Dim listValor As New List(Of String)
+        Dim IdCount As String
+        Dim Utilizador As String = ""
+
+
+        listValor.Clear()
+        listID.Clear()
+
+        Comando.CommandText = "select coduser as cod from Utilizador"
+        Try
+            ligacao.Open()
+            reader = Comando.ExecuteReader
+            While reader.Read
+                listID.Add(reader("cod"))
+            End While
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            If ligacao.State = ConnectionState.Open Then
+                ligacao.Close()
+            End If
+        End Try
+
+        Comando.CommandText = "select count(coduser) as cod from Utilizador"
+        Try
+            ligacao.Open()
+            reader = Comando.ExecuteReader
+            While reader.Read
+                IdCount = (reader("cod"))
+            End While
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            If ligacao.State = ConnectionState.Open Then
+                ligacao.Close()
+            End If
+        End Try
+
+        Dim ValorUtilizador(IdCount) As Integer
+
+        For i As Integer = 0 To listID.Count - 1
+            Comando.CommandText = "select valor from valormaxbycodveimanu where coduser=" + listID(i).ToString
+            Try
+                ligacao.Open()
+                reader = Comando.ExecuteReader
+                While reader.Read
+                    ValorUtilizador(i) = ValorUtilizador(i) + reader.GetInt32("Valor")
+                End While
+            Catch ex As Exception
+                MsgBox("erro! " + ex.Message)
+            Finally
+                If ligacao.State = ConnectionState.Open Then
+                    ligacao.Close()
+                End If
+            End Try
+        Next
+
+        For i As Integer = 0 To listID.Count - 1
+            Comando.CommandText = "select valor from valormaxbycodveiabast where coduser=" + listID(i).ToString
+            Try
+                ligacao.Open()
+                reader = Comando.ExecuteReader
+                While reader.Read
+                    ValorUtilizador(i) = ValorUtilizador(i) + reader.GetInt32("Valor")
+                End While
+            Catch ex As Exception
+                MsgBox("erro! " + ex.Message)
+            Finally
+                If ligacao.State = ConnectionState.Open Then
+                    ligacao.Close()
+                End If
+            End Try
+        Next
+
+        For i As Integer = 0 To listID.Count - 1
+            Comando.CommandText = "select valor from valormaxbycodveidesp where coduser=" + listID(i).ToString
+            Try
+                ligacao.Open()
+                reader = Comando.ExecuteReader
+                While reader.Read
+                    ValorUtilizador(i) = ValorUtilizador(i) + reader.GetInt32("Valor")
+                End While
+            Catch ex As Exception
+                MsgBox("erro! " + ex.Message)
+            Finally
+                If ligacao.State = ConnectionState.Open Then
+                    ligacao.Close()
+                End If
+            End Try
+        Next
+
+
+        Dim maior As Integer = 0
+        Dim maiorid As Integer = 0
+        Dim UtilizadorFinal As String = ""
+        For i As Integer = 0 To IdCount - 1
+            MsgBox(i.ToString)
+            If ValorUtilizador(i) > maior Then
+                Comando.CommandText = "select concat(Nome_Proprio,' ',Apelido) as Utilizador  from Utilizador where Coduser=" + (i + 1).ToString
+                Try
+                    ligacao.Open()
+                    reader = Comando.ExecuteReader
+                    While reader.Read
+                        Veiculo = reader("Utilizador")
+                    End While
+                Catch ex As Exception
+                    MsgBox("erro! " + ex.Message)
+                Finally
+                    If ligacao.State = ConnectionState.Open Then
+                        ligacao.Close()
+                    End If
+                End Try
+                maior = ValorUtilizador(i)
+                maiorid = i
+                UtilizadorFinal = Utilizador
+            End If
+        Next
+        Return (UtilizadorFinal + " (" + ValorUtilizador(maiorid).ToString + MoedaSimbolo() + ")")
+    End Function
 End Module

@@ -126,8 +126,7 @@ Public Class Form1
 
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
         'Area de teste
-
-
+        CarroMaisCaro()
         '
         '
         'Adiciona evento a todos os objetos do programa(Associados ao form1)(Objetos dentro de paneis necessitao de ser adicionados)
@@ -700,8 +699,8 @@ Public Class Form1
     Private Sub BtnImagemInserirInserir_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemInserirInserir.ButtonClickMasterRace
         Botao(BtnImagemInserirInserir)
         'AREA DE TESTE
-
-        'Exit Sub
+        MsgBox(String.Format("{0:yyyy-MM-dd}", DateTimePicker1.Value.Date))
+        Exit Sub
         'FIM DE AREA
         If SQL.TabelaSelecionada = "AbastInsert" Then
             InserirDados("AbastInsert")
@@ -975,5 +974,62 @@ Public Class Form1
 
     Private Sub BtnImagem11_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagem11.ButtonClickMasterRace
         MenuPrincipal(7, True)
+        RectangleShape3.Top = GrpRelatorio.Bottom - RectangleShape3.Height
+        RectangleShape2.Top = RectangleShape3.Top - RectangleShape2.Height
+        RectangleShape1.Top = RectangleShape2.Top - RectangleShape1.Height
+        EscolherGrafDados(ChkGraf1)
+        GrpRelatorio.Font = GetInstance(12, FontStyle.Bold)
+        For Each c As Control In GrpRelatorio.Controls
+            c.Font = GetInstance(8, FontStyle.Bold)
+        Next
+    End Sub
+
+
+    Public Where As String = ""
+
+    Private Sub EscolherGrafDados(ByVal CheckSelect As CheckBox)
+        ChkGraf1.Checked = False
+        ChkGraf2.Checked = False
+        ChkGraf3.Checked = False
+
+        CheckSelect.Checked = True
+        If ChkGraf1.Checked = True Then
+            CmbLista.Enabled = False
+            Button1.Enabled = False
+            LblRelatorio1.Show()
+            LblRelatorio2.Hide() 'Desativado
+            GraficoSelecionado()
+        ElseIf ChkGraf2.Checked = True Then
+            CmbLista.Enabled = True
+            Button1.Enabled = True
+            LblRelatorio1.Hide()
+            LblRelatorio2.Hide()
+            RelatorioSelecionado("Where CodUser=")
+        ElseIf ChkGraf3.Checked = True Then
+            CmbLista.Enabled = True
+            Button1.Enabled = True
+            LblRelatorio1.Hide()
+            LblRelatorio2.Hide()
+            RelatorioSelecionado("Where CodVei=")
+        End If
+
+    End Sub
+
+    Private Sub ChkGraf1_Click(sender As Object, e As EventArgs) Handles ChkGraf1.Click
+        EscolherGrafDados(ChkGraf1)
+    End Sub
+
+    Private Sub ChkGraf2_Click(sender As Object, e As EventArgs) Handles ChkGraf2.Click
+        EscolherGrafDados(ChkGraf2)
+    End Sub
+
+    Private Sub ChkGraf3_Click(sender As Object, e As EventArgs) Handles ChkGraf3.Click
+        EscolherGrafDados(ChkGraf3)
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        If RELATORIO <> "" Then
+            GraficoSelecionado(RELATORIO, CmbLista.SelectedValue.ToString)
+        End If
     End Sub
 End Class

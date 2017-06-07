@@ -205,11 +205,11 @@
         Form1.PnlDefUtilizador.Width = Form1.Width
         'Veiculo
         MsgBox("CARROS")
-        Form1.LblVeiMarcEmUso.Text = "Cod= " + DetalhesUtilizador.CodVeiculo.ToString + ""
-        Form1.LblVeiCorEmUso.Text = "Cor= " + DetalhesUtilizador.VeiCor.ToString + ""
-        Form1.LblVeiMarcEmUso.Text = "Marca= " + DetalhesUtilizador.VeiMarca.ToString + ""
-        Form1.LblVeiModelEmUso.Text = "Modelo= " + DetalhesUtilizador.VeiModelo.ToString + ""
-        Form1.LblVeiMatricEmUso.Text = "Matricula = " + DetalhesUtilizador.VeiMatricula.ToString + ""
+        ' Form1.LblVeiMarcEmUso.Text = "Cod= " + DetalhesUtilizador.CodVeiculo.ToString + ""
+        ' Form1.LblVeiCorEmUso.Text = "Cor= " + DetalhesUtilizador.VeiCor.ToString + ""
+        ' Form1.LblVeiMarcEmUso.Text = "Marca= " + DetalhesUtilizador.VeiMarca.ToString + ""
+        ' Form1.LblVeiModelEmUso.Text = "Modelo= " + DetalhesUtilizador.VeiModelo.ToString + ""
+        'Form1.LblVeiMatricEmUso.Text = "Matricula = " + DetalhesUtilizador.VeiMatricula.ToString + ""
         'Agenda
         'Form1.LblVeiProxInspEmUso.Text = "----------MUDAR NO SQL-------Proxima Inspecao = " + DetalhesUtilizador.VeiProxInspecao.ToString + ""
     End Sub
@@ -444,7 +444,9 @@
             Form1.LblInserirNota.Show()
             Form1.TxtInserirNota.Show()
             Form1.BtnImagemInserirInserir.Show()
+
             'DATA
+            Form1.DateTimePicker1.Show()
             Form1.LblInserirDataAgendada.Show()
             Form1.LblInserirDataAgendada.Text = "Data Efetuada"
             Form1.CmbInserirAno.Show()
