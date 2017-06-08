@@ -16,6 +16,17 @@
 	padding-top:50px;
 }
 
+.optionsop{
+    background-color: #f9f9f9 !important; 
+    text-align: center;
+    width: 130px;
+}
+
+.options
+{
+  box-shadow: -4px 1px 13px -7px grey;
+}
+
 table {
 	font-family: Verdana, Geneva, sans-serif;
     width: 100%;

@@ -2,8 +2,7 @@
 <?php
 ob_start();
 session_start();
-$con=mysqli_connect("localhost","root","") or die(mysqli_error());
-mysqli_select_db($con,"frotas") or die(mysqli_error($con));
+require_once 'dbconnect.php';
 ?>
 <html>
   <head>
@@ -176,7 +175,7 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
 				echo "<th>Ano</th>";
 				echo "<th>Combustível</th>";
 				echo "<th>Veículo</th>";
-				echo "<th>Opção</th>";
+				echo "<th class='optionsop'>Opção</th>";
             echo "</tr>";
 	
 	?>
@@ -197,7 +196,7 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
 				echo "<td>" . $row['Ano'] . "</td>";
 				echo "<td>" . $row['nomec'] . "</td>";
 				echo "<td>" . $row['nome'] . "</td>";
-				echo "<td>" . "<a href='edit.php?id=".$row['codVei']."' target='_blank'><img src='logos/edit.png' title='Editar Veículo' class='imgg' /></a>" . "</td>"; 
+				echo "<td class='options'>" . "<a href='edit.php?id=".$row['codVei']."' target='_blank'><img src='logos/edit.png' title='Editar Veículo' class='imgg' /></a>" . "</td>"; 
             echo "</tr>";
 	
 	

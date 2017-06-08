@@ -4,12 +4,9 @@
     <title>Início</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="jquery.touchSwipe.min.js"></script>
-	<link rel="stylesheet" href="style.css" type="text/css" />
-<<<<<<< HEAD
+	<link rel="stylesheet" href="css/style.css">
 	
 	
-=======
->>>>>>> refs/remotes/origin/master
 	</head>
 	
 <body>
@@ -35,10 +32,6 @@ ob_start();
 		exit;
 	} 
  
-<<<<<<< HEAD
-=======
-
->>>>>>> refs/remotes/origin/master
  
 
 // Attempt select query execution
@@ -48,37 +41,21 @@ if($result = mysqli_query($link, $sql)){
         echo "<table>";
             echo "<tr>";
                 echo "<th>Quando Começou</th>";
-<<<<<<< HEAD
                 echo "<th>Marca</th>";
                 echo "<th>Modelo</th>";
 				echo "<th>Matricula</th>";
 				echo "<th>Ano</th>";
-				echo "<th>Notas</th>";
-				echo "<th>Opção</th>";
+				echo "<th class='optionsop'>Opção</th>";
 				
-=======
-                echo "<th>Quando Acabou</th>";
-                echo "<th>Trabalhador</th>";
-				echo "<th>Matricula Veículo</th>";
-				echo "<th>Notas</th>";
->>>>>>> refs/remotes/origin/master
             echo "</tr>";
         while($row = mysqli_fetch_array($result)){
             echo "<tr>";
                 echo "<td>" . $row['Quando_Comecou'] . "</td>";
-<<<<<<< HEAD
                 echo "<td>" . $row['Marca'] . "</td>";
 				echo "<td>" . $row['Modelo'] . "</td>";
                 echo "<td>" . $row['Matricula'] . "</td>";
 				echo "<td>" . $row['Ano'] . "</td>";
-				echo "<td >" . $row['Notas'] . "</td>";
-				echo "<td>" . "<a href='#.php?id=".$row['CodVeiC']."' target='_blank'><img src='logos/view.png' class='imgg' /></a>" . "</td>"; 
-=======
-                echo "<td>" . $row['Quando_Acabou'] . "</td>";
-                echo "<td>" . $row['Nome_Registo'] . "</td>";
-                echo "<td>" . $row['Matricula'] . "</td>";
-				echo "<td>" . $row['Notas'] . "</td>";
->>>>>>> refs/remotes/origin/master
+				echo "<td class='options'>" . "<a href='#.php?id=".$row['CodVeiC']."' target='_blank'><img src='logos/view.png' class='imgg' /></a>" . "</td>"; 
 
             echo "</tr>";
         }
@@ -89,18 +66,11 @@ if($result = mysqli_query($link, $sql)){
         echo "<table>";
             echo "<tr>";
                 echo "<th>Quando Começou</th>";
-<<<<<<< HEAD
                 echo "<th>Marca</th>";
                 echo "<th>Modelo</th>";
 				echo "<th>Matricula</th>";
 				echo "<th>Notas</th>";
 				
-=======
-                echo "<th>Quando Acabou</th>";
-                echo "<th>Trabalhador</th>";
-				echo "<th>Matricula Veículo</th>";
-				echo "<th>Notas</th>";
->>>>>>> refs/remotes/origin/master
             echo "</tr>";
         echo "</table>";
     }

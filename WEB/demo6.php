@@ -45,29 +45,16 @@
 		$valor = strip_tags($valor);
 		$valor = htmlspecialchars($valor);
 		
-<<<<<<< HEAD
 		$Notes = trim($_POST['Notes']);
 		$Notes = strip_tags($Notes);
 		$Notes = htmlspecialchars($Notes);
-=======
-		$adate = trim($_POST['adate']);
-		$adate = strip_tags($adate);
-		$adate = htmlspecialchars($adate);
-		
-		$aveikm = trim($_POST['aveikm']);
-		$aveikm = strip_tags($aveikm);
-		$aveikm = htmlspecialchars($aveikm);
->>>>>>> refs/remotes/origin/master
 		
 	
 		// if there's no error, continue to signup
 		if( !$error ) {
 			
-<<<<<<< HEAD
-			$query = "INSERT INTO despesas (codForn, codVei, CodUser, CodTipoD, Data_Efetuada, Veiculo_Km, valor, Nota, Efetuada) VALUES ( '$email', '$veiculo', '$userid', '$tipod', '$date', '$veikm', '$valor', '$Notes', 'Sim')";
-=======
-			$query = "INSERT INTO despesas (codForn, codVei, CodUser, CodTipoD, Data_Efetuada, Veiculo_Km, valor, Data_Agendada, Veiculo_Km_Agendado) VALUES ( '$email', '$veiculo', '$userid', '$tipod', '$date', '$veikm', '$valor', '$adate', '$aveikm')";
->>>>>>> refs/remotes/origin/master
+			$query = "INSERT INTO despesas (codForn, codVei, CodUser, CodTipoD, Data_Efetuada, Veiculo_Km, valor, Nota, Efetuada, Estado) 
+                VALUES ( '$email', '$veiculo', '$userid', '$tipod', '$date', '$veikm', '$valor', '$Notes', 'Sim', 'Efetuado')";
 			$res = mysql_query($query);
 				
 			if ($res) {
@@ -348,16 +335,11 @@ font: 400 14px 'Cabin', sans-serif;
       <div id="sidebar">
 		<center><img src="https://image.flaticon.com/icons/svg/265/265729.svg"></center>
           <ul>
-<<<<<<< HEAD
       <li><a href="demo3.php">Início</a></li>
-=======
-                 <li><a href="demo3.php">Início</a></li>
->>>>>>> refs/remotes/origin/master
               <li><a href="demo5.php">Serviços</a></li>
 			  <li><a href="demo2.php">Perfil</a></li>
 			  <li><a href="demo4.php">Histórico</a></li>
               <li><a href="logout.php?logout">Sair</a></li>
-<<<<<<< HEAD
 			  		  	<?php
 	$q = mysql_query ("SELECT CodTipoU from utilizador where CodTipoU=1 and CodUser=".$_SESSION['user']);
 	$num = mysql_num_rows ($q);
@@ -369,8 +351,6 @@ font: 400 14px 'Cabin', sans-serif;
 	}
 	?>
           </ul>
-=======
->>>>>>> refs/remotes/origin/master
           </ul>
       </div>
       <div class="main-content">
@@ -428,12 +408,7 @@ font: 400 14px 'Cabin', sans-serif;
 	<tr><th>Data Efectuada</th><td><input type="date"  name="date" value="<?php echo $date ?>" /> </td></tr>
 	<tr><th>Veículo (KM)</th><td><input type="text" onkeypress="validate(event)" placeholder="KM" maxlength="100"  name="veikm" value="<?php echo $veikm ?>" /> </td></tr>
 	<tr><th>Valor (€)</th><td><input type="text" onkeypress="validate(event)" placeholder="€" maxlength="100"  name="valor" value="<?php echo $valor ?>" /> </td></tr>
-<<<<<<< HEAD
 	<tr><th>Notas</th><td><textarea rows="4" placeholder="€" cols="63" name="Notes"> </textarea> </td></tr>
-=======
-	<tr><th>Data Agendada</th><td><input type="date"  name="adate" value="<?php echo $adate ?>" /> </td></tr>
-	<tr><th>Agendar Veículo (KM)</th><td><input type="text" onkeypress="validate(event)" placeholder="KM" maxlength="100"  name="aveikm" value="<?php echo $aveikm ?>" /> </td></tr>
->>>>>>> refs/remotes/origin/master
 	</table>
 	<br>
 	<p></p>
@@ -464,11 +439,7 @@ font: 400 14px 'Cabin', sans-serif;
 			
 		<p align="right">
          <button type="submit" class="btnnn" name="btn-signup">Registar Despesa</button>
-<<<<<<< HEAD
 		 <button class="btnn" type=button onClick="parent.location='demo5.php'">Voltar</button>   
-=======
-		 <button type="" class="btnn" name="">Voltar</button>
->>>>>>> refs/remotes/origin/master
 				 </p> 
 			
 

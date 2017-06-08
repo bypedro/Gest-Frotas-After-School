@@ -18,7 +18,8 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
 			body, html {
           height: 100%;
           margin: 0;
-          
+              overflow-x: scroll;
+              overflow-y: hidden;
           font-family: helvetica;
           font-weight: 100;
       }
@@ -171,14 +172,16 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
                 echo "<th>ID</th>";
                 echo "<th>Nome Registo</th>";
                 echo "<th>Nome Próprio</th>";
-				echo "<th>Apelido</th>";
-				echo "<th>Genero</th>";
-				echo "<th>Data_Nascimento</th>";
-				echo "<th>Data Contratação</th>";
-				echo "<th>Pagamento Hora</th>";
-				echo "<th>Habilitações</th>";
-				echo "<th>Opção</th>";
-            echo "</tr>";
+        				echo "<th>Apelido</th>";
+        				echo "<th>Genero</th>";
+        				echo "<th>Data_Nascimento</th>";
+        				echo "<th>Data Contratação</th>";
+        				echo "<th>Pagamento Hora</th>";
+        				echo "<th>Habilitações</th>";
+                echo "<th>Morada</th>";
+                echo "<th>Telemovel</th>";
+        				echo "<th class='optionsop'>Opção</th>";
+                    echo "</tr>";
 	
 	?>
 	<?php
@@ -192,14 +195,16 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
 	  echo "<tr>";
                 echo "<td>" . $row['CodUser'] . "</td>";
                 echo "<td>" . $row['Nome_Registo'] . "</td>";
-                echo "<td>" . $row['Nome_Prorio'] . "</td>";
+                echo "<td>" . $row['Nome_Proprio'] . "</td>";
                 echo "<td>" . $row['Apelido'] . "</td>";
-				echo "<td>" . $row['Genero'] . "</td>";
-				echo "<td>" . $row['Data_Nascimento'] . "</td>";
-				echo "<td>" . $row['Data_Contratacao'] . "</td>";
-				echo "<td>" . $row['Pagamentos_Hora'] . "</td>";
-				echo "<td>" . $row['Hsbilitacoes'] . "</td>";
-				echo "<td>" . "<a href='ver_despesa.php?id=".$row['CodDesp']."' target='_blank'><img src='logos/edit.png' class='imgg' /></a>" . "</td>"; 
+        				echo "<td>" . $row['Genero'] . "</td>";
+        				echo "<td>" . $row['Data_Nascimento'] . "</td>";
+        				echo "<td>" . $row['Data_Contratacao'] . "</td>";
+        				echo "<td>" . $row['Pagamentos_Hora'] . "</td>";
+        				echo "<td>" . $row['Habilitacoes'] . "</td>";
+                echo "<td>" . $row['Rua'] . "</td>";
+                echo "<td>" . $row['N_Telemovel'] . "</td>";
+        				echo "<td class='options'>" . "<a href='ver_despesa.php?id=".$row['CodUser']."' target='_blank'><img src='logos/edit.png' class='imgg' /></a>" . "</td>"; 
             echo "</tr>";
 	
 	

@@ -5,7 +5,7 @@
 	
 	// it will never let you open index(login) page if session is set
 	if ( isset($_SESSION['user'])!="" ) {
-		header("Location: demo3.php");
+		header("Location: painel.php");
 		exit;
 	}
 	
@@ -47,7 +47,7 @@
 			
 			if( $count == 1 && $row['Senha']==$password ) {
 				$_SESSION['user'] = $row['CodUser'];
-				header("Location: demo3.php");
+				header("Location: painel.php");
 			} else {
 				$errMSG = "Incorrect Credentials, Try again...";
 			}

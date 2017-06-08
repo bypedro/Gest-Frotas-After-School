@@ -4,7 +4,7 @@
     <title>Início</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="jquery.touchSwipe.min.js"></script>
-	<link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="css/style.css">
 	</head>
 	
 <body>
@@ -34,11 +34,7 @@ ob_start();
  
 
 // Attempt select query execution
-<<<<<<< HEAD
-$sql = "SELECT * FROM veiabast, utilizador, veiculos, fornecedores where veiabast.CodUser=utilizador.CodUser and veiabast.CodVei=veiculos.CodVei and veiabast.CodForn=fornecedores.CodForn and utilizador.CodUser=".$_SESSION['user'] . " ORDER BY CodVeiAbast DESC LIMIT 2 "  ;
-=======
-$sql = "SELECT * FROM veiabast, utilizador, veiculos, fornecedores where veiabast.CodUser=utilizador.CodUser and veiabast.CodVei=veiculos.CodVei and veiabast.CodForn=fornecedores.CodForn and utilizador.CodUser=".$_SESSION['user'] . " ORDER BY CodVeiAbast DESC "  ;
->>>>>>> refs/remotes/origin/master
+$sql = "SELECT * FROM veiabast, utilizador, veiculos, fornecedores where veiabast.CodUser=utilizador.CodUser and veiabast.CodVei=veiculos.CodVei and veiabast.CodForn=fornecedores.CodForn and utilizador.CodUser=".$_SESSION['user'] . " ORDER BY CodVeiAbast DESC LIMIT 3 "  ;
 if($result = mysqli_query($link, $sql)){
     if(mysqli_num_rows($result) > 0){
         echo "<table>";
@@ -49,13 +45,8 @@ if($result = mysqli_query($link, $sql)){
 				echo "<th>Valor (€)</th>";
 				echo "<th>Fornecedor</th>";
 				echo "<th>Veículo</th>";
-<<<<<<< HEAD
 				echo "<th>Matrícula</th>";
 				echo "<th>Notas</th>";
-=======
-				echo "<th>Modelo</th>";
-				echo "<th>Matrícula</th>";
->>>>>>> refs/remotes/origin/master
             echo "</tr>";
         while($row = mysqli_fetch_array($result)){
             echo "<tr>";
@@ -65,13 +56,8 @@ if($result = mysqli_query($link, $sql)){
                 echo "<td>" . $row['Valor'] . "</td>";
 				echo "<td>" . $row['nomef'] . "</td>";
 				echo "<td>" . $row['Marca'] . "</td>";
-<<<<<<< HEAD
 				echo "<td>" . $row['Matricula'] . "</td>";
 				echo "<td>" . $row['Notas'] . "</td>";
-=======
-				echo "<td>" . $row['Modelo'] . "</td>";
-				echo "<td>" . $row['Matricula'] . "</td>";
->>>>>>> refs/remotes/origin/master
 
             echo "</tr>";
         }

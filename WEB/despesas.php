@@ -4,7 +4,7 @@
     <title>Início</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="jquery.touchSwipe.min.js"></script>
-	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="stylesheet" href="css/style.css">
 	</head>
 	
 <body>
@@ -32,11 +32,7 @@ ob_start();
   
 
 // Attempt select query execution
-<<<<<<< HEAD
-$sql = "SELECT * from despesas, veiculos, fornecedores, utilizador, tipodesp WHERE Efetuada='Sim' and despesas.codVei=veiculos.codVei AND despesas.codForn=fornecedores.CodForn and despesas.CodUser=utilizador.CodUser and despesas.CodTipoD=tipodesp.CodTipoD and utilizador.CodUser=".$_SESSION['user'] . " ORDER BY CodDesp DESC LIMIT 2 ";
-=======
-$sql = "SELECT * from despesas, veiculos, fornecedores, utilizador, tipodesp WHERE despesas.codVei=veiculos.codVei AND despesas.codForn=fornecedores.CodForn and despesas.CodUser=utilizador.CodUser and despesas.CodTipoD=tipodesp.CodTipoD and utilizador.CodUser=".$_SESSION['user'] . " ORDER BY CodDesp DESC LIMIT 2 ";
->>>>>>> refs/remotes/origin/master
+$sql = "SELECT * from despesas, veiculos, fornecedores, utilizador, tipodesp WHERE Efetuada='Sim' and despesas.codVei=veiculos.codVei AND despesas.codForn=fornecedores.CodForn and despesas.CodUser=utilizador.CodUser and despesas.CodTipoD=tipodesp.CodTipoD and utilizador.CodUser=".$_SESSION['user'] . " ORDER BY Data_Efetuada DESC LIMIT 3 ";
 if($result = mysqli_query($link, $sql)){
     if(mysqli_num_rows($result) > 0){
         echo "<table>";
@@ -47,11 +43,8 @@ if($result = mysqli_query($link, $sql)){
 				echo "<th>Veículo</th>";
 				echo "<th>Fornecedor</th>";
 				echo "<th>Despesa</th>";
-<<<<<<< HEAD
-				echo "<th>Notas</th>";
-				echo "<th>Opção</th>";
-=======
->>>>>>> refs/remotes/origin/master
+				echo "<th>Estado</th>";
+				echo "<th class='optionsop'>Opção</th>";
             echo "</tr>";
         while($row = mysqli_fetch_array($result)){
             echo "<tr>";
@@ -61,11 +54,8 @@ if($result = mysqli_query($link, $sql)){
                 echo "<td>" . $row['Matricula'] . "</td>";
 				echo "<td>" . $row['nomef'] . "</td>";
 				echo "<td>" . $row['nome'] . "</td>";
-<<<<<<< HEAD
-				echo "<td>" . $row['Nota'] . "</td>";
-				echo "<td>" . "<a href='#.php?id=".$row['CodDesp']."' target='_blank'><img src='logos/view.png' class='imgg' /></a>" . "</td>"; 
-=======
->>>>>>> refs/remotes/origin/master
+				echo "<td>" . $row['Estado'] . "</td>";
+				echo "<td class='options'>" . "<a href='#.php?id=".$row['CodDesp']."' target='_blank'><img src='logos/view.png' class='imgg' /></a>" . "</td>"; 
             echo "</tr>";
 			
         }

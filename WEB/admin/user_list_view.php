@@ -17,7 +17,7 @@
 		body, html {
           height: 100%;
           margin: 0;
-          overflow:hidden;
+          
           font-family: helvetica;
           font-weight: 100;
       }
