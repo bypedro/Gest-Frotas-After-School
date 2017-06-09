@@ -7,7 +7,7 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
 <html style="overflow: hidden";>
 <head>
   <meta charset="UTF-8">
-  <title>Início</title>
+  <title>Lista Despesas Agendadas</title>
       <link rel="stylesheet" href="css/style.css">
       <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Oswald" />
       <script src="js/validations.js"></script>
@@ -35,7 +35,7 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
 
   <div class="container">
 
-  <h1>Início<div class="tooltip"><img src="logos/info.png" class="imgaddd"><span class="tooltiptext">Home</span></div></h1>
+  <h1>Lista Despesas Agendadas<div class="tooltip"><img src="logos/info.png" class="imgaddd"><span class="tooltiptext">Home</span></div></h1>
   <div class="page-title">
   </div>
   <br>

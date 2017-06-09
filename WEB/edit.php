@@ -82,10 +82,10 @@
    <th class="tdindex">
     <table id="t02">
     <tr>
-      <th class="ttthh"><h5><br><?php echo $query2['coddespesa'] ?></h5></th>
-      <th class="tthhh"><h5><br><?php echo $query2['forn'] ?></h5></th> 
-      <th class="tthh"><h5><br><?php echo $query2['tipdesp'] ?></h5></th>
-      <th class="sthh"><h5><br><?php echo $query2['desp'] ?> €</h5></th>
+      <th class="ttthh"><h5><br><div class="thref">Referência</div><?php echo $query2['coddespesa'] ?></h5></th>
+      <th class="tthhh"><h5><br><div class="thforn">Fornecedor</div><?php echo $query2['forn'] ?></h5></th> 
+      <th class="tthh"><h5><br><div class="thforn">Despesa</div><?php echo $query2['tipdesp'] ?></h5></th>
+      <th class="sthh"><h5><br><div class="thforn">Valor</div><?php echo $query2['desp'] ?> €</h5></th>
     </tr>
     
     </table>

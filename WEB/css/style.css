@@ -345,11 +345,11 @@ input[type=date] {
 }
 
 .btnnn {
-    font-family: Verdana, Geneva, sans-serif;
-    background-color: rgb(166, 241, 174);
+    font-family: "Raleway";
+    background-color: rgb(92, 177, 85);
     border: none;
-    color: #3c7947;
-    padding: 8px 15px;
+    color: #ffffff;
+    padding: 8px 30px;
     text-align: center;
     border-radius: 6px;
     text-decoration: none;
@@ -357,22 +357,19 @@ input[type=date] {
     font-size: 13px;
     margin: 4px 2px;
     cursor: pointer;
-    border: 1px solid;
     outline: none;
 }
 
 .btnnn:hover {
-  background-color: #3c7947;
-  color: #f5f5f5;
-  outline: none;
+  opacity: 0.7;
 }
 
 .btnn {
-    font-family: Verdana, Geneva, sans-serif;
-    background-color: rgb(241, 166, 166);
+    font-family: "Raleway";
+    background-color: rgb(214, 80, 80);
     border: none;
-    color: #843b3b;
-    padding: 8px 15px;
+    color: #ffffff;
+    padding: 8px 30px;
     text-align: center;
     border-radius: 6px;
     text-decoration: none;
@@ -380,14 +377,11 @@ input[type=date] {
     font-size: 13px;
     margin: 4px 2px;
     cursor: pointer;
-    border: 1px solid;
     outline: none;
 }
 
 .btnn:hover {
-  background-color: #843b3b;
-  color: #f5f5f5;
-  outline: none;
+  opacity: 0.7;
 }
 
 
@@ -512,6 +506,16 @@ table#t02 {
   transition: max-height 0.2s ease-out;
   width: 25%;
   color: #df314d;
+
+}
+
+.thforn{
+  color: #df314d;
+
+}
+
+.thref{
+color: #555;
 
 }
 
@@ -706,3 +710,4 @@ td a {
     border: 1px solid #efefef;
     margin-bottom: 14px;
 }
+

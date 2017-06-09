@@ -105,7 +105,7 @@
 
   <div class="container">
 
-  <h1>Agendar Despesa<div class="tooltip"><img src="logos/info.png" class="imgaddd"><span class="tooltiptext">Home</span></div></h1>
+  <h1>Início<div class="tooltip"><img src="logos/info.png" class="imgaddd"><span class="tooltiptext">Home</span></div></h1>
   <div class="page-title">
   </div>
   <br>
@@ -138,7 +138,7 @@
   echo "</select>";
   ?></td></tr>
       <tr><th>Tipo Despesa</th><td><?php
-    echo "<select name=tipod class=search_categories>";
+    echo "<select name=tipod id=despt onchange=vhiden() class=search_categories>";
   $q = mysql_query ("select CodTipoD, nome from tipodesp");
   $num = mysql_num_rows ($q);
   for ($i = 0; $i < $num; $i++)
@@ -149,7 +149,7 @@
   echo "</select>";
   ?></td></tr>
   <tr><th>Data Agendada</th><td><input type="date" onchange="checkDate()" id="subdate" name="date" value="<?php echo $date ?>" /> </td></tr>
-  <tr><th>Veículo (KM)</th><td><input type="text" onkeypress="validate(event)" placeholder="KM" maxlength="100"  name="veikm" value="<?php echo $veikm ?>" /> </td></tr>
+  <tr id='hidensd'><th>Veículo (KM)</th><td><input type="text" id="terpo" onkeypress="validate(event)" placeholder="KM" maxlength="100"  name="veikm" value="<?php echo $veikm ?>" /> </td></tr>
   <tr><th>Valor (€)</th><td><input type="text" onkeypress="validate(event)" placeholder="€" maxlength="100"  name="valor" value="<?php echo $valor ?>" /> </td></tr>
   <tr><th>Notas</th><td><textarea rows="4" placeholder="€" cols="63" name="Notes"> </textarea> </td></tr>
   </table>

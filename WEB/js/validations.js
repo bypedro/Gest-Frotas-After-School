@@ -47,3 +47,15 @@ function myFunction() {
     }       
   }
 }
+
+function vhiden(){
+	var $id = document.getElementById('despt').value;
+	var $txtbox = $('[id*="hidensd"]');
+
+	if( $id == 2){
+		$txtbox.hide();
+	}
+	else{
+		$txtbox.show();
+	}
+}
