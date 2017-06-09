@@ -30,7 +30,7 @@
 
       <li title="home"><a href="#" class="menu-button home">menu</a></li>
       
-      <li title="Home"><a href="index.html" class="ico"></a></li>
+      <li title="Home"><a href="painel.php" class="ico"></a></li>
       <li title="pencil"><a href="#" class="services">pencil</a></li>
       <li title="about"><a href="#" class="perfil">about</a></li>
       <li title="archive"><a href="#" class="">archive</a></li>
@@ -66,7 +66,7 @@
   </button>
   <div class="panel">
     <iframe src="agenda.php" frameborder="0" width="100%" height="250px"></iframe><h6>Mais agendas associadas: <?php agendacount(); ?> !</h6>
-    <p align="right"><a href="demo7.php"><img src="logos/add.png" title="Adicionar Despesa" class="imgadd"></a> <a href="demo10.php"><img src="logos/file.png" title="Ver Lista" class="imgadd"></a></p>
+    <p align="right"><a href="agendar_despesa.php"><img src="logos/add.png" title="Adicionar Despesa" class="imgadd"></a> <a href="listar_despesas.php"><img src="logos/file.png" title="Ver Lista" class="imgadd"></a></p>
   </div>
 
   <button class="accordion"><img src="logos/fuel.png" class="imggg"><h3>ABASTECIMENTO</h3> </button>

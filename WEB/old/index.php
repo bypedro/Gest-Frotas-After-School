@@ -5,7 +5,7 @@
 	
 	// it will never let you open index(login) page if session is set
 	if ( isset($_SESSION['user'])!="" ) {
-		header("Location: painel.php");
+		header("Location: demo3.php");
 		exit;
 	}
 	
@@ -47,7 +47,7 @@
 			
 			if( $count == 1 && $row['Senha']==$password ) {
 				$_SESSION['user'] = $row['CodUser'];
-				header("Location: painel.php");
+				header("Location: demo3.php");
 			} else {
 				$errMSG = "Incorrect Credentials, Try again...";
 			}
@@ -61,7 +61,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Entrar</title><link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css"  />
-<link rel="stylesheet" href="css/oldcss/style.css">
+<link rel="stylesheet" href="style.css" type="text/css" />
 
 </head>
 <body style="background-color:#f7f7f7;>

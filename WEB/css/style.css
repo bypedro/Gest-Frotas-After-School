@@ -341,7 +341,7 @@ input[type=date] {
     border: none;
     outline: none;
     padding: 9px 0 3px 17px;
-    width: 100%;
+    width: 99%;
 }
 
 .btnnn {
@@ -424,7 +424,7 @@ th {
 .optionsop {
     background-color: #f9f9f9 !important;
     text-align: center;
-    width: 130px;
+    width: 134px;
 }
 
 .options {
@@ -618,4 +618,91 @@ table#t02 {
 
 .closebtn:hover {
     color: black;
+}
+
+.box {
+
+  display-align: block;
+  vertical-align: top;
+  background-color: white;
+  text-align: left;
+  padding: 30px;
+      width: 286px;
+      height: 339px;
+  margin: 10px;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.26);
+}
+
+input[type=password] {
+    padding: 14px 10px 14px 40px;
+    width: calc(100%);
+    border-radius: 3px;
+    border: 1px solid #E3E4E7;
+    background: #FFF url(https://www.flex11.org/visuals/skins/modern_flex/images/icon-password.png) no-repeat 15px center;
+    color: #66737E;
+    font: 400 14px 'Cabin', sans-serif;
+    max-width: 230px;
+}
+
+
+input[type=email] {
+    padding: 14px 10px 14px 40px;
+    width: calc(100%);
+    border-radius: 3px;
+    border: 1px solid #E3E4E7;
+    background: #FFF url(https://www.flex11.org/visuals/skins/modern_flex/images/icon-email.png) no-repeat 14px center;
+    color: #66737E;
+    font: 400 14px 'Cabin', sans-serif;
+    max-width: 230px;
+}
+
+.col-md-12 {
+    width: 100%;
+}
+
+.search_categories {
+    font-family: "Raleway";
+    font-size: 14px;
+    padding: 10px 10px 9px 14px;
+    background: #fff;
+    border: none;
+    overflow: hidden;
+    position: relative;
+}
+
+input, select {
+    width: 100%;
+}
+
+input[type=text] {
+    font-family: "Raleway";
+    border: none;
+    margin: 3px 20px 17px;
+    color: black;
+    padding: 8px 0px 0px 0px;
+    border: none;
+    font: 400 14px 'Cabin', sans-serif;
+    background: #FFF;
+    max-width: 98%;
+}
+
+td a {
+    font-size: 16px;
+    color: #1f1f1f;
+    margin-left: 5px;
+    padding: 4px 0px;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+#myInput {
+    font-family: "Raleway";
+    background-image: url(http://i.imgur.com/itpoUTc.png);
+    background-position: 11px 10px;
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 14px;
+    padding: 14px 23px 13px 49px;
+    border: 1px solid #efefef;
+    margin-bottom: 14px;
 }

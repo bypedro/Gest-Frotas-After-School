@@ -18,3 +18,32 @@ if(document.getElementById('subdate').value == "")
 }
  	return true;
 }
+
+function validate(evt) {
+	  var theEvent = evt || window.event;
+	  var key = theEvent.keyCode || theEvent.which;
+	  key = String.fromCharCode( key );
+	  var regex = /[0-9]|\./;
+	  if( !regex.test(key) ) {
+		theEvent.returnValue = false;
+		if(theEvent.preventDefault) theEvent.preventDefault();
+	  }
+}
+
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
