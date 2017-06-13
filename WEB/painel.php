@@ -14,7 +14,7 @@
   }  
   
 ?>
-<html style="overflow: hidden";>
+<html>
 <head>
   <meta charset="UTF-8">
   <title>Início</title>
@@ -77,18 +77,22 @@
   <th class="trindex">DESPESAS (€)</th>
   <td class="tdindex">234€</td>
   </tr>
-  <tr> 
-  <th class="tdindex">
+  <tr>
+  <div class="secondtitle">Servico Ativo</div> 
+  <!--<th class="tdindex">
     <table id="t01">
     <tr>
       <th class="sth">Efetuar</th>
       <th class="tth">Trocar</th> 
     </tr>
   </table>
-  </th>
+  </th>-->
   </td>  
   </tr>
   </table>
+
+  <div class="secondtitle">Despesas Urgentes</div> 
+  <iframe src="despesas_urgentes.php" frameborder="0" width="100%" height="100%"></iframe>
   </div>
 
 </body>
