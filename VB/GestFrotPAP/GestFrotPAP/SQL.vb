@@ -1049,7 +1049,8 @@ Module SQL
         'Variavel para juntar os campos ano/mes/dia
         '
         Dim data As String
-        data = Form1.CmbInserirAno.Text + "-" + Form1.CmbInserirMes.Text + "-" + Form1.CmbInserirDia.Text
+        'data = Form1.CmbInserirAno.Text + "-" + Form1.CmbInserirMes.Text + "-" + Form1.CmbInserirDia.Text
+        data = String.Format("{0:yyyy-MM-dd}", Form1.DateTimePicker1.Value.Date)
         '
         'Selecionar comando para editar
         '
@@ -1210,13 +1211,11 @@ Module SQL
     Public Function CarroMaisCaro() As String
         Dim Comando As New MySqlCommand
         Dim reader As MySqlDataReader
-        Comando.Connection = SQL.ligacao
         Dim listID As New List(Of String)
         Dim listValor As New List(Of String)
         Dim IdCount As String
         Dim Veiculo As String = ""
-
-
+        Comando.Connection = SQL.ligacao
         listValor.Clear()
         listID.Clear()
 
@@ -1303,7 +1302,6 @@ Module SQL
             End Try
         Next
 
-
         Dim maior As Integer = 0
         Dim maiorid As Integer = 0
         Dim veiculoFinal As String = ""
@@ -1334,6 +1332,8 @@ Module SQL
     End Function
 
 
+
+
     Public Function UtilizadorMaisCaro() As String 'Desativado
         Dim Comando As New MySqlCommand
         Dim reader As MySqlDataReader
@@ -1342,11 +1342,10 @@ Module SQL
         Dim listValor As New List(Of String)
         Dim IdCount As String
         Dim Utilizador As String = ""
-
-
+        'Limpa os valor antigos(por segurança)
         listValor.Clear()
         listID.Clear()
-
+        'Cria Lista com todos os Ids
         Comando.CommandText = "select coduser as cod from Utilizador"
         Try
             ligacao.Open()
@@ -1361,7 +1360,7 @@ Module SQL
                 ligacao.Close()
             End If
         End Try
-
+        'Conta todos os Ids
         Comando.CommandText = "select count(coduser) as cod from Utilizador"
         Try
             ligacao.Open()
@@ -1376,9 +1375,8 @@ Module SQL
                 ligacao.Close()
             End If
         End Try
-
+        'Soma Valores de cada Utiliador na Manutenção
         Dim ValorUtilizador(IdCount) As Integer
-
         For i As Integer = 0 To listID.Count - 1
             Comando.CommandText = "select valor from valormaxbycodveimanu where coduser=" + listID(i).ToString
             Try
@@ -1395,7 +1393,7 @@ Module SQL
                 End If
             End Try
         Next
-
+        'Soma Valores de cada Utiliador no Abastecimento
         For i As Integer = 0 To listID.Count - 1
             Comando.CommandText = "select valor from valormaxbycodveiabast where coduser=" + listID(i).ToString
             Try
@@ -1412,7 +1410,7 @@ Module SQL
                 End If
             End Try
         Next
-
+        'Soma Valores de cada Utiliador na Despesas
         For i As Integer = 0 To listID.Count - 1
             Comando.CommandText = "select valor from valormaxbycodveidesp where coduser=" + listID(i).ToString
             Try
@@ -1430,10 +1428,10 @@ Module SQL
             End Try
         Next
 
-
         Dim maior As Integer = 0
         Dim maiorid As Integer = 0
         Dim UtilizadorFinal As String = ""
+        'Seleciona o Nome do Utilizador
         For i As Integer = 0 To IdCount - 1
             MsgBox(i.ToString)
             If ValorUtilizador(i) > maior Then
@@ -1456,6 +1454,51 @@ Module SQL
                 UtilizadorFinal = Utilizador
             End If
         Next
+
         Return (UtilizadorFinal + " (" + ValorUtilizador(maiorid).ToString + MoedaSimbolo() + ")")
     End Function
+
+    Public Sub VerAgendaAtrasados()
+        '
+        'Só a querry tá funcional.... Falta saber como Mostrar
+        '
+        Dim Tipo As DataSet = New DataSet
+        adapter.SelectCommand = New MySqlCommand
+        adapter.SelectCommand.Connection = ligacao
+        adapter.SelectCommand.CommandText = ("select * from despesas where Efetuada='Nao' and Data_Agendada<=now() order by Data_Agendada")
+        Try
+            ligacao.Open()
+            adapter.Fill(Tipo, "TIPOMANU")
+            ligacao.Close()
+        Catch ex As Exception
+            ligacao.Close()
+            MsgBox("ERRO Fornecedor")
+            Exit Sub
+        End Try
+        Form1.LstInserirTipo.DataSource = Tipo.Tables(0)
+        Form1.LstInserirTipo.DisplayMember = "Nome"
+        Form1.LstInserirTipo.ValueMember = "CodTipoM"
+    End Sub
+
+    Public Sub VerAgendaProxima()
+        '
+        'Só a querry tá funcional.... Falta saber como Mostrar
+        '
+        Dim Tipo As DataSet = New DataSet
+        adapter.SelectCommand = New MySqlCommand
+        adapter.SelectCommand.Connection = ligacao
+        adapter.SelectCommand.CommandText = ("select * from despesas where Efetuada='Nao' and Data_Agendada>=now() order by Data_Agendada")
+        Try
+            ligacao.Open()
+            adapter.Fill(Tipo, "TIPOMANU")
+            ligacao.Close()
+        Catch ex As Exception
+            ligacao.Close()
+            MsgBox("ERRO Fornecedor")
+            Exit Sub
+        End Try
+        Form1.LstInserirTipo.DataSource = Tipo.Tables(0)
+        Form1.LstInserirTipo.DisplayMember = "Nome"
+        Form1.LstInserirTipo.ValueMember = "CodTipoM"
+    End Sub
 End Module
