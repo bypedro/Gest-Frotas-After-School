@@ -69,7 +69,6 @@ Module SQL
             Return (False)
         End If
 
-
         If Utilizador = "" Then
             Form1.LblUtilizadorLogin.Show()
             Form1.LblUtilizadorLogin.Text = "*Necessita  de Utilizador"
@@ -240,7 +239,7 @@ Module SQL
             Return False
             Exit Function
         End If
-
+        'PILAS
         Try
             Comando = New MySqlCommand("insert into utilizador (Nome_Registo, Senha,Email) values ('" + Utilizador + "', '" + HashPassword(Password1) + "', '" + Email + "')", ligacao)
             ligacao.Open()
@@ -404,38 +403,7 @@ Module SQL
                 End Try
                 'Info Trabalhador
                 Try
-                    DetalhesUtilizador.DataContrat = reader("Data_Contratacao")
-                Catch ex As Exception
-                    CampoEmFalta = True
-                End Try
-                Try
-                    DetalhesUtilizador.PagamentoHora = reader("Pagamentos_Hora")
-                Catch ex As Exception
-                    CampoEmFalta = True
-                End Try
-                Try
-                    DetalhesUtilizador.Habilitações = reader("Habilitacoes")
-                Catch ex As Exception
-                    CampoEmFalta = True
-                End Try
-                Try
-                    DetalhesUtilizador.NotasContrato = reader("Notas_Contracto")
-                Catch ex As Exception
-                    CampoEmFalta = True
-                End Try
-                'Contato
-                Try
-                    DetalhesUtilizador.NotasContacto = reader.GetString("Notas_Contacto")
-                Catch ex As Exception
-                    CampoEmFalta = True
-                End Try
-                Try
                     DetalhesUtilizador.NTelemovel = reader.GetString("N_Telemovel")
-                Catch ex As Exception
-                    CampoEmFalta = True
-                End Try
-                Try
-                    DetalhesUtilizador.NTelefone = reader.GetString("N_Telefone")
                 Catch ex As Exception
                     CampoEmFalta = True
                 End Try
@@ -701,30 +669,31 @@ Module SQL
         Form1.LblAdminUtilizadorDataNas.Text = "Data Nascimento: "
         Form1.LblAdminUtilizadorMorada.Text = "Morada: "
         Form1.LblAdminUtilizadorTelem.Text = "Nº Telemovel: "
-        Form1.LblAdminUtilizadorTelef.Text = "Nº Telefone: "
         Form1.TxtAdminUtilizadorNotasContact.Text = ""
         Comando = New MySqlCommand
         Comando.Connection = ligacao
-        Comando.CommandText = ("select CodUser,Nome_Registo,Nome_Proprio,Apelido,Genero,data_Nascimento,Data_contratacao,Pagamentos_hora,N_Telemovel,N_Telefone,Email,Notas_Contacto,Notas_Contracto,Designacao,Habilitacoes,Rua,Cidade.nome as Cidade, Pais.Nome as Pais from Utilizador,cidade,pais,Tipouser where Utilizador.codci=Cidade.codci and Cidade.codpais=Pais.codpais and Utilizador.codtipoU=TipoUser.codtipoU and codUser=" + Cod + " ")
+        Comando.CommandText = ("select CodUser,Nome_Registo,Nome_Proprio,Apelido,Genero,data_Nascimento,N_Telemovel,Email,Designacao,Rua,Cidade.nome as Cidade, Pais.Nome as Pais from Utilizador,cidade,pais,Tipouser where Utilizador.codci=Cidade.codci and Cidade.codpais=Pais.codpais and Utilizador.codtipoU=TipoUser.codtipoU and codUser=" + Cod + " ")
         Try
             ligacao.Open()
             reader = Comando.ExecuteReader
             While reader.Read
                 Form1.LblAdminUtilizadorNome.Text = "Nome Completo: " + reader.GetString("Nome_Proprio") + " " + reader.GetString("Apelido")
-                Form1.LblAdminUtilizadorDataNas.Text = "Data Nascimento: " + reader("data_Nascimento")
+                Form1.LblAdminUtilizadorDataNas.Text = "Data Nascimento: " + reader.GetDateTime("data_Nascimento")
                 Form1.LblAdminUtilizadorMorada.Text = "Morada: " + reader.GetString("Rua") + ", " + reader.GetString("Cidade") + ", " + reader.GetString("Pais")
                 Form1.LblAdminUtilizadorTelem.Text = "Nº Telemovel: " + reader.GetString("N_Telemovel")
-                Form1.LblAdminUtilizadorTelef.Text = "Nº Telefone: " + reader.GetString("N_Telefone")
+                'Form1.LblAdminUtilizadorTelef.Text = "Nº Telefone: " + reader.GetString("N_Telefone")
                 'Form1.LblManuVeiculo.Text = "Data Contratacao: " + reader.GetString("Data_contratacao")
                 'Form1.LblManuFornecedor.Text = "Pagmamento hora: " + reader.GetString("Pagmamentos_hora")
                 ' Form1.TxtAdminUtilizadorNotasContract.Text = reader.GetString("Notas_Contracto")/
-                Form1.TxtAdminUtilizadorNotasContact.Text = reader.GetString("Notas_Contacto")
+                'Form1.TxtAdminUtilizadorNotasContact.Text = reader.GetString("Notas_Contacto")
             End While
-            ligacao.Close()
         Catch ex As Exception
-            ligacao.Close()
-            MsgBox(ex.ToString)
+            MsgBox(ex.Message)
             Exit Sub
+        Finally
+            If ligacao.State = ConnectionState.Open Then
+                ligacao.Close()
+            End If
         End Try
     End Sub
 

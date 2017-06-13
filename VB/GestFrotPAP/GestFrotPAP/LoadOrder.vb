@@ -185,17 +185,17 @@
         Form1.LblUtilzadorMenu.ForeColor = Color.DarkGray 'No futuro Opção para mudar?
         Form1.LblUtilzadorMenu.Top = (Form1.PnlBarraTop.Height - Form1.LblUtilzadorMenu.Height) / 2
         Form1.LblUtilzadorMenu.Left = Form1.Fechar.Right - Form1.LblUtilzadorMenu.Width - 20
-        Form1.Label1.Top = (Form1.PnlUser.Height - Form1.PnlUser.Height)
-        Form1.Label1.Left = (Form1.PnlUser.Width - Form1.PnlUser.Width) / 2 + 2
-        Form1.Label2.Top = (Form1.PnlUser.Height - Form1.PnlUser.Height) + Form1.Label2.Height
-        Form1.Label2.Left = (Form1.PnlUser.Width - Form1.PnlUser.Width) / 2 + 2
-        Form1.Label3.Top = (Form1.PnlUser.Height - Form1.PnlUser.Height) + Form1.Label2.Height + Form1.Label3.Height
-        Form1.Label3.Left = (Form1.PnlUser.Width - Form1.PnlUser.Width) / 2 + 2
-        Form1.PnlUser.Height = (Form1.PnlUser.Height - Form1.PnlUser.Height) + Form1.Label1.Height + Form1.Label2.Height + Form1.Label3.Height
+        Form1.LblAboutUs.Top = (Form1.PnlUser.Height - Form1.PnlUser.Height)
+        Form1.LblAboutUs.Left = (Form1.PnlUser.Width - Form1.PnlUser.Width) / 2 + 2
+        Form1.LblConta.Top = (Form1.PnlUser.Height - Form1.PnlUser.Height) + Form1.LblConta.Height
+        Form1.LblConta.Left = (Form1.PnlUser.Width - Form1.PnlUser.Width) / 2 + 2
+        Form1.LblLogOut.Top = (Form1.PnlUser.Height - Form1.PnlUser.Height) + Form1.LblConta.Height + Form1.LblLogOut.Height
+        Form1.LblLogOut.Left = (Form1.PnlUser.Width - Form1.PnlUser.Width) / 2 + 2
+        Form1.PnlUser.Height = (Form1.PnlUser.Height - Form1.PnlUser.Height) + Form1.LblAboutUs.Height + Form1.LblConta.Height + Form1.LblLogOut.Height
         Form1.PnlUser.Left = Form1.LblUtilzadorMenu.Left - Form1.PnlUser.Width + Form1.LblUtilzadorMenu.Width
         Form1.PnlUser.Top = Form1.LblUtilzadorMenu.Bottom + 7
         Form1.PnlUser.Width = 200 'Ver qual a label maior?
-        Form1.PnlUser.Height = Form1.Label1.Height + Form1.Label2.Height + Form1.Label3.Height + 5
+        Form1.PnlUser.Height = Form1.LblAboutUs.Height + Form1.LblConta.Height + Form1.LblLogOut.Height + 5
         Form1.PnlUser.Width = 100
 
         'Panel utilizador
