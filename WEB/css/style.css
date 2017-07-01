@@ -384,6 +384,25 @@ input[type=date] {
   opacity: 0.7;
 }
 
+.btnfilter {
+    font-family: "Raleway";
+    background-color: rgb(226, 120, 89);
+    border: none;
+    color: #ffffff;
+    padding: 8px 30px;
+    text-align: center;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin: 4px 2px 12px;
+    cursor: pointer;
+    outline: none;
+}
+
+.btnfilter:hover {
+  opacity: 0.7;
+}
 
 table {
   font-family: Verdana, Geneva, sans-serif;
@@ -745,6 +764,7 @@ td a {
     padding: 14px 23px 13px 49px;
     border: 1px solid #efefef;
     margin-bottom: 14px;
+    display: none;
 }
 
 .secondtitle{
@@ -762,6 +782,4 @@ td a {
     font-family: "Raleway";
     font-size: 14px;
     font-weight: bold;
-
-
 }

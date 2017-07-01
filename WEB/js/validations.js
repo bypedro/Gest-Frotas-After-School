@@ -66,3 +66,12 @@ function counttoanother(){
   });
 
 }
+
+function showfilter(){
+  if(document.getElementById('myInput').style.display = 'none'){
+    document.getElementById('myInput').style.display = 'block';
+  }else{
+    document.getElementById('myInput').style.display = 'none';
+  }
+
+}

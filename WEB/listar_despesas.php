@@ -56,7 +56,7 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
                                   DESC LIMIT $start, $limit") or die(mysqli_error($con));
 
 ?>
-
+<button class="btnfilter" type=button onClick="showfilter()">Filtro</button>
 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Procurar por data.." title="Type in a name">
 
 <table align='center' id="myTable" class='table-fill'>
