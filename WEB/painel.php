@@ -6,13 +6,13 @@
   include 'functions.php';
 
   checkolddesp();
-  
+
   // if session is not set this will redirect to login page
   if( !isset($_SESSION['user']) ) {
     header("Location: index.php");
     exit;
-  }  
-  
+  }
+
 ?>
 <html>
 <head>
@@ -26,14 +26,14 @@
   <ul class="menu">
 
       <li title="home"><a href="#" class="menu-button home">menu</a></li>
-      
+
       <li title="Home"><a href="#" class="ico"></a></li>
       <li title="pencil"><a href="services.php" class="services">pencil</a></li>
       <li title="about"><a href="#" class="perfil">about</a></li>
       <li title="archive"><a href="#" class="">archive</a></li>
       <li title="contact"><a href="#" class="">contact</a></li>
     </ul>
-    
+
   <ul class="menu-bar">
         <li><a href="#" class="menu-button">Menu</a></li>
         <li><a href="#">Defenicoes</a></li>
@@ -78,20 +78,20 @@
   <td class="tdindex">234€</td>
   </tr>
   <tr>
-  <div class="secondtitle">Servico Ativo</div> 
+  <div class="secondtitle">Serviço Ativo</div>
   <!--<th class="tdindex">
     <table id="t01">
     <tr>
       <th class="sth">Efetuar</th>
-      <th class="tth">Trocar</th> 
+      <th class="tth">Trocar</th>
     </tr>
   </table>
   </th>-->
-  </td>  
+  </td>
   </tr>
   </table>
 
-  <div class="secondtitle">Despesas Urgentes</div> 
+  <div class="secondtitle">Despesas Urgentes</div>
   <iframe src="despesas_urgentes.php" frameborder="0" width="100%" height="100%"></iframe>
   </div>
 

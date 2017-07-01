@@ -11,7 +11,7 @@
     margin: 0;
     padding: 0;
     background: #f7f7f7;
-    z-index:10;  
+    z-index:10;
     overflow:hidden;
     box-shadow: 0 1px 5px 0 rgba(50,50,50,.2);
 }
@@ -80,7 +80,7 @@
   line-height: 4em;
   text-align:center;
   color: #72739f;
-  text-decoration:none;  
+  text-decoration:none;
   position: relative;
   font-family:verdana;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -89,7 +89,7 @@
 .menu-bar li:first-child a{
     height:5em;
     background: #545454;
-    color: #fff;    
+    color: #fff;
     line-height:5
 }
 
@@ -132,7 +132,7 @@
     }
     .para{
     padding-left:5px;
-}  
+}
 }
 @media screen and (max-height: 34em){
   .menu li,
@@ -328,7 +328,7 @@ div.panel {
   height: 20px;
   margin-top: 0px;
   float: left;
-  
+
 }
 
 .imgg:hover {
@@ -397,7 +397,7 @@ th, td {
     font-family: "Raleway";
     border-bottom: solid #f9f5f5 1px;
     padding: 14px;
-   
+
 }
 
 td{
@@ -467,6 +467,12 @@ table#t01 {
 
 table#t02 {
     width: 100%;
+    background-color: #f9f9f9;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1);
+}
+
+table#t03 {
+    width: 20%;
     background-color: #f9f9f9;
     box-shadow: 0 1px 2px rgba(0,0,0,.1);
 }
@@ -557,6 +563,20 @@ color: #555;
     box-shadow: 0 1px 1px 0 rgba(50,50,50,.2);
     margin: 0% 1% 4% 0%;
     background: url(http://i.imgur.com/78oqhlU.png) no-repeat scroll 79% 91%;
+}
+
+.boxagenda {
+  float: left;
+  display-align: block;
+  vertical-align: top;
+  background-color: #fdfdfd;
+  text-align: left;
+  padding: 0%;
+  width: 21%;
+  box-shadow: 0 1px 1px 0 rgba(50,50,50,.2);
+  margin: 0% 0% 2% 0%;
+  border-radius: 5px;
+  display: table;
 }
 
 .indextabel{
@@ -690,6 +710,22 @@ input[type=text] {
     max-width: 98%;
 }
 
+input[type=count] {
+      font-family: "Raleway";
+      border: none;
+      margin: 7px 7px 6px;
+      color: #676767;
+      padding: 15px 16px 12px 5px;
+      border: none;
+      font: 400 14px 'Cabin', sans-serif;
+      background: #78d270;
+      max-width: 6%;
+      text-align: right;
+      border-radius: 46%;
+      font-size: 12px;
+
+}
+
 td a {
     font-size: 16px;
     color: #1f1f1f;
@@ -720,3 +756,12 @@ td a {
 
 }
 
+.textagenda{
+    float: left;
+    padding: 6% 4% 5% 3%;
+    font-family: "Raleway";
+    font-size: 14px;
+    font-weight: bold;
+
+
+}

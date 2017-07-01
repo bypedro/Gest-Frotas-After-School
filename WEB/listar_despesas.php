@@ -17,14 +17,14 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
   <ul class="menu">
 
       <li title="home"><a href="#" class="menu-button home">menu</a></li>
-      
+
       <li title="Home"><a href="#" class="ico"></a></li>
       <li title="pencil"><a href="services.php" class="services">pencil</a></li>
       <li title="about"><a href="#" class="perfil">about</a></li>
       <li title="archive"><a href="#" class="">archive</a></li>
       <li title="contact"><a href="#" class="">contact</a></li>
     </ul>
-    
+
   <ul class="menu-bar">
         <li><a href="#" class="menu-button">Menu</a></li>
         <li><a href="#">Defenicoes</a></li>
@@ -50,7 +50,10 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
     $start=($page-1)*$limit;
   }
 
-  $sql=mysqli_query($con, "SELECT * from despesas, veiculos, fornecedores, utilizador, tipodesp WHERE Efetuada='Nao' AND despesas.codVei=veiculos.codVei AND despesas.codForn=fornecedores.CodForn AND despesas.CodUser=utilizador.CodUser AND despesas.CodTipoD=tipodesp.CodTipoD ORDER BY despesas.CodDesp DESC LIMIT $start, $limit") or die(mysqli_error($con));
+  $sql=mysqli_query($con, "SELECT despesas.CodDesp, despesas.Data_Agendada, despesas.Veiculo_Km_Agendado, despesas.Valor, veiculos.Matricula, fornecedores.nome as nomef, tipodesp.nome, despesas.Nota, despesas.Estado from despesas, veiculos, fornecedores, utilizador, tipodesp
+                              WHERE Efetuada='Nao' AND despesas.codVei=veiculos.codVei AND despesas.codForn=fornecedores.CodForn AND despesas.CodUser=utilizador.CodUser
+                                AND despesas.CodTipoD=tipodesp.CodTipoD ORDER BY despesas.CodDesp
+                                  DESC LIMIT $start, $limit") or die(mysqli_error($con));
 
 ?>
 
@@ -69,16 +72,16 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
         echo "<th>Estado</th>";
         echo "<th class='optionsop'>Opção</th>";
             echo "</tr>";
-  
+
   ?>
   <?php
-      
+
     while($row=mysqli_fetch_assoc($sql))
     {
-    
+
   ?>
   <?php
-  
+
     echo "<tr>";
   echo "<td>" . $row['Data_Agendada'] . "</td>";
                 echo "<td>" . $row['Veiculo_Km_Agendado'] . "</td>";
@@ -88,22 +91,22 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
         echo "<td>" . $row['nome'] . "</td>";
         echo "<td>" . $row['Nota'] . "</td>";
         echo "<td>" . $row['Estado'] . "</td>";
-        echo "<td class='options'>" . "<a href='edit.php?id=".$row['CodDesp']."' target='_blank'><img title='Editar Despesa Agendada' src='logos/edit.png' class='imgg' /></a>" . "<a href='done.php?id=".$row['CodDesp']."' target='_blank'><img title='Marcar Como Efetuado' src='logos/done.png' class='imgg' /></a>" . "<a href='delete.php?id=".$row['CodDesp']."' target='_blank'><img title='Remover' src='logos/remove.png' class='imgg' /></a>" . "</td>"; 
+        echo "<td class='options'>" . "<a href='edit.php?id=".$row['CodDesp']."' target='_blank'><img title='Editar Despesa Agendada' src='logos/edit.png' class='imgg' /></a>" . "<a href='done.php?id=".$row['CodDesp']."' target='_blank'><img title='Marcar Como Efetuado' src='logos/done.png' class='imgg' /></a>" . "<a href='delete.php?id=".$row['CodDesp']."' target='_blank'><img title='Remover' src='logos/remove.png' class='imgg' /></a>" . "</td>";
             echo "</tr>";
-  
-  
-  
+
+
+
   ?>
   <?php
-  
+
     }
   ?>
-      
+
   <tr>
     <td colspan='3'>
-    
+
   <?php
-    
+
   $rows=mysqli_num_rows(mysqli_query($con, "select * from despesas WHERE Efetuada='Nao'"));
   $total=ceil($rows/$limit);
   if(isset($page))
@@ -116,14 +119,14 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
 
   for($i=1;$i<=$total;$i++)
   {
-    echo "<a class='paging' href='?page=".$i."'>".$i."</a>"; 
+    echo "<a class='paging' href='?page=".$i."'>".$i."</a>";
   }
-  
+
   if($page!=$total)
   {
     echo "<a class='paging' href='?page=".($page+1)."' class=paging''>Próximo</a>";
   }
-  
+
   ?>
   </td>
   </tr>

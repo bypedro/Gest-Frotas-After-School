@@ -9,7 +9,7 @@ function checkDate() {
    }
 }
 
-function IsEmpty(){ 
+function IsEmpty(){
 
 if(document.getElementById('subdate').value == "")
 {
@@ -44,7 +44,7 @@ function myFunction() {
       } else {
         tr[i].style.display = "none";
       }
-    }       
+    }
   }
 }
 
@@ -58,4 +58,11 @@ function vhiden(){
 	else{
 		$txtbox.show();
 	}
+}
+
+function counttoanother(){
+  $("#valued").on('keydown',function(){
+      $("#total_price_amount").val($(this).val());
+  });
+
 }

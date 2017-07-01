@@ -1,10 +1,10 @@
 <?php
-  
+
   ob_start();
   session_start();
   require_once 'dbconnect.php';
   //require 'functions.php';
-  
+
   // if session is not set this will redirect to login page
   if( !isset($_SESSION['user']) ) {
     header("Location: index.php");
@@ -44,11 +44,11 @@
   header("Location: services.php");
   if($query3)
   {
-  
+
   }
   }
-  $query1=mysql_query("SELECT despesas.CodDesp as coddespesa, despesas.Valor as desp, despesas.Data_Agendada as datea, fornecedores.nomef as forn, tipodesp.nome as tipdesp, veiculos.Matricula as vei 
-                      from despesas, fornecedores, tipodesp, veiculos 
+  $query1=mysql_query("SELECT despesas.CodDesp as coddespesa, despesas.Valor as desp, despesas.Data_Agendada as datea, fornecedores.nome as forn, tipodesp.nome as tipdesp, veiculos.Matricula as vei 
+                      from despesas, fornecedores, tipodesp, veiculos
                       where despesas.CodTipoD = tipodesp.CodTipoD and despesas.CodDesp = despesas.CodDesp and despesas.codVei = veiculos.codVei and despesas.CodDesp ='$id'");
   $query2=mysql_fetch_array($query1);
   ?>
@@ -56,14 +56,14 @@
   <ul class="menu">
 
       <li title="home"><a href="#" class="menu-button home">menu</a></li>
-      
+
       <li title="Home"><a href="painel.php" class="ico"></a></li>
       <li title="pencil"><a href="services.php" class="services">pencil</a></li>
       <li title="about"><a href="#" class="perfil">about</a></li>
       <li title="archive"><a href="#" class="">archive</a></li>
       <li title="contact"><a href="#" class="">contact</a></li>
     </ul>
-    
+
   <ul class="menu-bar">
         <li><a href="#" class="menu-button">Menu</a></li>
         <li><a href="#">Defenicoes</a></li>
@@ -83,11 +83,11 @@
     <table id="t02">
     <tr>
       <th class="ttthh"><h5><br><div class="thref">Referência</div><?php echo $query2['coddespesa'] ?></h5></th>
-      <th class="tthhh"><h5><br><div class="thforn">Fornecedor</div><?php echo $query2['forn'] ?></h5></th> 
+      <th class="tthhh"><h5><br><div class="thforn">Fornecedor</div><?php echo $query2['forn'] ?></h5></th>
       <th class="tthh"><h5><br><div class="thforn">Despesa</div><?php echo $query2['tipdesp'] ?></h5></th>
       <th class="sthh"><h5><br><div class="thforn">Valor</div><?php echo $query2['desp'] ?> €</h5></th>
     </tr>
-    
+
     </table>
 
   <form method="post" action="">
@@ -98,7 +98,7 @@
     <br>
     <p align="right">
     <button type="submit" onclick=" return IsEmpty()" name="submit" class="btnnn" value="update">Editar</button>
-    <button class="btnn" type=button onClick="parent.location='services.php'">Voltar</button>   
+    <button class="btnn" type=button onClick="parent.location='services.php'">Voltar</button>
     </P>
     </form>
     <?php
