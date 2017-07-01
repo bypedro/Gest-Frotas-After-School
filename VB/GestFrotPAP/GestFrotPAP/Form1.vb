@@ -267,7 +267,7 @@ Public Class Form1
         panelMenuPrincipal(4) = Panel5
         panelMenuPrincipal(5) = Panel6
         panelMenuPrincipal(6) = Panel7
-        panelMenuPrincipal(7) = Panel9
+        panelMenuPrincipal(7) = Panel8
         BtnImagemMenuPrincipal(0) = BtnImagem1
         BtnImagemMenuPrincipal(1) = BtnImagem2
         BtnImagemMenuPrincipal(2) = BtnImagem3
@@ -759,7 +759,36 @@ Public Class Form1
     '
     Private Sub BtnImagemAdminFornecedoresInserir_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemAdminFornecedoresInserir.ButtonClickMasterRace
         Botao(BtnImagemAdminFornecedoresInserir)
+        Panel1.Show()
+        Panel1.BringToFront()
+        Inserir_EditarTabelaSQL("")
         MsgBox("Wip")
+    End Sub
+    '
+    'Ativar Utizador
+    '
+    Private Sub BtnImagemAdminUtilizadorAtivar_ButtonClickMasterRace(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagemAdminUtilizadorAtivar.ButtonClickMasterRace
+        Botao(BtnImagemAdminUtilizadorAtivar)
+        PnlAdminInserir.Show()
+        PnlAdminInserir.BringToFront()
+        Inserir_EditarTabelaSQLAdmin("")
+    End Sub
+    '
+    'Editar Utilizador
+    '
+    Private Sub BtnImagemAdminUtilizadorEdit_ButtonClickMasterRace(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagemAdminUtilizadorEdit.ButtonClickMasterRace
+        Botao(BtnImagemAdminUtilizadorEdit)
+        PnlAdminInserir.Show()
+        PnlAdminInserir.BringToFront()
+    End Sub
+    '
+    'Inserir Utilizador
+    '
+    Private Sub BtnImagemAdminUtilizadorInsert_ButtonClickMasterRace(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagemAdminUtilizadorInsert.ButtonClickMasterRace
+        Botao(BtnImagemAdminUtilizadorInsert)
+        PnlAdminInserir.Show()
+        PnlAdminInserir.BringToFront()
+        Inserir_EditarTabelaSQLAdmin("")
     End Sub
     '
     'Menu
@@ -779,15 +808,8 @@ Public Class Form1
     '
     'Botoes Inserir/Editar
     '
-    Private Sub BtnImagemAdminUtilizadorAtivar_ButtonClickMasterRace(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagemAdminUtilizadorAtivar.ButtonClickMasterRace
-        Botao(BtnImagemAdminUtilizadorAtivar)
-    End Sub
-    Private Sub BtnImagemAdminUtilizadorEdit_ButtonClickMasterRace(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagemAdminUtilizadorEdit.ButtonClickMasterRace
-        Botao(BtnImagemAdminUtilizadorEdit)
-    End Sub
-    Private Sub BtnImagemAdminUtilizadorInsert_ButtonClickMasterRace(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagemAdminUtilizadorInsert.ButtonClickMasterRace
-        Botao(BtnImagemAdminUtilizadorInsert)
-    End Sub
+
+
     Private Sub BtnImagemAdminVeiculosInsert_ButtonClickMasterRace(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagemAdminVeiculosInsert.ButtonClickMasterRace
         Botao(BtnImagemAdminVeiculosInsert)
     End Sub
@@ -1057,8 +1079,7 @@ Public Class Form1
     Private Sub BtnImagemInserirInserir_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemInserirInserir.ButtonClickMasterRace
         Botao(BtnImagemInserirInserir)
         'AREA DE TESTE
-        MsgBox(String.Format("{0:yyyy-MM-dd}", DateTimePicker1.Value.Date))
-        Exit Sub
+
         'FIM DE AREA
         If SQL.TabelaSelecionada = "AbastInsert" Then
             InserirDados("AbastInsert")
@@ -1184,4 +1205,50 @@ Public Class Form1
         End If
     End Sub
 
+    Private Sub BtnImagemInserirAdmin_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemInserirAdmin.ButtonClickMasterRace
+        Botao(BtnImagemInserirAdmin)
+        If SQL.TabelaSelecionada = "VeiculoInsert" Then
+            InserirDados("VeiculoInsert")
+        ElseIf SQL.TabelaSelecionada = "VeiculoEdit" Then
+            EditarDados("VeiculoEdit")
+            'ATUALIZADORLISTVIEW
+        ElseIf SQL.TabelaSelecionada = "FornecedorInsert" Then
+            InserirDados("FornecedorInsert")
+        ElseIf SQL.TabelaSelecionada = "FornecedorEdit" Then
+            EditarDados("FornecedorEdit")
+            'AtualiadroLIstview
+        ElseIf SQL.TabelaSelecionada = "UtilizadorInsert" Then
+            InserirDados("UtilizadorInsert")
+        ElseIf SQL.TabelaSelecionada = "UtilizadorEdit" Then
+            EditarDados("UtilizadorEdit")
+            'AtualizadorListview
+        ElseIf SQL.TabelaSelecionada = "UtilizadorAtivar" Then
+            InserirDados("UtilizadorAtivar")
+        End If
+        Panel1.Hide()
+        TxtInserirQuilometros.Text = ""
+        TxtInserirQuantidade.Text = ""
+        TxtInserirValor.Text = ""
+        TxtInserirNota.Text = ""
+        LblInserirDataAgendada.Text = "Data Efetuada:"
+        LblInserirQuilometros.Text = "Quilometros:"
+        TxtInserirQuilometros.Enabled = True
+        CmbInserirAno.Invalidate()
+        CmbInserirDia.Invalidate()
+        CmbInserirMes.Invalidate()
+    End Sub
+
+    Private Sub BtnImagemInserirCancelarAdmin_ButtonClickMasterRace_1(sender As Object, e As EventArgs) Handles BtnImagemInserirCancelarAdmin.ButtonClickMasterRace
+        Botao(BtnImagemInserirCancelarAdmin)
+        TxtInserirQuilometros.Text = ""
+        TxtInserirQuantidade.Text = ""
+        TxtInserirValor.Text = ""
+        LblInserirQuilometros.Text = "Quilometros:"
+        TxtInserirNota.Text = ""
+        TxtInserirQuilometros.Enabled = True
+        PnlAdminInserir.Hide()
+        CmbInserirAno.Invalidate()
+        CmbInserirDia.Invalidate()
+        CmbInserirMes.Invalidate()
+    End Sub
 End Class
