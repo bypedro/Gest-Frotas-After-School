@@ -2,7 +2,7 @@
       <link rel="stylesheet" href="css/style.css">
 </head>
 
-<?php 
+<?php
 
   if( !isset($_SESSION['user']) ) {
     header("Location: index.php");
@@ -13,8 +13,8 @@
 
 function agendacount() {
 
-  $sql = mysql_query("SELECT COUNT(CodDesp) AS userct 
-                      FROM despesas 
+  $sql = mysql_query("SELECT COUNT(CodDesp) AS userct
+                      FROM despesas
                       WHERE Efetuada = 'nao' AND CodUser = ".$_SESSION['user']);
 
   $userCount=mysql_fetch_assoc($sql);
@@ -29,12 +29,12 @@ function agendacount() {
 
 function despesacount() {
 
-  $sql = mysql_query("SELECT COUNT(CodDesp) AS userct 
-                      FROM despesas 
+  $sql = mysql_query("SELECT COUNT(CodDesp) AS userct
+                      FROM despesas
                       WHERE Efetuada = 'sim' AND CodUser = ".$_SESSION['user']);
 
   $userCount=mysql_fetch_assoc($sql);
-  
+
   if($userCount['userct'] >= 4){
       echo $userCount['userct'] - 3;
   }else{
@@ -46,7 +46,7 @@ function despesacount() {
 function abastcount() {
 
   $sql = mysql_query("SELECT COUNT(CodVeiAbast) as useabast
-                      FROM veiabast 
+                      FROM veiabast
                       WHERE CodUser = ".$_SESSION['user']);
 
   $abastCount=mysql_fetch_assoc($sql);
@@ -56,18 +56,18 @@ function abastcount() {
   }else{
       echo $abastCount['useabast'] = 0;
   }
-  
+
 
 }
 
 
 function exist_id () {
-	
-  $id=$_GET['id'];	
-  $sql1 = "SELECT CodDesp 
-  		   FROM despesas 
+
+  $id=$_GET['id'];
+  $sql1 = "SELECT CodDesp
+  		   FROM despesas
   		   WHERE CodDesp = '$id' ";
-  		   
+
   $result1 = mysql_query($sql1);
 
   if(mysql_num_rows($result1) >0){
@@ -80,10 +80,10 @@ function exist_id () {
 
 function edit_id () {
 
-  $id=$_GET['id'];	
+  $id=$_GET['id'];
   $sql = mysql_query("SELECT despesas.CodDesp
-                        FROM despesas 
-                        INNER JOIN utilizador ON despesas.CodUser=utilizador.Coduser 
+                        FROM despesas
+                        INNER JOIN utilizador ON despesas.CodUser=utilizador.Coduser
                         WHERE efetuada = 'Nao' AND  despesas.CodUser = ".$_SESSION['user']);
 
   while ($line = mysql_fetch_assoc($sql)) {
@@ -98,30 +98,28 @@ function checkolddesp () {
 
   $message = "yes";
 
-  $sql5 = mysql_query("UPDATE despesas 
-                        SET estado = 'Cancelado', efetuada = 'Sim' 
-                        WHERE efetuada='Nao' AND data_agendada = (CURDATE() - INTERVAL 3 DAY)");
+  $sql5 = mysql_query("UPDATE despesas
+                        SET efetuada = 'Sim'
+                        WHERE efetuada='Nao' AND data_agendada = (CURDATE() - INTERVAL 8 DAY)");
 
-  $sql6 = "SELECT data_agendada 
-            FROM despesas 
-            WHERE data_agendada = (CURDATE() - INTERVAL 2 DAY)
+  $sql6 = "SELECT data_agendada
+            FROM despesas
+            WHERE data_agendada = (CURDATE() - INTERVAL 7 DAY)
             AND efetuada = 'nao' AND CodUser = ".$_SESSION['user'];
 
   $sql7 = mysql_query("SELECT data_agendada, count(data_agendada) as counter
-                        FROM despesas 
-                        WHERE data_agendada = (CURDATE() - INTERVAL 2 DAY)
-                        AND efetuada = 'nao' AND CodUser = ".$_SESSION['user']);         
-         
+                        FROM despesas
+                        WHERE data_agendada = (CURDATE() - INTERVAL 7 DAY)
+                        AND efetuada = 'nao' AND CodUser = ".$_SESSION['user']);
+
   $userCount=mysql_fetch_assoc($sql7);
   $result6 = mysql_query($sql6);
 
   if(mysql_num_rows($result6) > 0){
       echo "<div class='alert'>
-      <span class='closebtn' onclick='this.parentElement.style.display='none';'>&times;</span> 
+      <span></span>
       <strong>ATENÇÃO!</strong> Tem <strong>" . $userCount['counter'] . "</strong> despesas para efetuar até hoje referente ao dia <strong>" . $userCount['data_agendada'] . "</strong> !
     </div>";
   }
 
 }
-
-

@@ -49,29 +49,54 @@
   </div>
   <br>
 
-  <div class="boxtt">
-  <h2>EM SERVIÇO</h2>
-  <h4>SIM</h4>
-  </div>
+  <?php
+
+  $sql1 = "SELECT CodVeiC FROM veicondu WHERE EmUso = 'sim' AND CodUser = " .$_SESSION['user'];
+
+  $result1 = mysql_query($sql1);
+
+  if(mysql_num_rows($result1) > 0){
+    echo "<div class='boxtt'>";
+    echo "<h2>EM SERVIÇO</h2>";
+    echo "<h4>SIM</h4>";
+    echo "</div>";
+
+  }else{
+    echo "<div class='boxtt'>";
+    echo "<h2>EM SERVIÇO</h2>";
+    echo "<h4>NAO</h4>";
+    echo "</div>";
+  }
+
+  $res=mysql_query("SELECT count(CodVeiC) AS work_count FROM veicondu WHERE EmUso = 'Nao' AND CodUser =".$_SESSION['user']);
+  $userRow=mysql_fetch_array($res);
+
+  $res1=mysql_query("SELECT SUM(valor) AS work_value FROM despesas WHERE CodUser =".$_SESSION['user']);
+  $userRow1=mysql_fetch_array($res1);
+
+  $res2=mysql_query("SELECT quando_comecou, quando_acabou FROM veicondu WHERE EmUso = 'sim' AND CodUser = " .$_SESSION['user']);
+  $userRow2=mysql_fetch_array($res2);
+
+  ?>
 
   <div class="boxt">
   <h2>CONCLUIDOS</h2>
-  <h4>1</h4>
+  <h4><?php echo $userRow['work_count'] ?></h4>
   </div>
 
   <div class="boxtttt">
   <h2>DESPESAS (€)</h2>
-  <h4>1€</h4>
+  <h4><?php echo $userRow1['work_value'] ?>€</h4>
   </div>
 
   <table class="indextabel">
   <tr>
   <th class="trindex">DATA INICIAL</th>
-  <td class="tdindex">00-00-0000</td>
+  <td class="tdindex"><?php echo $userRow2['quando_comecou'] ?></td>
   </tr>
   <tr>
   <th class="trindex">DATA FINAL ESPERADA</th>
-  <td class="tdindex">00-00-0000</td>
+  <td class="tdindex"><?php echo $userRow2['quando_acabou'] ?></td>
   </tr>
   <tr>
   <th class="trindex">DESPESAS (€)</th>

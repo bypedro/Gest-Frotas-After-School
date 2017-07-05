@@ -53,8 +53,8 @@
     // if there's no error, continue to signup
     if( !$error ) {
 
-      $query = "INSERT INTO despesas (codForn, codVei, CodUser, CodTipoD, Data_Agendada, Veiculo_Km_Agendado, valor, Nota, Efetuada, Data_Efetuada, Veiculo_Km, Estado)
-                VALUES ( '$email', '$veiculo', '$userid', '$tipod', '$date', '$veikm', '$valor', '$Notes', 'Nao', '$date', '$veikm', 'Aguardar')";
+      $query = "INSERT INTO despesas (codForn, codVei, CodUser, CodTipoD, Data_Agendada, Veiculo_Km_Agendado, valor, Nota, Efetuada, Data_Efetuada, Veiculo_Km)
+                VALUES ( '$email', '$veiculo', '$userid', '$tipod', '$date', '$veikm', '$valor', '$Notes', 'Nao', '$date', '$veikm')";
 
       $res = mysql_query($query);
 

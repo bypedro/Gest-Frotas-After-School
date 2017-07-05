@@ -29,10 +29,9 @@ if($link === false){
 		exit;
 	}
 
-$sql = "SELECT * FROM despesas, veiculos, fornecedores, utilizador, tipodesp
-        WHERE Efetuada='Nao' AND despesas.codVei=veiculos.codVei AND despesas.codForn=fornecedores.CodForn
-                             AND despesas.CodUser=utilizador.CodUser AND despesas.CodTipoD=tipodesp.CodTipoD
-                             AND utilizador.CodUser=".$_SESSION['user'] . " ORDER BY CodDesp DESC LIMIT 3 ";
+$sql = "SELECT despesas.Data_Agendada, despesas.Veiculo_Km_Agendado, despesas.Valor, veiculos.Matricula, fornecedores.nome AS nomef, tipodesp.nome
+          FROM despesas, veiculos, fornecedores, utilizador, tipodesp WHERE Efetuada='Nao' AND despesas.codVei=veiculos.codVei AND despesas.codForn=fornecedores.CodForn
+          AND despesas.CodUser=utilizador.CodUser AND despesas.CodTipoD=tipodesp.CodTipoD AND utilizador.CodUser=".$_SESSION['user'] . " ORDER BY Data_Efetuada DESC LIMIT 3 ";
 
 if($result = mysqli_query($link, $sql)){
     if(mysqli_num_rows($result) > 0){
@@ -44,7 +43,6 @@ if($result = mysqli_query($link, $sql)){
 				        echo "<th>Veículo</th>";
 				        echo "<th>Fornecedor</th>";
 				        echo "<th>Despesa</th>";
-				        echo "<th>Estado</th>";
 				        echo "<th class='optionsop'>Opção</th>";
             echo "</tr>";
         while($row = mysqli_fetch_array($result)){
@@ -55,7 +53,6 @@ if($result = mysqli_query($link, $sql)){
                 echo "<td>" . $row['Matricula'] . "</td>";
 				        echo "<td>" . $row['nomef'] . "</td>";
 				        echo "<td>" . $row['nome'] . "</td>";
-				        echo "<td>" . $row['Estado'] . "</td>";
 				        echo "<td class='options'>" . "<a href='edit.php?id=".$row['CodDesp']."' target='_blank'><img title='Editar Despesa Agendada' src='logos/edit.png' class='imgg' /></a>" . "<a href='done.php?id=".$row['CodDesp']."' target='_blank'><img title='Marcar Como Efetuado' src='logos/done.png' class='imgg' /></a>" . "<a href='delete.php?id=".$row['CodDesp']."' target='_blank'><img title='Remover' src='logos/remove.png' class='imgg' /></a>" . "</td>";
             echo "</tr>";
 
@@ -65,15 +62,13 @@ if($result = mysqli_query($link, $sql)){
     } else{
                 echo "<table>";
             echo "<tr>";
-                echo "<th>Data Efectuada</th>";
-                echo "<th>Veiculo (KM)</th>";
-                echo "<th>Valor (€)</th>";
-				echo "<th>Veículo</th>";
-				echo "<th>Fornecedor</th>";
-				echo "<th>Despesa</th>";
-				echo "<th>Efectuada</th>";
-				echo "<th>Agendamento (KM)</th>";
-				echo "<th>Data Agendada</th>";
+            echo "<th>Data Agendada</th>";
+            echo "<th>Veiculo (KM)</th>";
+            echo "<th>Valor (€)</th>";
+            echo "<th>Veículo</th>";
+            echo "<th>Fornecedor</th>";
+            echo "<th>Despesa</th>";
+            echo "<th class='optionsop'>Opção</th>";
             echo "</tr>";
     }
 } else{

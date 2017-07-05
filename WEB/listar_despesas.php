@@ -50,7 +50,7 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
     $start=($page-1)*$limit;
   }
 
-  $sql=mysqli_query($con, "SELECT despesas.CodDesp, despesas.Data_Agendada, despesas.Veiculo_Km_Agendado, despesas.Valor, veiculos.Matricula, fornecedores.nome as nomef, tipodesp.nome, despesas.Nota, despesas.Estado from despesas, veiculos, fornecedores, utilizador, tipodesp
+  $sql=mysqli_query($con, "SELECT despesas.CodDesp, despesas.Data_Agendada, despesas.Veiculo_Km_Agendado, despesas.Valor, veiculos.Matricula, fornecedores.nome as nomef, tipodesp.nome, despesas.Nota from despesas, veiculos, fornecedores, utilizador, tipodesp
                               WHERE Efetuada='Nao' AND despesas.codVei=veiculos.codVei AND despesas.codForn=fornecedores.CodForn AND despesas.CodUser=utilizador.CodUser
                                 AND despesas.CodTipoD=tipodesp.CodTipoD ORDER BY despesas.CodDesp
                                   DESC LIMIT $start, $limit") or die(mysqli_error($con));
@@ -69,7 +69,6 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
         echo "<th>Fornecedor</th>";
         echo "<th>Despesa</th>";
         echo "<th>Notas</th>";
-        echo "<th>Estado</th>";
         echo "<th class='optionsop'>Opção</th>";
             echo "</tr>";
 
@@ -90,7 +89,6 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
         echo "<td>" . $row['nomef'] . "</td>";
         echo "<td>" . $row['nome'] . "</td>";
         echo "<td>" . $row['Nota'] . "</td>";
-        echo "<td>" . $row['Estado'] . "</td>";
         echo "<td class='options'>" . "<a href='edit.php?id=".$row['CodDesp']."' target='_blank'><img title='Editar Despesa Agendada' src='logos/edit.png' class='imgg' /></a>" . "<a href='done.php?id=".$row['CodDesp']."' target='_blank'><img title='Marcar Como Efetuado' src='logos/done.png' class='imgg' /></a>" . "<a href='delete.php?id=".$row['CodDesp']."' target='_blank'><img title='Remover' src='logos/remove.png' class='imgg' /></a>" . "</td>";
             echo "</tr>";
 
