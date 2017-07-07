@@ -168,7 +168,7 @@ Public Module Funcoes
     Public Sub Grafico(ByVal AbastecimentoValor As Decimal, ByVal despesaValor As Decimal, ByVal manutencaoValor As Decimal)
         If AbastecimentoValor = 0 And despesaValor = 0 And manutencaoValor = 0 Then
             MsgBox("Sem Despesas Efectuadas")
-            'Handles a falta do despesas
+            'Verifica a falta de despesas
             Exit Sub
         End If
         Dim TotalValor As Decimal

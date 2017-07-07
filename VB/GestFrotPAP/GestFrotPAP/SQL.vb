@@ -1245,6 +1245,7 @@ Module SQL
         '
         'Só a querry tá funcional.... Falta saber como Mostrar
         '
+
         Dim Tipo As DataSet = New DataSet
         adapter.SelectCommand = New MySqlCommand
         adapter.SelectCommand.Connection = ligacao
@@ -1303,80 +1304,129 @@ Module SQL
     '
     Public Sub Inserir_EditarTabelaSQLAdmin(ByVal Tabela As String, Optional ByVal Id As String = "")
         Dim Data As DataSet = New DataSet
+        Dim Tipo As DataSet = New DataSet
         Dim reader As MySqlDataReader
-        adapter.SelectCommand = New MySqlCommand
-        adapter.SelectCommand.Connection = ligacao
         '
-        'Selecionar dados a mostrar na ListBox Tipo
+        'Selecionar dados a mostrar na ListBox Tipos
         '
         If Tabela = "VeiculoInsert" Or Tabela = "VeiculoEdit" Then
-            Dim Tipo As DataSet = New DataSet
+            '
+            'Tipo de veiculo
+            '
             adapter.SelectCommand = New MySqlCommand
             adapter.SelectCommand.Connection = ligacao
             adapter.SelectCommand.CommandText = ("Select CodTipoV, Nome from TipoVei")
             Try
                 ligacao.Open()
-                adapter.Fill(Tipo, "TIPOVEI")
+                adapter.Fill(Tipo, "TipoVei")
                 ligacao.Close()
             Catch ex As Exception
                 ligacao.Close()
                 MsgBox("ERRO Fornecedor")
                 Exit Sub
             End Try
-            'Form1.LstInserirTipo.DataSource = Tipo.Tables(0)
-            'Form1.LstInserirTipo.DisplayMember = "Nome"
-            'Form1.LstInserirTipo.ValueMember = "CodTipoM"
-        ElseIf Tabela = "FornecedorInsert" Or Tabela = "FornecedorEdit" Then
-            Dim Tipo As DataSet = New DataSet
+            Form1.LstAdminInserir.DataSource = Tipo.Tables(0)
+            Form1.LstAdminInserir.DisplayMember = "Nome"
+            Form1.LstAdminInserir.ValueMember = "CodTipoV"
+            '
+            'Tipo de Combustivel
+            '
             adapter.SelectCommand = New MySqlCommand
             adapter.SelectCommand.Connection = ligacao
-            adapter.SelectCommand.CommandText = ("Select CodTipoF, Nome from Tipodesp")
+            adapter.SelectCommand.CommandText = ("Select CodTipoC, Nome from TipoCom")
             Try
                 ligacao.Open()
-                adapter.Fill(Tipo, "TIPOFORN")
-                ligacao.Close()
+                adapter.Fill(Data, "TipoCom")
             Catch ex As Exception
-                ligacao.Close()
-                MsgBox("ERRO")
+                MsgBox("Erro! Contate o administrador com o seguinte erro:  " + ex.Message, MsgBoxStyle.Critical, "Erro!!!")
                 Exit Sub
+            Finally
+                ligacao.Close()
             End Try
-            'Form1.LstInserirTipo.DataSource = Tipo.Tables(0)
-            'Form1.LstInserirTipo.DisplayMember = "Nome"
-            'Form1.LstInserirTipo.ValueMember = "CodTipoD"
-        ElseIf Tabela = "UtilizadorInsert" Or Tabela = "UtilizadorEdit" Then
-            Dim Tipo As DataSet = New DataSet
+            Form1.LstAdminInserir2.DataSource = Data.Tables(0)
+            Form1.LstAdminInserir2.DisplayMember = "Nome"
+            Form1.LstAdminInserir2.ValueMember = "CodTipoC"
+            '
+            '
+            '
+        ElseIf Tabela = "FornecedorInsert" Or Tabela = "FornecedorEdit" Then
+            '
+            'Tipo de Fornecedor
+            '
             adapter.SelectCommand = New MySqlCommand
             adapter.SelectCommand.Connection = ligacao
-            adapter.SelectCommand.CommandText = ("Select CodTipoU, Nome from TipoUser")
+            adapter.SelectCommand.CommandText = ("Select CodTipoF, Nome from Tipofor")
+            Try
+                adapter.Fill(Tipo, "TipoFor")
+                ligacao.Close()
+            Catch ex As Exception
+                MsgBox("Erro! Contate o administrador com o seguinte erro:  " + ex.Message, MsgBoxStyle.Critical, "Erro!!!")
+                Exit Sub
+            Finally
+                ligacao.Close()
+            End Try
+            Form1.LstAdminInserir.DataSource = Tipo.Tables(0)
+            Form1.LstAdminInserir.DisplayMember = "Nome"
+            Form1.LstAdminInserir.ValueMember = "CodTipoV"
+            '
+            'Pais
+            '
+            adapter.SelectCommand = New MySqlCommand
+            adapter.SelectCommand.Connection = ligacao
+            adapter.SelectCommand.CommandText = ("Select CodPais, Nome from Pais")
+            Try
+                ligacao.Open()
+                adapter.Fill(Data, "Pais")
+            Catch ex As Exception
+                 MsgBox("Erro! Contate o administrador com o seguinte erro:  " + ex.Message, MsgBoxStyle.Critical, "Erro!!!")
+                Exit Sub
+            Finally
+                ligacao.Close()
+            End Try
+            ' Form1.LstAdminInserir2.DataSource = Data.Tables(0)
+            'Form1.LstAdminInserir2.DisplayMember = "Nome"
+            'Form1.LstAdminInserir2.ValueMember = "CodTipoC"
+            '
+            '
+            '
+        ElseIf Tabela = "UtilizadorInsert" Or Tabela = "UtilizadorEdit" Or Tabela = "UtilizadorAtivar" Then
+            '
+            'Tipo de Utilizador
+            '
+            adapter.SelectCommand = New MySqlCommand
+            adapter.SelectCommand.Connection = ligacao
+            adapter.SelectCommand.CommandText = ("Select CodTipoU, Designacao from TipoUser")
             Try
                 ligacao.Open()
                 adapter.Fill(Tipo, "TIPOUSER")
-                ligacao.Close()
             Catch ex As Exception
-                ligacao.Close()
-                MsgBox("ERRO Fornecedor")
+                MsgBox("Erro! Contate o administrador com o seguinte erro:  " + ex.Message, MsgBoxStyle.Critical, "Erro!!!")
                 Exit Sub
+            Finally
+                ligacao.Close()
             End Try
-            'Form1.LstInserirTipo.DataSource = Tipo.Tables(0)
-            'Form1.LstInserirTipo.DisplayMember = "Nome"
-            'Form1.LstInserirTipo.ValueMember = "CodTipoD"
+            Form1.LstAdminInserir.DataSource = Tipo.Tables(0)
+            Form1.LstAdminInserir.DisplayMember = "Designacao"
+            Form1.LstAdminInserir.ValueMember = "CodTipoU"
+            '
+            'Pais
+            '
+            adapter.SelectCommand = New MySqlCommand
+            adapter.SelectCommand.Connection = ligacao
+            adapter.SelectCommand.CommandText = ("Select CodPais, Nome from Pais")
+            Try
+                ligacao.Open()
+                adapter.Fill(Data, "Pais")
+            Catch ex As Exception
+                MsgBox("Erro! Contate o administrador com o seguinte erro:  " + ex.Message, MsgBoxStyle.Critical, "Erro!!!")
+                Exit Sub
+            Finally
+                ligacao.Close()
+            End Try
+            ' Form1.LstAdminInserir2.DataSource = Data.Tables(0)
+            'Form1.LstAdminInserir2.DisplayMember = "Nome"
+            'Form1.LstAdminInserir2.ValueMember = "CodTipoC"
         End If
-        '
-        'Selecionar dados da ListBox Fornecedor
-        '
-        adapter.SelectCommand.CommandText = ("Select CodForn, Nome from Fornecedores")
-        Try
-            ligacao.Open()
-            adapter.Fill(Data, "Fornecedor")
-            ligacao.Close()
-        Catch ex As Exception
-            ligacao.Close()
-            MsgBox("ERRO Fornecedor")
-            Exit Sub
-        End Try
-        Form1.LstInserirFornecedor.DataSource = Data.Tables(0)
-        Form1.LstInserirFornecedor.DisplayMember = "Nome"
-        Form1.LstInserirFornecedor.ValueMember = "CodForn"
 
         Comando = New MySqlCommand
         Comando.Connection = ligacao
@@ -1398,15 +1448,24 @@ Module SQL
                 End While
                 ligacao.Close()
             ElseIf Tabela = "UtilizadorEdit" Then
-                Comando.CommandText = "select ROUND((valor*" + MoedaConversao().ToString + "),2) as valor,ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2) as Veiculo_Km,Nota,Manutencao.CodForn,Manutencao.CodTipoM from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and CodManu=" + Id + ""
+                Comando.CommandText = "Select * from Utilizador where CodUser=" + Id + ""
                 ligacao.Open()
                 reader = Comando.ExecuteReader
                 While reader.Read
-                    Form1.TxtInserirValor.Text = reader.GetString("Valor")
-                    Form1.TxtInserirQuilometros.Text = reader.GetString("Veiculo_KM")
-                    Form1.TxtInserirNota.Text = reader.GetString("Nota")
-                    Form1.LstInserirFornecedor.SelectedValue = reader.GetString("CodForn")
-                    Form1.LstInserirTipo.SelectedValue = reader.GetString("CodTipoM")
+                    Form1.TxtAdminInserir1.Text = reader("Nome_Registo")
+                    Form1.TxtAdminInserir2.Text = reader("Nome_Proprio")
+                    Form1.TxtAdminInserir3.Text = reader("Apelido")
+                    Form1.TxtAdminInserir4.Text = reader("Rua")
+                    Form1.TxtAdminInserir5.Text = reader("N_Telemovel")
+                    Form1.TxtAdminInserir6.Text = reader("Email")
+                End While
+                ligacao.Close()
+            ElseIf Tabela = "UtilizadorAtivar" Then
+                Comando.CommandText = "select CodUser, CodTipoU from Utilizador where codUser=" + Id + ""
+                ligacao.Open()
+                reader = Comando.ExecuteReader
+                While reader.Read
+                    Form1.LstAdminInserir.SelectedValue = reader.GetString("CodTipoU")
                 End While
                 ligacao.Close()
             ElseIf Tabela = "FornecedorEdit" Then
@@ -1420,12 +1479,13 @@ Module SQL
                     Form1.LstInserirFornecedor.SelectedValue = reader.GetString("CodForn")
                     Form1.LstInserirTipo.SelectedValue = reader.GetString("CodTipoD")
                 End While
-                ligacao.Close()
             End If
         Catch ex As Exception
-            ligacao.Close()
-            MsgBox(ex.ToString)
+            Form1.PnlAdminInserir.Hide()
+            MsgBox("Erro! Contate o administrador com o seguinte erro:  " + ex.Message, MsgBoxStyle.Critical, "Erro!!!")
             Exit Sub
+        Finally
+            ligacao.Close()
         End Try
         '
         'Selecionar Objetos Uteis a tabela
@@ -1454,11 +1514,14 @@ Module SQL
         'Selecionar comando para inserir
         '
         If Tabela = "UtilizadorInsert" Then 'Falta os campos(TXT, CMB...)
-            Comando = New MySqlCommand("insert into Utilizador(Nome_Registo,Senha,Nome_Proprio,Apelidos,Genero,Data_Nascimento,Rua,N_Telemovel,Email,CodTipoU,CodCi) values ('" + Val(ConverterDistancia(Form1.TxtInserirQuilometros.Text)).ToString + "', '" + Val(ConverterVolume(Form1.TxtInserirQuantidade.Text)).ToString + "', '" + Val(ConverterMoeda(Form1.TxtInserirValor.Text)).ToString + "', '" + Form1.TxtInserirNota.Text.ToString + "','" + Form1.LstInserirFornecedor.SelectedValue.ToString + "', '" + Data + "', '" + DetalhesUtilizador.CodVeiculo.ToString + "', '" + DetalhesUtilizador.CodUser.ToString + "')", ligacao)
+            'Retirado
+            'Comando = New MySqlCommand("insert into Utilizador(Nome_Registo,Senha,Nome_Proprio,Apelidos,Genero,Data_Nascimento,Rua,N_Telemovel,Email,CodTipoU,CodCi) values ('" + Val(ConverterDistancia(Form1.TxtInserirQuilometros.Text)).ToString + "', '" + Val(ConverterVolume(Form1.TxtInserirQuantidade.Text)).ToString + "', '" + Val(ConverterMoeda(Form1.TxtInserirValor.Text)).ToString + "', '" + Form1.TxtInserirNota.Text.ToString + "','" + Form1.LstInserirFornecedor.SelectedValue.ToString + "', '" + Data + "', '" + DetalhesUtilizador.CodVeiculo.ToString + "', '" + DetalhesUtilizador.CodUser.ToString + "')", ligacao)
+            '
+            MsgBox("Erro! Contate o administrador com o seguinte erro: Sem autorização ", MsgBoxStyle.Critical, "Erro!!!")
         ElseIf Tabela = "FornecedorInsert" Then
             Comando = New MySqlCommand("insert into Fornecedor(Nome,Site,Email,N_Telemovel,N_Telefone,Rua,CodTipoF,CodCi) values ('" + Val(ConverterDistancia(Form1.TxtInserirQuilometros.Text)).ToString + "', '" + Form1.LstInserirTipo.SelectedValue.ToString + "', '" + Val(ConverterMoeda(Form1.TxtInserirValor.Text)).ToString + "', '" + Form1.TxtInserirNota.Text.ToString + "', '" + Form1.LstInserirFornecedor.SelectedValue.ToString + "', '" + Data + "', '" + "Sim" + "', '" + DetalhesUtilizador.CodVeiculo.ToString + "', '" + DetalhesUtilizador.CodUser.ToString + "')", ligacao)
         ElseIf Tabela = "VeiculoInsert" Then
-            Comando = New MySqlCommand("insert into Veiculo(Marca,Modelo,Cor,Ano,CodTipoC,CodTipoV) values ('" + Val(ConverterDistancia(Form1.TxtInserirQuilometros.Text)).ToString + "', '" + Form1.LstInserirTipo.SelectedValue.ToString + "', '" + Val(ConverterMoeda(Form1.TxtInserirValor.Text)).ToString + "', '" + Form1.TxtInserirNota.Text.ToString + "', '" + Form1.LstInserirFornecedor.SelectedValue.ToString + "', '" + Data + "', '" + "Sim" + "', '" + DetalhesUtilizador.CodVeiculo.ToString + "', '" + DetalhesUtilizador.CodUser.ToString + "')", ligacao)
+            Comando = New MySqlCommand("insert into Veiculos(matricula,Marca,Modelo,Cor,Ano,CodTipoV,CodTipoC) values ('" + Form1.TxtAdminInserir1.Text.ToString + "', '" + Form1.TxtAdminInserir2.Text.ToString + "', '" + Form1.TxtAdminInserir3.Text.ToString + "', '" + Form1.TxtAdminInserir4.Text.ToString + "', '" + Form1.TxtAdminInserir5.Text.ToString + "', '" + Form1.LstAdminInserir.SelectedValue.ToString + "', '" + Form1.LstAdminInserir2.SelectedValue.ToString + "')", ligacao)
         End If
         '
         'Executar comando
@@ -1466,25 +1529,27 @@ Module SQL
         Try
             ligacao.Open()
             Comando.ExecuteNonQuery()
-            ligacao.Close()
             MsgBox("Inserido com sucesso")
             Form1.Panel1.Hide()
-            Exit Sub
         Catch ex As Exception
             MsgBox(ex.ToString)
-            ligacao.Close()
             Exit Sub
+        Finally
+            ligacao.Close()
         End Try
+
+
+
+
+        'MUDAR ISTO
         'Atualizar Listview
         If Tabela = "AbastInsert" Then
-            TabelaVer(LstVAbastecimento, "select CodVeiAbast,Data,Nome as Fornecedor,concat(ROUND((quantidade/" + VolumeConversao().ToString + "),2),' " + VolumeSimbolo() + "') as 'Quantidade',concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "' ,concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador  from VeiCondu,veiabast,veiculos,fornecedores,Utilizador where VeiCondu.Codvei=Veiculos.Codvei and Veiculos.Codvei=Veiabast.CodVei and fornecedores.Codforn=Veiabast.Codforn and Utilizador.CodUser=Veiabast.Coduser and VeiCondu.EmUso='Sim' and Utilizador.CodUser='" + DetalhesUtilizador.CodUser + "'order by CodVeiAbast DESC", "LstVAbastecimento")
-        ElseIf Tabela = "ManuInsert" Then
-            TabelaVer(LstVManu, "select Codmanu,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipoManu.Nome as Tipo,concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao.ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador from Utilizador,VeiCondu,Manutencao,veiculos,fornecedores,tipomanu where VeiCondu.Codvei=Veiculos.Codvei and Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and Utilizador.CodUser=Manutencao.Coduser and efetuada='Sim' and EmUso='Sim' and Manutencao.CodUser='" + DetalhesUtilizador.CodUser + "'", "LstVManu")
+            TabelaVer(Form1.LstVAbastecimento, "select CodVeiAbast,Data,Nome as Fornecedor,concat(ROUND((quantidade/" + VolumeConversao().ToString + "),2),' " + VolumeSimbolo() + "') as 'Quantidade',concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "' ,concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador  from VeiCondu,veiabast,veiculos,fornecedores,Utilizador where VeiCondu.Codvei=Veiculos.Codvei and Veiculos.Codvei=Veiabast.CodVei and fornecedores.Codforn=Veiabast.Codforn and Utilizador.CodUser=Veiabast.Coduser and VeiCondu.EmUso='Sim' and Utilizador.CodUser='" + DetalhesUtilizador.CodUser + "'order by CodVeiAbast DESC", "LstVAbastecimento")
+        ElseIf Tabela = "VeiculoInsert" Then
+            TabelaVer(Form1.LstVAdminVeiculo, "Select Codvei,Codvei as Codigo, Matricula, TipoVei.Nome as 'Tipo de Veículo' from Veiculos,TipoVei where veiculos.CodtipoV=TipoVei.CodTipoV", "LstVVeiculo")
         ElseIf Tabela = "DespInsert" Then
-            TabelaVer(LstVDesp, "select Coddesp,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipodesp.nome as Tipo ,concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Sim'  and Veiculos.CodVei='" + DetalhesUtilizador.CodVeiculo.ToString + "' order by Veiculo_km", "LstVDesp")
+            TabelaVer(Form1.LstVDesp, "select Coddesp,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipodesp.nome as Tipo ,concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Sim'  and Veiculos.CodVei='" + DetalhesUtilizador.CodVeiculo.ToString + "' order by Veiculo_km", "LstVDesp")
         End If
-
-
     End Sub
 
 
@@ -1502,7 +1567,9 @@ Module SQL
         If Tabela = "VeiculoEdit" Then
             comando = New MySqlCommand("Update veiabast set Veiculo_KM='" + Val(ConverterDistancia(Form1.TxtInserirQuilometros.Text)).ToString + "',Quantidade='" + Val(ConverterVolume(Form1.TxtInserirQuantidade.Text)).ToString + "',Valor='" + Val(ConverterMoeda(Form1.TxtInserirValor.Text)).ToString + "',Notas='" + Form1.TxtInserirNota.Text.ToString + "',Codforn='" + Form1.LstInserirFornecedor.SelectedValue.ToString + "' where CodveiAbast='" + IDSelecionado + "'", ligacao)
         ElseIf Tabela = "UtilizadorEdit" Then
-            comando = New MySqlCommand("Update Manutencao set Veiculo_KM='" + Val(ConverterDistancia(Form1.TxtInserirQuilometros.Text)).ToString + "',CodTipoM='" + Form1.LstInserirTipo.SelectedValue.ToString + "',Valor='" + Val(ConverterMoeda(Form1.TxtInserirValor.Text)).ToString + "',Nota='" + Form1.TxtInserirNota.Text.ToString + "',Codforn='" + Form1.LstInserirFornecedor.SelectedValue.ToString + "' where Codmanu='" + IDSelecionado + "'", ligacao)
+            comando = New MySqlCommand("Update Utilizador set Nome_Registo='" + Form1.TxtAdminInserir1.Text.ToString + "',Nome_Proprio='" + Form1.TxtAdminInserir2.Text.ToString + "',Apelido='" + Form1.TxtAdminInserir3.Text.ToString + "',Rua='" + Form1.TxtAdminInserir4.Text.ToString + "', N_Telemovel='" + Form1.TxtAdminInserir5.Text.ToString + "',Email='" + Form1.TxtAdminInserir6.Text.ToString + "' where CodUser='7'", ligacao)
+        ElseIf Tabela = "UtilizadorAtivar" Then
+            comando = New MySqlCommand("Update Utilizador set CodTipoU='" + Form1.LstAdminInserir.SelectedValue.ToString + "' where CodUser='" + IDSelecionadoAdmin + "'", ligacao)
         ElseIf Tabela = "FornecedorEdit" Then
             comando = New MySqlCommand("Update Despesas set Veiculo_KM='" + Val(ConverterDistancia(Form1.TxtInserirQuilometros.Text)).ToString + "',CodTipoD='" + Form1.LstInserirTipo.SelectedValue.ToString + "',Valor='" + Val(ConverterMoeda(Form1.TxtInserirValor.Text)).ToString + "',Nota='" + Form1.TxtInserirNota.Text.ToString + "',Codforn='" + Form1.LstInserirFornecedor.SelectedValue.ToString + "' where CodDesp='" + IDSelecionado + "'", ligacao)
         End If
@@ -1516,7 +1583,7 @@ Module SQL
             MsgBox("Editado com sucesso")
             Exit Sub
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            MsgBox("Erro! Contate o administrador com o seguinte erro:  " + ex.Message, MsgBoxStyle.Critical, "Erro!!!")
             ligacao.Close()
             Exit Sub
         End Try

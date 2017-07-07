@@ -425,7 +425,9 @@
         Form1.LblInserirTitulo.Font = GetInstance(12, FontStyle.Bold)
         For Each c As Control In Form1.Panel1.Controls
             c.Hide()
+            c.Font = GetInstance(8, FontStyle.Bold)
         Next
+        Form1.LblInserirTitulo.Font = GetInstance(10, FontStyle.Bold)
         Form1.BtnImagemInserirCancelar.Show()
         Form1.LblInserirUltimoKM.Text = "Ultimo Registo: " + UltimoKM().ToString + DistanciaSimbolo()
         If Tabela = "AbastInsert" Then
@@ -665,58 +667,85 @@
         Form1.LblInserirTitulo.Font = GetInstance(12, FontStyle.Bold)
         For Each c As Control In Form1.PnlAdminInserir.Controls
             c.Hide()
+            c.Font = GetInstance(8, FontStyle.Bold)
         Next
         Form1.BtnImagemInserirCancelarAdmin.Show()
+        Form1.LblInserirTituloAdmin.Font = GetInstance(10, FontStyle.Bold)
         If Tabela = "VeiculoInsert" Then
-            Form1.LblInserirTitulo.Text = "Novo Veículo"
-            Form1.BtnImagemInserirInserir.Texto = "Inserir"
-            Form1.LblInserirTitulo.Show()
-            Form1.LblInserirQuilometros.Show()
-            Form1.TxtInserirQuilometros.Show()
-            Form1.LblInserirUltimoKM.Show()
-            Form1.LblInserirQuantiade.Show()
-            Form1.TxtInserirQuantidade.Show()
-            Form1.LblInserirValor.Show()
-            Form1.TxtInserirValor.Show()
-            Form1.LblInserirFornecedor.Show()
-            Form1.LstInserirFornecedor.Show()
-            Form1.LblInserirNota.Show()
-            Form1.TxtInserirNota.Show()
-            Form1.BtnImagemInserirInserir.Show()
+            Form1.LblInserirTituloAdmin.Text = "Novo Veículo"
+            Form1.BtnImagemInserirAdmin.Texto = "Inserir"
+            Form1.BtnImagemInserirAdmin.Show()
+            Form1.LblInserirTituloAdmin.Show()
+            Form1.LstAdminInserir.Show()
+            Form1.LstAdminInserir2.Show()
+            Form1.LblAdminInserir1.Text = "Matricula"
+            Form1.LblAdminInserir2.Text = "Marca"
+            Form1.LblAdminInserir3.Text = "Modelo"
+            Form1.LblAdminInserir5.Text = "Cor"
+            Form1.LblAdminInserir6.Text = "Ano"
 
-            'DATA
-            Form1.DateTimePicker1.Show()
-            Form1.LblInserirDataAgendada.Show()
-            Form1.LblInserirDataAgendada.Text = "Data Efetuada"
-            Form1.CmbInserirAno.Show()
-            Form1.CmbInserirDia.Show()
-            Form1.CmbInserirMes.Show()
-            Form1.CmbInserirAno.Enabled = True
-            Form1.CmbInserirAno.Text = ""
-            Form1.CmbInserirAno.SelectedText = Year
-            Form1.CmbInserirDia.Enabled = True
-            Form1.CmbInserirDia.Text = ""
-            Form1.CmbInserirDia.SelectedText = Day
-            Form1.CmbInserirMes.Enabled = True
-            Form1.CmbInserirMes.Text = ""
-            Form1.CmbInserirMes.SelectedText = Month
+            Form1.LblAdminInserir1.Show()
+            Form1.LblAdminInserir2.Show()
+            Form1.LblAdminInserir3.Show()
+            Form1.LblAdminInserir5.Show()
+            Form1.LblAdminInserir6.Show()
+
+            Form1.TxtAdminInserir1.Show()
+            Form1.TxtAdminInserir2.Show()
+            Form1.TxtAdminInserir3.Show()
+            Form1.TxtAdminInserir4.Show()
+            Form1.TxtAdminInserir5.Show()
+
+
         ElseIf Tabela = "VeiculoEdit" Then
-            Form1.LblInserirTitulo.Text = "Editar Veículo"
-            Form1.BtnImagemInserirInserir.Texto = "Editar"
-            Form1.TxtInserirQuilometros.Enabled = False
+            Form1.LblInserirTituloAdmin.Text = "Editar Veículo"
+            Form1.BtnImagemInserirAdmin.Texto = "Editar"
+            Form1.LblInserirTituloAdmin.Show()
 
-            Form1.LblInserirTitulo.Show()
-            Form1.LblInserirQuilometros.Show()
-            Form1.TxtInserirQuilometros.Show()
-            Form1.LblInserirQuantiade.Show()
-            Form1.TxtInserirQuantidade.Show()
-            Form1.LblInserirValor.Show()
-            Form1.TxtInserirValor.Show()
-            Form1.LblInserirFornecedor.Show()
-            Form1.LstInserirFornecedor.Show()
-            Form1.LblInserirNota.Show()
-            Form1.TxtInserirNota.Show()
-            Form1.BtnImagemInserirInserir.Show()
+        ElseIf Tabela = "UtilizadorAtivar" Then
+            '
+            'Falta Coordenadas
+            '
+            Form1.LblInserirTituloAdmin.Text = "Tipo de Utilizador"
+            Form1.BtnImagemInserirAdmin.Texto = "Ok"
+            Form1.LblInserirTituloAdmin.Show()
+            Form1.BtnImagemInserirAdmin.Show()
+            Form1.LstAdminInserir.Show()
+        ElseIf Tabela = "UtilizadorEdit" Then
+            '
+            'Falta Coordenadas, Ver Data de Nascimento
+            '
+            Form1.LblInserirTituloAdmin.Text = "Editar Utilizador"
+            Form1.BtnImagemInserirAdmin.Texto = "Editar"
+            Form1.LblInserirTituloAdmin.Show()
+            Form1.BtnImagemInserirAdmin.Show()
+            Form1.LblAdminInserir1.Text = "Nome de Registo"
+            Form1.LblAdminInserir2.Text = "Nome Próprio"
+            Form1.LblAdminInserir3.Text = "Apelido"
+
+            Form1.LblAdminInserir5.Text = "Rua"
+            Form1.LblAdminInserir6.Text = "Número de Telemóvel"
+            Form1.LblAdminInserir7.Text = "Email"
+            Form1.LblAdminInserir1.Show()
+            Form1.LblAdminInserir2.Show()
+            Form1.LblAdminInserir3.Show()
+
+            Form1.LblAdminInserir5.Show()
+            Form1.LblAdminInserir6.Show()
+            Form1.LblAdminInserir7.Show()
+            Form1.TxtAdminInserir1.Show()
+            Form1.TxtAdminInserir2.Show()
+            Form1.TxtAdminInserir3.Show()
+            Form1.TxtAdminInserir4.Show()
+            Form1.TxtAdminInserir5.Show()
+            Form1.TxtAdminInserir6.Show()
+            Form1.TxtAdminInserir1.Show()
+            '
+            'Ver Isto
+            '
+            Form1.LblAdminInserir4.Hide()
+            Form1.LblAdminInserir4.Text = "Data de Nascimento"
+            Form1.DtpAdminInserir.Hide()
         Else
             MsgBox("TABELA NÂO DEFINIDA")
         End If
