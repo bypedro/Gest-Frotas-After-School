@@ -1557,7 +1557,7 @@ Module SQL
     End Sub
 
 
-    Public Sub EditarDadosAdmin(ByVal Tabela As String)
+    Public Sub EditarDadosAdmin(ByVal Tabela As String, Optional Cod As String = "")
         Dim comando As New MySqlCommand
         '
         'Variavel para juntar os campos ano/mes/dia
@@ -1571,11 +1571,13 @@ Module SQL
         If Tabela = "VeiculoEdit" Then
             comando = New MySqlCommand("Update veiabast set Veiculo_KM='" + Val(ConverterDistancia(Form1.TxtInserirQuilometros.Text)).ToString + "',Quantidade='" + Val(ConverterVolume(Form1.TxtInserirQuantidade.Text)).ToString + "',Valor='" + Val(ConverterMoeda(Form1.TxtInserirValor.Text)).ToString + "',Notas='" + Form1.TxtInserirNota.Text.ToString + "',Codforn='" + Form1.LstInserirFornecedor.SelectedValue.ToString + "' where CodveiAbast='" + IDSelecionado + "'", ligacao)
         ElseIf Tabela = "UtilizadorEdit" Then
-            comando = New MySqlCommand("Update Utilizador set Nome_Registo='" + Form1.TxtAdminInserir1.Text.ToString + "',Nome_Proprio='" + Form1.TxtAdminInserir2.Text.ToString + "',Apelido='" + Form1.TxtAdminInserir3.Text.ToString + "',Rua='" + Form1.TxtAdminInserir4.Text.ToString + "', N_Telemovel='" + Form1.TxtAdminInserir5.Text.ToString + "',Email='" + Form1.TxtAdminInserir6.Text.ToString + "' where CodUser='7'", ligacao)
+            comando = New MySqlCommand("Update Utilizador set Nome_Registo='" + Form1.TxtAdminInserir1.Text.ToString + "',Nome_Proprio='" + Form1.TxtAdminInserir2.Text.ToString + "',Apelido='" + Form1.TxtAdminInserir3.Text.ToString + "',Rua='" + Form1.TxtAdminInserir4.Text.ToString + "', N_Telemovel='" + Form1.TxtAdminInserir5.Text.ToString + "',Email='" + Form1.TxtAdminInserir6.Text.ToString + "' where CodUser='" + IDSelecionadoAdmin + "'", ligacao)
         ElseIf Tabela = "UtilizadorAtivar" Then
             comando = New MySqlCommand("Update Utilizador set CodTipoU='" + Form1.LstAdminInserir.SelectedValue.ToString + "' where CodUser='" + IDSelecionadoAdmin + "'", ligacao)
         ElseIf Tabela = "FornecedorEdit" Then
             comando = New MySqlCommand("Update Despesas set Veiculo_KM='" + Val(ConverterDistancia(Form1.TxtInserirQuilometros.Text)).ToString + "',CodTipoD='" + Form1.LstInserirTipo.SelectedValue.ToString + "',Valor='" + Val(ConverterMoeda(Form1.TxtInserirValor.Text)).ToString + "',Nota='" + Form1.TxtInserirNota.Text.ToString + "',Codforn='" + Form1.LstInserirFornecedor.SelectedValue.ToString + "' where CodDesp='" + IDSelecionado + "'", ligacao)
+        ElseIf Tabela = "VeiculoDesativar" Then
+            comando = New MySqlCommand("Update veiculos set codTipoV=4 where Codvei='" + Cod + "'", ligacao)
         End If
         '
         'Executar comando

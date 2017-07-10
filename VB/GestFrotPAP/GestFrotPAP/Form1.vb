@@ -1304,7 +1304,15 @@ Public Class Form1
         Else
             InserirDadosAdmin("Cidade")
             TxtAdminCidade.Text = ""
+        End If
+    End Sub
 
+    Private Sub BtnImagem9_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemAdminDesativar.ButtonClickMasterRace
+        Botao(BtnImagemAdminDesativar)
+        If LstVAdminVeiculo.SelectedItems.Count > 0 Then
+            EditarDadosAdmin("VeiculoDesativar", LstVAdminVeiculo.SelectedItems(0).Text)
+        Else
+            MsgBox("Selecione um Veiculo")
         End If
     End Sub
 End Class
