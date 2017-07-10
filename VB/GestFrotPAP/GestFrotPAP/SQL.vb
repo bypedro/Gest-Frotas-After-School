@@ -1350,6 +1350,7 @@ Module SQL
             '
             '
         ElseIf Tabela = "FornecedorInsert" Or Tabela = "FornecedorEdit" Then
+
             '
             'Tipo de Fornecedor
             '
@@ -1367,7 +1368,7 @@ Module SQL
             End Try
             Form1.LstAdminInserir.DataSource = Tipo.Tables(0)
             Form1.LstAdminInserir.DisplayMember = "Nome"
-            Form1.LstAdminInserir.ValueMember = "CodTipoV"
+            Form1.LstAdminInserir.ValueMember = "CodTipoF"
             '
             'Pais
             '
@@ -1378,7 +1379,7 @@ Module SQL
                 ligacao.Open()
                 adapter.Fill(Data, "Pais")
             Catch ex As Exception
-                 MsgBox("Erro! Contate o administrador com o seguinte erro:  " + ex.Message, MsgBoxStyle.Critical, "Erro!!!")
+                MsgBox("Erro! Contate o administrador com o seguinte erro:  " + ex.Message, MsgBoxStyle.Critical, "Erro!!!")
                 Exit Sub
             Finally
                 ligacao.Close()
@@ -1519,9 +1520,13 @@ Module SQL
             '
             MsgBox("Erro! Contate o administrador com o seguinte erro: Sem autorização ", MsgBoxStyle.Critical, "Erro!!!")
         ElseIf Tabela = "FornecedorInsert" Then
-            Comando = New MySqlCommand("insert into Fornecedor(Nome,Site,Email,N_Telemovel,N_Telefone,Rua,CodTipoF,CodCi) values ('" + Val(ConverterDistancia(Form1.TxtInserirQuilometros.Text)).ToString + "', '" + Form1.LstInserirTipo.SelectedValue.ToString + "', '" + Val(ConverterMoeda(Form1.TxtInserirValor.Text)).ToString + "', '" + Form1.TxtInserirNota.Text.ToString + "', '" + Form1.LstInserirFornecedor.SelectedValue.ToString + "', '" + Data + "', '" + "Sim" + "', '" + DetalhesUtilizador.CodVeiculo.ToString + "', '" + DetalhesUtilizador.CodUser.ToString + "')", ligacao)
+            MsgBox("TESTE")
+            Exit Sub
+            Comando = New MySqlCommand("insert into Fornecedor(Nome,Rua,N_Telemovel,N_Telefone,Site,Email,CodTipoF,CodCi) values ('" + Form1.TxtAdminInserir1.Text.ToString + "', '" + Form1.TxtAdminInserir2.Text.ToString + "', '" + Form1.TxtAdminInserir3.Text.ToString + "', '" + Form1.TxtAdminInserir4.Text.ToString + "', '" + Form1.TxtAdminInserir5.Text.ToString + "', '" + Form1.TxtAdminInserir6.Text.ToString + "', '" + Form1.LstAdminInserir.SelectedValue.ToString + "', '" + Form1.LstAdminInserir2.SelectedValue.ToString + "')", ligacao)
         ElseIf Tabela = "VeiculoInsert" Then
             Comando = New MySqlCommand("insert into Veiculos(matricula,Marca,Modelo,Cor,Ano,CodTipoV,CodTipoC) values ('" + Form1.TxtAdminInserir1.Text.ToString + "', '" + Form1.TxtAdminInserir2.Text.ToString + "', '" + Form1.TxtAdminInserir3.Text.ToString + "', '" + Form1.TxtAdminInserir4.Text.ToString + "', '" + Form1.TxtAdminInserir5.Text.ToString + "', '" + Form1.LstAdminInserir.SelectedValue.ToString + "', '" + Form1.LstAdminInserir2.SelectedValue.ToString + "')", ligacao)
+        ElseIf Tabela = "Cidade" Then
+            Comando = New MySqlCommand("insert into Cidade(Nome,CodPais) values ('" + Form1.TxtAdminCidade.Text.ToString + "', '" + Form1.LstAdminCidade.SelectedValue.ToString + "')", ligacao)
         End If
         '
         'Executar comando
@@ -1532,14 +1537,11 @@ Module SQL
             MsgBox("Inserido com sucesso")
             Form1.Panel1.Hide()
         Catch ex As Exception
-            MsgBox(ex.ToString)
+            MsgBox("Erro! Contate o administrador com o seguinte erro:  " + ex.Message, MsgBoxStyle.Critical, "Erro!!!")
             Exit Sub
         Finally
             ligacao.Close()
         End Try
-
-
-
 
         'MUDAR ISTO
         'Atualizar Listview
@@ -1549,6 +1551,8 @@ Module SQL
             TabelaVer(Form1.LstVAdminVeiculo, "Select Codvei,Codvei as Codigo, Matricula, TipoVei.Nome as 'Tipo de Veículo' from Veiculos,TipoVei where veiculos.CodtipoV=TipoVei.CodTipoV", "LstVVeiculo")
         ElseIf Tabela = "DespInsert" Then
             TabelaVer(Form1.LstVDesp, "select Coddesp,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipodesp.nome as Tipo ,concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Sim'  and Veiculos.CodVei='" + DetalhesUtilizador.CodVeiculo.ToString + "' order by Veiculo_km", "LstVDesp")
+        ElseIf Tabela = "Cidade" Then
+            TabelaVerAdmin(Form1.LstAdminCidade, "SELECT * FROM pais", "Pais", "CodPais", "Nome")
         End If
     End Sub
 
@@ -1587,5 +1591,31 @@ Module SQL
             ligacao.Close()
             Exit Sub
         End Try
+    End Sub
+
+
+    Public Sub TabelaVerAdmin(ByVal Lst As ListBox, ByVal LinhaSql As String, ByVal Tabela As String, ByVal Cod As String, ByVal display As String)
+        Dim Dados As DataSet = New DataSet
+        adapter.SelectCommand = New MySqlCommand
+        adapter.SelectCommand.Connection = ligacao
+        Dim itemcoll(100) As String
+        adapter.SelectCommand.CommandText = LinhaSql
+        Try
+            ligacao.Open()
+            adapter.Fill(Dados, Tabela)
+            ligacao.Close()
+        Catch ex As Exception
+            MsgBox("Erro! Contate o administrador com o seguinte erro:  " + ex.Message, MsgBoxStyle.Critical, "Erro!!!")
+            Exit Sub
+        Finally
+            If ligacao.State = ConnectionState.Open Then
+                ligacao.Close()
+            End If
+        End Try
+        Lst.Font = GetInstance(8, FontStyle.Bold)
+        Lst.DataSource = Dados.Tables(0)
+        Lst.DisplayMember = display
+        Lst.ValueMember = Cod
+
     End Sub
 End Module

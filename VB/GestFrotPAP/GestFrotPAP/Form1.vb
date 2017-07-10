@@ -2,6 +2,7 @@
 Imports System.Drawing.Drawing2D
 Imports System.Drawing.Text
 Imports System.Runtime.InteropServices
+
 Public Class Form1
     'Caro colega programador:
     '
@@ -11,7 +12,7 @@ Public Class Form1
     'Para ti que estás a tentar otimiza-lo e falhaste, por favor, 
     'aumenta o contador para adverter o teu proximo colega:
     '
-    'Total_horas_perdidas_aqui = 8
+    'Total_horas_perdidas_aqui = 38
     '
     Dim drag As Boolean
     Dim mousex As Integer
@@ -758,10 +759,9 @@ Public Class Form1
     '
     Private Sub BtnImagemAdminFornecedoresInserir_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemAdminFornecedoresInserir.ButtonClickMasterRace
         Botao(BtnImagemAdminFornecedoresInserir)
-        Panel1.Show()
-        Panel1.BringToFront()
-        Inserir_EditarTabelaSQL("")
-        MsgBox("Wip")
+        PnlAdminInserir.Show()
+        PnlAdminInserir.BringToFront()
+        Inserir_EditarTabelaSQLAdmin("FornecedorInsert")
     End Sub
     '
     'Ativar Utizador
@@ -821,6 +821,7 @@ Public Class Form1
     End Sub
     Private Sub BtnImagemAdminMisc_ButtonClickMasterRace(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagemAdminMisc.ButtonClickMasterRace
         MenuAdmin(3)
+        TabelaVerAdmin(LstAdminCidade, "SELECT * FROM pais", "Pais", "CodPais", "Nome")
     End Sub
     '
     'Botoes Inserir/Editar
@@ -1012,23 +1013,14 @@ Public Class Form1
             TxtUtilizadorNomePDef.Enabled = True
             TxtUtilizadorApelidoDef.Enabled = True
             TxtUtilizadorDataNascDef.Enabled = True
-            TxtUtilizadorDataContratDef.Enabled = True
-            TxtUtilizadorGeneroDef.Enabled = True
-            TxtUtilizadorPagmentoDef.Enabled = True
-            TxtUtilizadorHabilitacoesDef.Enabled = True
-            TxtUtilizadorNotasDef.Enabled = True
+
             BtnDefUtilizadorInfoEdit.Texto = "Guardar"
         Else
             TxtUtilizadorUserDef.Enabled = False
             TxtUtilizadorNomePDef.Enabled = False
             TxtUtilizadorApelidoDef.Enabled = False
             TxtUtilizadorDataNascDef.Enabled = False
-            TxtUtilizadorDataContratDef.Enabled = False
-            TxtUtilizadorGeneroDef.Enabled = False
-            TxtUtilizadorPagmentoDef.Enabled = False
-            TxtUtilizadorHabilitacoesDef.Enabled = False
-            TxtUtilizadorNotasDef.Enabled = False
-            EditarUtilizador(TxtUtilizadorUserDef.Text.ToString, TxtUtilizadorNomePDef.Text.ToString, TxtUtilizadorApelidoDef.Text.ToString, TxtUtilizadorDataNascDef.Text.ToString, TxtUtilizadorDataContratDef.Text.ToString, TxtUtilizadorPagmentoDef.Text.ToString, TxtUtilizadorGeneroDef.Text.ToString, TxtUtilizadorHabilitacoesDef.Text.ToString, TxtUtilizadorNotasDef.Text.ToString)
+            'EditarUtilizador(TxtUtilizadorUserDef.Text.ToString, TxtUtilizadorNomePDef.Text.ToString, TxtUtilizadorApelidoDef.Text.ToString, TxtUtilizadorDataNascDef.Text.ToString, TxtUtilizadorDataContratDef.Text.ToString, TxtUtilizadorPagmentoDef.Text.ToString, TxtUtilizadorGeneroDef.Text.ToString, TxtUtilizadorHabilitacoesDef.Text.ToString, TxtUtilizadorNotasDef.Text.ToString)
             LoadOrder.MenuPrincipalPage()
             BtnDefUtilizadorInfoEdit.Texto = "Editar"
         End If
@@ -1222,23 +1214,75 @@ Public Class Form1
     Private Sub BtnImagemInserirAdmin_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemInserirAdmin.ButtonClickMasterRace
         Botao(BtnImagemInserirAdmin)
         If SQL.TabelaSelecionadaAdmin = "VeiculoInsert" Then
-            InserirDadosAdmin("VeiculoInsert")
+            If TxtAdminInserir1.Text <> "" And TxtAdminInserir2.Text <> "" And TxtAdminInserir3.Text <> "" And TxtAdminInserir4.Text <> "" And TxtAdminInserir5.Text <> "" And LstAdminInserir.SelectedItems.Count > 0 And LstAdminInserir2.SelectedItems.Count > 0 Then
+                If RegexMatch(TxtAdminInserir1.Text.ToString, "\b\d{2}[-.]?[a-zA-Z]{2}[-.]?\d{2}\b") = True Or RegexMatch(TxtAdminInserir1.Text.ToString, "\b[a-zA-Z]{2}[-.]?\d{2}[-.]?\d{2}\b") = True Or RegexMatch(TxtAdminInserir1.Text.ToString, "\b\d{2}[-.]?\d{2}[-.]?[a-zA-Z]{2}\b") = True And RegexMatch(TxtAdminInserir5.Text.ToString, "\b\d{4}\b") = True Then ' Verifica se a Matricula é portuguesa, Ano é 4 digitos 
+                    InserirDadosAdmin("VeiculoInsert")
+                Else
+                    MsgBox("Campos Inválidos.", MsgBoxStyle.Information, "Campos Inválidos")
+                    Exit Sub
+                End If
+            Else
+                MsgBox("Preencha todos os campos.", MsgBoxStyle.Information, "Campos Inválidos")
+                Exit Sub
+            End If
         ElseIf SQL.TabelaSelecionadaAdmin = "VeiculoEdit" Then
-            EditarDados("VeiculoEdit")
+            MsgBox("ERRO", MsgBoxStyle.Critical, "ERRO")
+            Exit Sub
+            If TxtAdminInserir1.Text <> "" And TxtAdminInserir2.Text <> "" And TxtAdminInserir3.Text <> "" And TxtAdminInserir4.Text <> "" And TxtAdminInserir5.Text <> "" And LstAdminInserir.SelectedItems.Count > 0 And LstAdminInserir2.SelectedItems.Count > 0 Then
+                If RegexMatch(TxtAdminInserir1.Text.ToString, "\b\d{2}[-.]?[a-zA-Z]{2}[-.]?\d{2}\b") = True Or RegexMatch(TxtAdminInserir1.Text.ToString, "\b[a-zA-Z]{2}[-.]?\d{2}[-.]?\d{2}\b") = True Or RegexMatch(TxtAdminInserir1.Text.ToString, "\b\d{2}[-.]?\d{2}[-.]?[a-zA-Z]{2}\b") = True And RegexMatch(TxtAdminInserir5.Text.ToString, "\b\d{4}\b") = True Then ' Verifica se a Matricula é portuguesa, Ano é 4 digitos 
+                    EditarDados("VeiculoEdit")
+                Else
+                    MsgBox("Campos Inválidos.", MsgBoxStyle.Information, "Campos Inválidos")
+                    Exit Sub
+                End If
+            Else
+                MsgBox("Preencha todos os campos.", MsgBoxStyle.Information, "Campos Inválidos")
+                Exit Sub
+            End If
             'ATUALIZADORLISTVIEW
         ElseIf SQL.TabelaSelecionadaAdmin = "FornecedorInsert" Then
-            InserirDados("FornecedorInsert")
+            If TxtAdminInserir1.Text <> "" And TxtAdminInserir2.Text <> "" And TxtAdminInserir3.Text <> "" And TxtAdminInserir4.Text <> "" And TxtAdminInserir5.Text <> "" And TxtAdminInserir6.Text <> "" And LstAdminInserir.SelectedItems.Count > 0 And LstAdminInserir2.SelectedItems.Count > 0 Then
+                'If RegexMatch(TxtAdminInserir1.Text.ToString, "\b\d{2}[-.]?[a-zA-Z]{2}[-.]?\d{2}\b") = True Or RegexMatch(TxtAdminInserir1.Text.ToString, "\b[a-zA-Z]{2}[-.]?\d{2}[-.]?\d{2}\b") = True Or RegexMatch(TxtAdminInserir1.Text.ToString, "\b\d{2}[-.]?\d{2}[-.]?[a-zA-Z]{2}\b") = True And RegexMatch(TxtAdminInserir5.Text.ToString, "\b\d{4}\b") = True Then ' Verifica se a Matricula é portuguesa, Ano é 4 digitos 
+                InserirDadosAdmin("FornecedorInsert")
+                'Else
+                'MsgBox("Campos Inválidos.", MsgBoxStyle.Information, "Campos Inválidos")
+                'Exit Sub
+                'End If
+        Else
+            MsgBox("Preencha todos os campos.", MsgBoxStyle.Information, "Campos Inválidos")
+            Exit Sub
+        End If
         ElseIf SQL.TabelaSelecionadaAdmin = "FornecedorEdit" Then
-            EditarDados("FornecedorEdit")
+            EditarDadosAdmin("FornecedorEdit")
             'AtualiadroLIstview
         ElseIf SQL.TabelaSelecionadaAdmin = "UtilizadorInsert" Then
+            '
+            'Desativado
+            '
+            MsgBox("Erro! Contate o administrador com o seguinte erro: Sem autorização ", MsgBoxStyle.Critical, "Erro!!!")
+            Exit Sub
             InserirDados("UtilizadorInsert")
             TabelaVer(LstVAdminUtilizador, "Select CodUser,CodUser as 'Codigo',Nome_Registo as 'Nome de Registo',Designacao as 'Designação' from utilizador, TipoUser where Utilizador.CodtipoU=TipoUser.CodTipoU order by CodUser", "LstVUtilizador")
         ElseIf SQL.TabelaSelecionadaAdmin = "UtilizadorEdit" Then
-            EditarDadosAdmin("UtilizadorEdit")
+            If TxtAdminInserir1.Text <> "" And TxtAdminInserir2.Text <> "" And TxtAdminInserir3.Text <> "" And TxtAdminInserir4.Text <> "" And TxtAdminInserir5.Text <> "" And TxtAdminInserir6.Text <> "" Then
+                If RegexMatch(TxtAdminInserir5.Text.ToString, "9[1236][0-9]{7}|2[1-9][0-9]{7}") = True And RegexMatch(TxtAdminInserir6.Text.ToString, "([a-z0-9][-a-z0-9_\+\.]*[a-z0-9])@([a-z0-9][-a-z0-9\.]*[a-z0-9]\.(arpa|root|aero|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cu|cv|cx|cy|cz|de|dj|dk|dm|do|dz|ec|ee|eg|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|st|su|sv|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)|([0-9]{1,3}\.{3}[0-9]{1,3}))") Then
+                    EditarDadosAdmin("UtilizadorEdit")
+                Else
+                    MsgBox("Campos Inválidos.", MsgBoxStyle.Information, "Campos Inválidos")
+                    Exit Sub
+                End If
+            Else
+                MsgBox("Preencha todos os campos.", MsgBoxStyle.Information, "Campos Inválidos")
+                Exit Sub
+            End If
             TabelaVer(LstVAdminUtilizador, "Select CodUser,CodUser as 'Codigo',Nome_Registo as 'Nome de Registo',Designacao as 'Designação' from utilizador, TipoUser where Utilizador.CodtipoU=TipoUser.CodTipoU order by CodUser", "LstVUtilizador")
         ElseIf SQL.TabelaSelecionadaAdmin = "UtilizadorAtivar" Then
-            EditarDadosAdmin("UtilizadorAtivar")
+            If LstAdminInserir.SelectedItems.Count > 0 Then
+                EditarDadosAdmin("UtilizadorAtivar")
+            Else
+                MsgBox("Preencha todos os campos.", MsgBoxStyle.Information, "Campos Inválidos")
+                Exit Sub
+            End If
             TabelaVer(LstVAdminUtilizador, "Select CodUser,CodUser as 'Codigo',Nome_Registo as 'Nome de Registo',Designacao as 'Designação' from utilizador, TipoUser where Utilizador.CodtipoU=TipoUser.CodTipoU order by CodUser", "LstVUtilizador")
         End If
         PnlAdminInserir.Hide()
@@ -1251,5 +1295,16 @@ Public Class Form1
 
     Private Sub BtnImagemAdminUtilizadorCarro_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemAdminUtilizadorCarro.ButtonClickMasterRace
         Botao(BtnImagemAdminUtilizadorCarro)
+    End Sub
+
+    Private Sub BtnImagem10_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemAdminCidade.ButtonClickMasterRace
+        Botao(BtnImagemAdminCidade)
+        If MsgBox("Confirme a cidade a Inserir.", MsgBoxStyle.OkCancel, "Inserir Cidade") = MsgBoxResult.Cancel Then
+            Exit Sub
+        Else
+            InserirDadosAdmin("Cidade")
+            TxtAdminCidade.Text = ""
+
+        End If
     End Sub
 End Class

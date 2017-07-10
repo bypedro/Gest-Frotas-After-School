@@ -238,20 +238,12 @@
         Form1.LblUtilizadorNomePDef.Font = GetInstance(10, FontStyle.Bold)
         Form1.LblUtilizadorApelidoDef.Font = GetInstance(10, FontStyle.Bold)
         Form1.LblUtilizadorDataNascDef.Font = GetInstance(10, FontStyle.Bold)
-        Form1.LblUtilizadorDataContratDef.Font = GetInstance(10, FontStyle.Bold)
-        Form1.LblUtilizadorHabilitacoesDef.Font = GetInstance(10, FontStyle.Bold)
-        Form1.LblUtilizadorNotasDef.Font = GetInstance(10, FontStyle.Bold)
-        Form1.LblUtilizadorPagmentoDef.Font = GetInstance(10, FontStyle.Bold)
         Form1.LblUtilizadorGeneroDef.Font = GetInstance(10, FontStyle.Bold)
 
         Form1.TxtUtilizadorUserDef.Font = GetInstance(10, FontStyle.Bold)
         Form1.TxtUtilizadorNomePDef.Font = GetInstance(10, FontStyle.Bold)
         Form1.TxtUtilizadorApelidoDef.Font = GetInstance(10, FontStyle.Bold)
         Form1.TxtUtilizadorDataNascDef.Font = GetInstance(10, FontStyle.Bold)
-        Form1.TxtUtilizadorDataContratDef.Font = GetInstance(10, FontStyle.Bold)
-        Form1.TxtUtilizadorHabilitacoesDef.Font = GetInstance(10, FontStyle.Bold)
-        Form1.TxtUtilizadorNotasDef.Font = GetInstance(10, FontStyle.Bold)
-        Form1.TxtUtilizadorPagmentoDef.Font = GetInstance(10, FontStyle.Bold)
         Form1.TxtUtilizadorGeneroDef.Font = GetInstance(10, FontStyle.Bold)
 
         'Cor
@@ -260,20 +252,12 @@
         Form1.LblUtilizadorNomePDef.ForeColor = Color.White
         Form1.LblUtilizadorApelidoDef.ForeColor = Color.White
         Form1.LblUtilizadorDataNascDef.ForeColor = Color.White
-        Form1.LblUtilizadorDataContratDef.ForeColor = Color.White
-        Form1.LblUtilizadorHabilitacoesDef.ForeColor = Color.White
-        Form1.LblUtilizadorNotasDef.ForeColor = Color.White
-        Form1.LblUtilizadorPagmentoDef.ForeColor = Color.White
         Form1.LblUtilizadorGeneroDef.ForeColor = Color.White
 
         Form1.TxtUtilizadorUserDef.ForeColor = Color.White
         Form1.TxtUtilizadorNomePDef.ForeColor = Color.White
         Form1.TxtUtilizadorApelidoDef.ForeColor = Color.White
         Form1.TxtUtilizadorDataNascDef.ForeColor = Color.White
-        Form1.TxtUtilizadorDataContratDef.ForeColor = Color.White
-        Form1.TxtUtilizadorHabilitacoesDef.ForeColor = Color.White
-        Form1.TxtUtilizadorNotasDef.ForeColor = Color.White
-        Form1.TxtUtilizadorPagmentoDef.ForeColor = Color.White
         Form1.TxtUtilizadorGeneroDef.ForeColor = Color.White
 
         'Lado Esquerdo
@@ -299,86 +283,51 @@
 
         'Lado Direito
         Form1.LblUtilizadorGeneroDef.Left = Form1.TxtUtilizadorUserDef.Right + 10
-        Form1.LblUtilizadorDataContratDef.Left = Form1.TxtUtilizadorUserDef.Right + 10
-        Form1.LblUtilizadorPagmentoDef.Left = Form1.TxtUtilizadorUserDef.Right + 10
 
-        Form1.LblUtilizadorDataContratDef.Top = 5
-        Form1.LblUtilizadorPagmentoDef.Top = Form1.LblUtilizadorDataContratDef.Bottom + 5
-        Form1.LblUtilizadorGeneroDef.Top = Form1.LblUtilizadorPagmentoDef.Bottom + 5
-
-        Form1.TxtUtilizadorDataContratDef.Left = Form1.LblUtilizadorDataContratDef.Right + 10
-        Form1.TxtUtilizadorPagmentoDef.Left = Form1.LblUtilizadorDataContratDef.Right + 10
-        Form1.TxtUtilizadorGeneroDef.Left = Form1.LblUtilizadorDataContratDef.Right + 10
-
-        Form1.TxtUtilizadorDataContratDef.Top = 5
-        Form1.TxtUtilizadorPagmentoDef.Top = Form1.TxtUtilizadorDataContratDef.Bottom + 5
-        Form1.TxtUtilizadorGeneroDef.Top = Form1.TxtUtilizadorPagmentoDef.Bottom + 5
 
 
         'Notas
-        Form1.LblUtilizadorHabilitacoesDef.Left = Form1.PnlDefUtilizadorInfo.Left + 10
-        Form1.LblUtilizadorHabilitacoesDef.Top = Form1.TxtUtilizadorDataNascDef.Bottom + 25
 
-        Form1.TxtUtilizadorHabilitacoesDef.Left = Form1.PnlDefUtilizadorInfo.Left + 10
-        Form1.TxtUtilizadorHabilitacoesDef.Top = Form1.LblUtilizadorHabilitacoesDef.Bottom + 5
-
-        Form1.LblUtilizadorNotasDef.Left = Form1.TxtUtilizadorHabilitacoesDef.Right + 10
-        Form1.LblUtilizadorNotasDef.Top = Form1.TxtUtilizadorDataNascDef.Bottom + 25
-
-        Form1.TxtUtilizadorNotasDef.Left = Form1.TxtUtilizadorHabilitacoesDef.Right + 10
-        Form1.TxtUtilizadorNotasDef.Top = Form1.LblUtilizadorNotasDef.Bottom + 5
 
         'Contato Utilizador
         'Fonte
         Form1.LblEmailUserCon.Font = GetInstance(10, FontStyle.Bold)
         Form1.LblTelemovelUserCon.Font = GetInstance(10, FontStyle.Bold)
-        Form1.LblTelefoneUserCon.Font = GetInstance(10, FontStyle.Bold)
         Form1.LblPaisUserCon.Font = GetInstance(10, FontStyle.Bold)
         Form1.LblCidadeUserCon.Font = GetInstance(10, FontStyle.Bold)
         Form1.LblRuaUserCon.Font = GetInstance(10, FontStyle.Bold)
-        Form1.LblNotasUserCon.Font = GetInstance(10, FontStyle.Bold)
 
         Form1.TxtEmailUserCon.Font = GetInstance(10, FontStyle.Bold)
         Form1.TxtTelemovelUserCon.Font = GetInstance(10, FontStyle.Bold)
-        Form1.TxtTelefoneUserCon.Font = GetInstance(10, FontStyle.Bold)
         Form1.TxtPaisUserCon.Font = GetInstance(10, FontStyle.Bold)
         Form1.TxtCidadeUserCon.Font = GetInstance(10, FontStyle.Bold)
         Form1.TxtRuaUserCon.Font = GetInstance(10, FontStyle.Bold)
-        Form1.TxtNotasUserCon.Font = GetInstance(10, FontStyle.Bold)
 
         'Cor
         Form1.LblEmailUserCon.ForeColor = Color.White
         Form1.LblTelemovelUserCon.ForeColor = Color.White
-        Form1.LblTelefoneUserCon.ForeColor = Color.White
         Form1.LblPaisUserCon.ForeColor = Color.White
         Form1.LblCidadeUserCon.ForeColor = Color.White
         Form1.LblRuaUserCon.ForeColor = Color.White
-        Form1.LblNotasUserCon.ForeColor = Color.White
 
         Form1.TxtEmailUserCon.ForeColor = Color.White
         Form1.TxtTelemovelUserCon.ForeColor = Color.White
-        Form1.TxtTelefoneUserCon.ForeColor = Color.White
         Form1.TxtPaisUserCon.ForeColor = Color.White
         Form1.TxtCidadeUserCon.ForeColor = Color.White
         Form1.TxtRuaUserCon.ForeColor = Color.White
-        Form1.TxtNotasUserCon.ForeColor = Color.White
 
         'Lado Esquerdo
         Form1.LblEmailUserCon.Left = Form1.PnlDefUtilizadorContato.Left + 10
         Form1.LblTelemovelUserCon.Left = Form1.PnlDefUtilizadorContato.Left + 10
-        Form1.LblTelefoneUserCon.Left = Form1.PnlDefUtilizadorContato.Left + 10
 
         Form1.LblEmailUserCon.Top = 5
         Form1.LblTelemovelUserCon.Top = Form1.LblUtilizadorUserDef.Bottom + 5
-        Form1.LblTelefoneUserCon.Top = Form1.LblUtilizadorNomePDef.Bottom + 5
 
         Form1.TxtEmailUserCon.Left = Form1.LblTelemovelUserCon.Right + 10
         Form1.TxtTelemovelUserCon.Left = Form1.LblTelemovelUserCon.Right + 10
-        Form1.TxtTelefoneUserCon.Left = Form1.LblTelemovelUserCon.Right + 10
 
         Form1.TxtEmailUserCon.Top = 5
         Form1.TxtTelemovelUserCon.Top = Form1.LblUtilizadorUserDef.Bottom + 5
-        Form1.TxtTelefoneUserCon.Top = Form1.LblUtilizadorNomePDef.Bottom + 5
 
         'Lado Direito
         Form1.LblPaisUserCon.Left = Form1.TxtEmailUserCon.Right + 10
@@ -394,31 +343,18 @@
         Form1.TxtRuaUserCon.Left = Form1.LblCidadeUserCon.Right + 10
 
         Form1.TxtPaisUserCon.Top = 5
-        Form1.TxtCidadeUserCon.Top = Form1.TxtUtilizadorDataContratDef.Bottom + 5
-        Form1.TxtRuaUserCon.Top = Form1.TxtUtilizadorPagmentoDef.Bottom + 5
-
-        Form1.LblNotasUserCon.Left = Form1.PnlDefUtilizadorContato.Left + 10
-        Form1.LblNotasUserCon.Top = Form1.LblTelefoneUserCon.Bottom + 25
-        Form1.TxtNotasUserCon.Left = Form1.PnlDefUtilizadorContato.Left + 10
-        Form1.TxtNotasUserCon.Top = Form1.LblNotasUserCon.Bottom + 5
 
         'DADOS Utilizador
         Form1.TxtUtilizadorUserDef.Text = DetalhesUtilizador.NomeRegisto
         Form1.TxtUtilizadorNomePDef.Text = DetalhesUtilizador.NomeProprio
         Form1.TxtUtilizadorApelidoDef.Text = DetalhesUtilizador.Apelido
         Form1.TxtUtilizadorDataNascDef.Text = DetalhesUtilizador.DataNasc
-        Form1.TxtUtilizadorDataContratDef.Text = DetalhesUtilizador.DataContrat
-        Form1.TxtUtilizadorHabilitacoesDef.Text = DetalhesUtilizador.Habilitações
-        Form1.TxtUtilizadorNotasDef.Text = DetalhesUtilizador.NotasContrato
-        Form1.TxtUtilizadorPagmentoDef.Text = DetalhesUtilizador.PagamentoHora
         Form1.TxtUtilizadorGeneroDef.Text = DetalhesUtilizador.Genero
         Form1.TxtEmailUserCon.Text = DetalhesUtilizador.Email
         Form1.TxtTelemovelUserCon.Text = DetalhesUtilizador.NTelemovel
-        Form1.TxtTelefoneUserCon.Text = DetalhesUtilizador.NTelefone
         Form1.TxtPaisUserCon.Text = DetalhesUtilizador.Pais
         Form1.TxtCidadeUserCon.Text = DetalhesUtilizador.Cidade
         Form1.TxtRuaUserCon.Text = DetalhesUtilizador.Rua
-        Form1.TxtNotasUserCon.Text = DetalhesUtilizador.NotasContacto
     End Sub
 
     Public Sub MenuInserir_Editar(ByVal Tabela As String)
@@ -701,6 +637,35 @@
             Form1.LblInserirTituloAdmin.Text = "Editar Veículo"
             Form1.BtnImagemInserirAdmin.Texto = "Editar"
             Form1.LblInserirTituloAdmin.Show()
+
+        ElseIf Tabela = "FornecedorInsert" Then
+            Form1.LblInserirTituloAdmin.Text = "Novo Fornecedor"
+            Form1.BtnImagemInserirAdmin.Texto = "Inserir"
+            Form1.BtnImagemInserirAdmin.Show()
+            Form1.LblInserirTituloAdmin.Show()
+            Form1.LstAdminInserir.Show()
+            Form1.LstAdminInserir2.Show()
+            Form1.LblAdminInserir1.Text = "Nome"
+            Form1.LblAdminInserir2.Text = "Rua"
+            Form1.LblAdminInserir3.Text = "Nº Telemóvel"
+            Form1.LblAdminInserir5.Text = "Nº Telefone"
+            Form1.LblAdminInserir6.Text = "Website"
+            Form1.LblAdminInserir7.Text = "Email"
+
+            Form1.LblAdminInserir1.Show()
+            Form1.LblAdminInserir2.Show()
+            Form1.LblAdminInserir3.Show()
+            Form1.LblAdminInserir5.Show()
+            Form1.LblAdminInserir6.Show()
+            Form1.LblAdminInserir7.Show()
+
+            Form1.TxtAdminInserir1.Show()
+            Form1.TxtAdminInserir2.Show()
+            Form1.TxtAdminInserir3.Show()
+            Form1.TxtAdminInserir4.Show()
+            Form1.TxtAdminInserir5.Show()
+            Form1.TxtAdminInserir6.Show()
+
 
         ElseIf Tabela = "UtilizadorAtivar" Then
             '
