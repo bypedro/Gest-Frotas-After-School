@@ -2,6 +2,7 @@
 Imports System.Drawing.Drawing2D
 Imports System.Drawing.Text
 Imports System.Runtime.InteropServices
+
 Public Class Form1
     'Caro colega programador:
     '
@@ -11,7 +12,7 @@ Public Class Form1
     'Para ti que estás a tentar otimiza-lo e falhaste, por favor, 
     'aumenta o contador para adverter o teu proximo colega:
     '
-    'Total_horas_perdidas_aqui = 8
+    'Total_horas_perdidas_aqui = 38
     '
     Dim drag As Boolean
     Dim mousex As Integer
@@ -457,8 +458,8 @@ Public Class Form1
     '
     Private Sub BtnImagem5_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagem5.ButtonClickMasterRace
         MenuPrincipal(4, True)
-        TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo, LembrarPor as 'Lembrar por:' from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
-        TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo, LembrarPor as 'Lembrar por:' from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
+        TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
+        TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
         BtnImagemAgendaManu.EstadoBotao = True
         MenuAgenda(0)
         GrpAgendaDesp.Font = GetInstance(12, FontStyle.Bold)
@@ -491,6 +492,7 @@ Public Class Form1
         Botao(BtnImagemAgendaDespInsert)
         Panel1.Show()
         Panel1.BringToFront()
+
         Inserir_EditarTabelaSQL("AgendaDespInsert")
     End Sub
     '
@@ -539,8 +541,8 @@ Public Class Form1
         Botao(BtnImagemAgendaManuApagar)
         If LstVAgendaManu.SelectedItems.Count > 0 Then
             ApagarDados("manutencao", LstVAgendaManu.SelectedItems(0).Text.ToString)
-            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo, LembrarPor as 'Lembrar por:' from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
-            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo, LembrarPor as 'Lembrar por:' from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
+            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
+            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
         Else
             MsgBox("Selecione a despesa")
         End If
@@ -623,7 +625,6 @@ Public Class Form1
             BtnImagemVolumeOff.Texto = "L"
             BtnImagemVolumeOff.Left = 5
         End If
-        MsgBox("TODO: Quilometros->Milhas,Litros->Galões, Linguagem, Aspeto, Etc")
     End Sub
     '
     'Definições do Programa
@@ -759,27 +760,35 @@ Public Class Form1
     '
     Private Sub BtnImagemAdminFornecedoresInserir_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemAdminFornecedoresInserir.ButtonClickMasterRace
         Botao(BtnImagemAdminFornecedoresInserir)
-        Panel1.Show()
-        Panel1.BringToFront()
-        Inserir_EditarTabelaSQL("")
-        MsgBox("Wip")
+        PnlAdminInserir.Show()
+        PnlAdminInserir.BringToFront()
+        Inserir_EditarTabelaSQLAdmin("FornecedorInsert")
     End Sub
     '
     'Ativar Utizador
     '
     Private Sub BtnImagemAdminUtilizadorAtivar_ButtonClickMasterRace(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagemAdminUtilizadorAtivar.ButtonClickMasterRace
         Botao(BtnImagemAdminUtilizadorAtivar)
-        PnlAdminInserir.Show()
-        PnlAdminInserir.BringToFront()
-        Inserir_EditarTabelaSQLAdmin("")
+        If LstVAdminUtilizador.SelectedItems.Count > 0 Then
+            PnlAdminInserir.Show()
+            PnlAdminInserir.BringToFront()
+            Inserir_EditarTabelaSQLAdmin("UtilizadorAtivar", LstVAdminUtilizador.SelectedItems(0).Text.ToString)
+        Else
+            MsgBox("Selecione um utilizador")
+        End If
     End Sub
     '
     'Editar Utilizador
     '
     Private Sub BtnImagemAdminUtilizadorEdit_ButtonClickMasterRace(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagemAdminUtilizadorEdit.ButtonClickMasterRace
         Botao(BtnImagemAdminUtilizadorEdit)
-        PnlAdminInserir.Show()
-        PnlAdminInserir.BringToFront()
+        If LstVAdminUtilizador.SelectedItems.Count > 0 Then
+            PnlAdminInserir.Show()
+            PnlAdminInserir.BringToFront()
+            Inserir_EditarTabelaSQLAdmin("UtilizadorEdit", LstVAdminUtilizador.SelectedItems(0).Text.ToString)
+        Else
+            MsgBox("Selecione um utilizador")
+        End If
     End Sub
     '
     'Inserir Utilizador
@@ -789,6 +798,15 @@ Public Class Form1
         PnlAdminInserir.Show()
         PnlAdminInserir.BringToFront()
         Inserir_EditarTabelaSQLAdmin("")
+    End Sub
+    '
+    'Inserir Veiculos
+    '
+    Private Sub BtnImagemAdminVeiculosInsert_ButtonClickMasterRace(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagemAdminVeiculosInsert.ButtonClickMasterRace
+        Botao(BtnImagemAdminVeiculosInsert)
+        PnlAdminInserir.Show()
+        PnlAdminInserir.BringToFront()
+        Inserir_EditarTabelaSQLAdmin("VeiculoInsert")
     End Sub
     '
     'Menu
@@ -804,15 +822,13 @@ Public Class Form1
     End Sub
     Private Sub BtnImagemAdminMisc_ButtonClickMasterRace(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagemAdminMisc.ButtonClickMasterRace
         MenuAdmin(3)
+        TabelaVerAdmin(LstAdminCidade, "SELECT * FROM pais", "Pais", "CodPais", "Nome")
     End Sub
     '
     'Botoes Inserir/Editar
     '
 
 
-    Private Sub BtnImagemAdminVeiculosInsert_ButtonClickMasterRace(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagemAdminVeiculosInsert.ButtonClickMasterRace
-        Botao(BtnImagemAdminVeiculosInsert)
-    End Sub
     '
     '
     ''''''''''''''''''''Pagina de Login/Registar
@@ -998,23 +1014,14 @@ Public Class Form1
             TxtUtilizadorNomePDef.Enabled = True
             TxtUtilizadorApelidoDef.Enabled = True
             TxtUtilizadorDataNascDef.Enabled = True
-            TxtUtilizadorDataContratDef.Enabled = True
-            TxtUtilizadorGeneroDef.Enabled = True
-            TxtUtilizadorPagmentoDef.Enabled = True
-            TxtUtilizadorHabilitacoesDef.Enabled = True
-            TxtUtilizadorNotasDef.Enabled = True
+
             BtnDefUtilizadorInfoEdit.Texto = "Guardar"
         Else
             TxtUtilizadorUserDef.Enabled = False
             TxtUtilizadorNomePDef.Enabled = False
             TxtUtilizadorApelidoDef.Enabled = False
             TxtUtilizadorDataNascDef.Enabled = False
-            TxtUtilizadorDataContratDef.Enabled = False
-            TxtUtilizadorGeneroDef.Enabled = False
-            TxtUtilizadorPagmentoDef.Enabled = False
-            TxtUtilizadorHabilitacoesDef.Enabled = False
-            TxtUtilizadorNotasDef.Enabled = False
-            EditarUtilizador(TxtUtilizadorUserDef.Text.ToString, TxtUtilizadorNomePDef.Text.ToString, TxtUtilizadorApelidoDef.Text.ToString, TxtUtilizadorDataNascDef.Text.ToString, TxtUtilizadorDataContratDef.Text.ToString, TxtUtilizadorPagmentoDef.Text.ToString, TxtUtilizadorGeneroDef.Text.ToString, TxtUtilizadorHabilitacoesDef.Text.ToString, TxtUtilizadorNotasDef.Text.ToString)
+            'EditarUtilizador(TxtUtilizadorUserDef.Text.ToString, TxtUtilizadorNomePDef.Text.ToString, TxtUtilizadorApelidoDef.Text.ToString, TxtUtilizadorDataNascDef.Text.ToString, TxtUtilizadorDataContratDef.Text.ToString, TxtUtilizadorPagmentoDef.Text.ToString, TxtUtilizadorGeneroDef.Text.ToString, TxtUtilizadorHabilitacoesDef.Text.ToString, TxtUtilizadorNotasDef.Text.ToString)
             LoadOrder.MenuPrincipalPage()
             BtnDefUtilizadorInfoEdit.Texto = "Editar"
         End If
@@ -1098,24 +1105,28 @@ Public Class Form1
             TabelaVer(LstVDesp, "select Coddesp,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipodesp.nome as Tipo ,concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Sim'  and Veiculos.CodVei='" + DetalhesUtilizador.CodVeiculo.ToString + "' order by Veiculo_km", "LstVDesp")
         ElseIf SQL.TabelaSelecionada = "AgendaDespInsert" Then
             InserirDados("AgendaDespInsert")
+            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
+            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
         ElseIf SQL.TabelaSelecionada = "AgendaDespReagendar" Then
             EditarDados("AgendaDespReagendar")
-            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo, LembrarPor as 'Lembrar por:' from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
-            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo, LembrarPor as 'Lembrar por:' from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
+            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
+            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
         ElseIf SQL.TabelaSelecionada = "AgendaDespExecutar" Then
             EditarDados("AgendaDespExecutar")
-            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo, LembrarPor as 'Lembrar por:' from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
-            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo, LembrarPor as 'Lembrar por:' from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
+            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
+            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
         ElseIf SQL.TabelaSelecionada = "AgendaManuReagendar" Then
             EditarDados("AgendaManuReagendar")
-            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo, LembrarPor as 'Lembrar por:' from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
-            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo, LembrarPor as 'Lembrar por:' from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
+            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
+            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
         ElseIf SQL.TabelaSelecionada = "AgendaManuExecutar" Then
             EditarDados("AgendaManuExecutar")
-            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo, LembrarPor as 'Lembrar por:' from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
-            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo, LembrarPor as 'Lembrar por:' from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
+            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
+            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
         ElseIf SQL.TabelaSelecionada = "AgendaManuInsert" Then
             InserirDados("AgendaManuInsert")
+            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
+            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
         End If
         Panel1.Hide()
         TxtInserirQuilometros.Text = ""
@@ -1207,48 +1218,127 @@ Public Class Form1
 
     Private Sub BtnImagemInserirAdmin_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemInserirAdmin.ButtonClickMasterRace
         Botao(BtnImagemInserirAdmin)
-        If SQL.TabelaSelecionada = "VeiculoInsert" Then
-            InserirDados("VeiculoInsert")
-        ElseIf SQL.TabelaSelecionada = "VeiculoEdit" Then
-            EditarDados("VeiculoEdit")
+        If SQL.TabelaSelecionadaAdmin = "VeiculoInsert" Then
+            If TxtAdminInserir1.Text <> "" And TxtAdminInserir2.Text <> "" And TxtAdminInserir3.Text <> "" And TxtAdminInserir4.Text <> "" And TxtAdminInserir5.Text <> "" And LstAdminInserir.SelectedItems.Count > 0 And LstAdminInserir2.SelectedItems.Count > 0 Then
+                If RegexMatch(TxtAdminInserir1.Text.ToString, "\b\d{2}[-.]?[a-zA-Z]{2}[-.]?\d{2}\b") = True Or RegexMatch(TxtAdminInserir1.Text.ToString, "\b[a-zA-Z]{2}[-.]?\d{2}[-.]?\d{2}\b") = True Or RegexMatch(TxtAdminInserir1.Text.ToString, "\b\d{2}[-.]?\d{2}[-.]?[a-zA-Z]{2}\b") = True And RegexMatch(TxtAdminInserir5.Text.ToString, "\b\d{4}\b") = True Then ' Verifica se a Matricula é portuguesa, Ano é 4 digitos 
+                    InserirDadosAdmin("VeiculoInsert")
+                Else
+                    MsgBox("Campos Inválidos.", MsgBoxStyle.Information, "Campos Inválidos")
+                    Exit Sub
+                End If
+            Else
+                MsgBox("Preencha todos os campos.", MsgBoxStyle.Information, "Campos Inválidos")
+                Exit Sub
+            End If
+        ElseIf SQL.TabelaSelecionadaAdmin = "VeiculoEdit" Then
+            If TxtAdminInserir1.Text <> "" And TxtAdminInserir2.Text <> "" And TxtAdminInserir3.Text <> "" And TxtAdminInserir4.Text <> "" And TxtAdminInserir5.Text <> "" And LstAdminInserir.SelectedItems.Count > 0 And LstAdminInserir2.SelectedItems.Count > 0 Then
+                If RegexMatch(TxtAdminInserir1.Text.ToString, "\b\d{2}[-.]?[a-zA-Z]{2}[-.]?\d{2}\b") = True Or RegexMatch(TxtAdminInserir1.Text.ToString, "\b[a-zA-Z]{2}[-.]?\d{2}[-.]?\d{2}\b") = True Or RegexMatch(TxtAdminInserir1.Text.ToString, "\b\d{2}[-.]?\d{2}[-.]?[a-zA-Z]{2}\b") = True And RegexMatch(TxtAdminInserir5.Text.ToString, "\b\d{4}\b") = True Then ' Verifica se a Matricula é portuguesa, Ano é 4 digitos 
+                    EditarDadosAdmin("VeiculoEdit")
+                Else
+                    MsgBox("Campos Inválidos.", MsgBoxStyle.Information, "Campos Inválidos")
+                    Exit Sub
+                End If
+            Else
+                MsgBox("Preencha todos os campos.", MsgBoxStyle.Information, "Campos Inválidos")
+                Exit Sub
+            End If
             'ATUALIZADORLISTVIEW
-        ElseIf SQL.TabelaSelecionada = "FornecedorInsert" Then
-            InserirDados("FornecedorInsert")
-        ElseIf SQL.TabelaSelecionada = "FornecedorEdit" Then
-            EditarDados("FornecedorEdit")
-            'AtualiadroLIstview
-        ElseIf SQL.TabelaSelecionada = "UtilizadorInsert" Then
-            InserirDados("UtilizadorInsert")
-        ElseIf SQL.TabelaSelecionada = "UtilizadorEdit" Then
-            EditarDados("UtilizadorEdit")
-            'AtualizadorListview
-        ElseIf SQL.TabelaSelecionada = "UtilizadorAtivar" Then
-            InserirDados("UtilizadorAtivar")
+        ElseIf SQL.TabelaSelecionadaAdmin = "FornecedorInsert" Then
+            If TxtAdminInserir1.Text <> "" And TxtAdminInserir2.Text <> "" And TxtAdminInserir3.Text <> "" And TxtAdminInserir4.Text <> "" And TxtAdminInserir5.Text <> "" And TxtAdminInserir6.Text <> "" And LstAdminInserir.SelectedItems.Count > 0 And LstAdminInserir2.SelectedItems.Count > 0 Then
+                'If RegexMatch(TxtAdminInserir1.Text.ToString, "\b\d{2}[-.]?[a-zA-Z]{2}[-.]?\d{2}\b") = True Or RegexMatch(TxtAdminInserir1.Text.ToString, "\b[a-zA-Z]{2}[-.]?\d{2}[-.]?\d{2}\b") = True Or RegexMatch(TxtAdminInserir1.Text.ToString, "\b\d{2}[-.]?\d{2}[-.]?[a-zA-Z]{2}\b") = True And RegexMatch(TxtAdminInserir5.Text.ToString, "\b\d{4}\b") = True Then ' Verifica se a Matricula é portuguesa, Ano é 4 digitos 
+                InserirDadosAdmin("FornecedorInsert")
+                'Else
+                'MsgBox("Campos Inválidos.", MsgBoxStyle.Information, "Campos Inválidos")
+                'Exit Sub
+                'End If
+        Else
+            MsgBox("Preencha todos os campos.", MsgBoxStyle.Information, "Campos Inválidos")
+            Exit Sub
         End If
-        Panel1.Hide()
-        TxtInserirQuilometros.Text = ""
-        TxtInserirQuantidade.Text = ""
-        TxtInserirValor.Text = ""
-        TxtInserirNota.Text = ""
-        LblInserirDataAgendada.Text = "Data Efetuada:"
-        LblInserirQuilometros.Text = "Quilometros:"
-        TxtInserirQuilometros.Enabled = True
-        CmbInserirAno.Invalidate()
-        CmbInserirDia.Invalidate()
-        CmbInserirMes.Invalidate()
+        ElseIf SQL.TabelaSelecionadaAdmin = "FornecedorEdit" Then
+            EditarDadosAdmin("FornecedorEdit")
+            'AtualiadroLIstview
+        ElseIf SQL.TabelaSelecionadaAdmin = "UtilizadorInsert" Then
+            '
+            'Desativado
+            '
+            MsgBox("Erro! Contate o administrador com o seguinte erro: Sem autorização ", MsgBoxStyle.Critical, "Erro!!!")
+            Exit Sub
+            InserirDados("UtilizadorInsert")
+            TabelaVer(LstVAdminUtilizador, "Select CodUser,CodUser as 'Codigo',Nome_Registo as 'Nome de Registo',Designacao as 'Designação' from utilizador, TipoUser where Utilizador.CodtipoU=TipoUser.CodTipoU order by CodUser", "LstVUtilizador")
+        ElseIf SQL.TabelaSelecionadaAdmin = "UtilizadorEdit" Then
+            If TxtAdminInserir1.Text <> "" And TxtAdminInserir2.Text <> "" And TxtAdminInserir3.Text <> "" And TxtAdminInserir4.Text <> "" And TxtAdminInserir5.Text <> "" And TxtAdminInserir6.Text <> "" Then
+                If RegexMatch(TxtAdminInserir5.Text.ToString, "9[1236][0-9]{7}|2[1-9][0-9]{7}") = True And RegexMatch(TxtAdminInserir6.Text.ToString, "([a-z0-9][-a-z0-9_\+\.]*[a-z0-9])@([a-z0-9][-a-z0-9\.]*[a-z0-9]\.(arpa|root|aero|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cu|cv|cx|cy|cz|de|dj|dk|dm|do|dz|ec|ee|eg|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|st|su|sv|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)|([0-9]{1,3}\.{3}[0-9]{1,3}))") Then
+                    EditarDadosAdmin("UtilizadorEdit")
+                Else
+                    MsgBox("Campos Inválidos.", MsgBoxStyle.Information, "Campos Inválidos")
+                    Exit Sub
+                End If
+            Else
+                MsgBox("Preencha todos os campos.", MsgBoxStyle.Information, "Campos Inválidos")
+                Exit Sub
+            End If
+            TabelaVer(LstVAdminUtilizador, "Select CodUser,CodUser as 'Codigo',Nome_Registo as 'Nome de Registo',Designacao as 'Designação' from utilizador, TipoUser where Utilizador.CodtipoU=TipoUser.CodTipoU order by CodUser", "LstVUtilizador")
+        ElseIf SQL.TabelaSelecionadaAdmin = "UtilizadorAtivar" Then
+            If LstAdminInserir.SelectedItems.Count > 0 Then
+                EditarDadosAdmin("UtilizadorAtivar")
+            Else
+                MsgBox("Preencha todos os campos.", MsgBoxStyle.Information, "Campos Inválidos")
+                Exit Sub
+            End If
+            TabelaVer(LstVAdminUtilizador, "Select CodUser,CodUser as 'Codigo',Nome_Registo as 'Nome de Registo',Designacao as 'Designação' from utilizador, TipoUser where Utilizador.CodtipoU=TipoUser.CodTipoU order by CodUser", "LstVUtilizador")
+        End If
+        PnlAdminInserir.Hide()
     End Sub
 
     Private Sub BtnImagemInserirCancelarAdmin_ButtonClickMasterRace_1(sender As Object, e As EventArgs) Handles BtnImagemInserirCancelarAdmin.ButtonClickMasterRace
         Botao(BtnImagemInserirCancelarAdmin)
-        TxtInserirQuilometros.Text = ""
-        TxtInserirQuantidade.Text = ""
-        TxtInserirValor.Text = ""
-        LblInserirQuilometros.Text = "Quilometros:"
-        TxtInserirNota.Text = ""
-        TxtInserirQuilometros.Enabled = True
         PnlAdminInserir.Hide()
-        CmbInserirAno.Invalidate()
-        CmbInserirDia.Invalidate()
-        CmbInserirMes.Invalidate()
+    End Sub
+
+    Private Sub BtnImagemAdminUtilizadorCarro_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemAdminUtilizadorCarro.ButtonClickMasterRace
+        Botao(BtnImagemAdminUtilizadorCarro)
+    End Sub
+
+    Private Sub BtnImagem10_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemAdminCidade.ButtonClickMasterRace
+        Botao(BtnImagemAdminCidade)
+        If MsgBox("Confirme a cidade a Inserir.", MsgBoxStyle.OkCancel, "Inserir Cidade") = MsgBoxResult.Cancel Then
+            Exit Sub
+        Else
+            InserirDadosAdmin("Cidade")
+            TxtAdminCidade.Text = ""
+        End If
+    End Sub
+
+    Private Sub BtnImagem9_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemAdminDesativar.ButtonClickMasterRace
+        Botao(BtnImagemAdminDesativar)
+        If LstVAdminVeiculo.SelectedItems.Count > 0 Then
+            EditarDadosAdmin("VeiculoDesativar", LstVAdminVeiculo.SelectedItems(0).Text)
+        Else
+            MsgBox("Selecione um Veiculo")
+        End If
+    End Sub
+
+
+    Private Sub BtnImagemAdminVeiculoEdit_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemAdminVeiculoEdit.ButtonClickMasterRace
+        Botao(BtnImagemAdminVeiculoEdit)
+        If LstVAdminVeiculo.SelectedItems.Count > 0 Then
+            PnlAdminInserir.Show()
+            PnlAdminInserir.BringToFront()
+            Inserir_EditarTabelaSQLAdmin("VeiculoEdit", LstVAdminVeiculo.SelectedItems(0).Text)
+        Else
+            MsgBox("Selecione um Veiculo")
+        End If
+    End Sub
+
+    Private Sub BtnImagemAdminFornecedorEdit_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemAdminFornecedorEdit.ButtonClickMasterRace
+        Botao(BtnImagemAdminFornecedorEdit)
+        If LstVAdminFornecedores.SelectedItems.Count > 0 Then
+            PnlAdminInserir.Show()
+            PnlAdminInserir.BringToFront()
+            Inserir_EditarTabelaSQLAdmin("FornecedorEdit", LstVAdminFornecedores.SelectedItems(0).Text)
+        Else
+            MsgBox("Selecione um Fornecedor")
+        End If
     End Sub
 End Class

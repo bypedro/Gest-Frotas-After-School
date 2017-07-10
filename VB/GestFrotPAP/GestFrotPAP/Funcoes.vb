@@ -3,7 +3,9 @@ Imports System.Security.Cryptography
 Imports System.Runtime.InteropServices
 Imports System.Text.RegularExpressions
 Imports System.Math
-
+'
+'Algumas Funções podem não ser usadas nesta versão do programa
+'
 Public Module Funcoes
     'ListBox
     Private Declare Function LockWindowUpdate Lib "user32" (ByVal hwndLock As IntPtr) As Int32
@@ -168,7 +170,7 @@ Public Module Funcoes
     Public Sub Grafico(ByVal AbastecimentoValor As Decimal, ByVal despesaValor As Decimal, ByVal manutencaoValor As Decimal)
         If AbastecimentoValor = 0 And despesaValor = 0 And manutencaoValor = 0 Then
             MsgBox("Sem Despesas Efectuadas")
-            'Handles a falta do despesas
+            'Verifica a falta de despesas
             Exit Sub
         End If
         Dim TotalValor As Decimal
@@ -206,4 +208,18 @@ Public Module Funcoes
 
     End Sub
 
+
+
+    Public Function RegexMatch(ByVal input As String, ByVal Pattern As String) As Boolean
+        '
+        'Verifica se o texto é compativel com a expressão regular
+        '
+        'http://regexr.com/ Criadas aqui
+        'https://visualstudiomagazine.com/articles/2014/01/01/regular-expressions.aspx Visitado para Informação
+        If Regex.IsMatch(input, Pattern) Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
 End Module
