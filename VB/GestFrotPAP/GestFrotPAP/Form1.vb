@@ -458,8 +458,8 @@ Public Class Form1
     '
     Private Sub BtnImagem5_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagem5.ButtonClickMasterRace
         MenuPrincipal(4, True)
-        TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo, LembrarPor as 'Lembrar por:' from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
-        TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo, LembrarPor as 'Lembrar por:' from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
+        TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
+        TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
         BtnImagemAgendaManu.EstadoBotao = True
         MenuAgenda(0)
         GrpAgendaDesp.Font = GetInstance(12, FontStyle.Bold)
@@ -492,6 +492,7 @@ Public Class Form1
         Botao(BtnImagemAgendaDespInsert)
         Panel1.Show()
         Panel1.BringToFront()
+
         Inserir_EditarTabelaSQL("AgendaDespInsert")
     End Sub
     '
@@ -540,8 +541,8 @@ Public Class Form1
         Botao(BtnImagemAgendaManuApagar)
         If LstVAgendaManu.SelectedItems.Count > 0 Then
             ApagarDados("manutencao", LstVAgendaManu.SelectedItems(0).Text.ToString)
-            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo, LembrarPor as 'Lembrar por:' from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
-            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo, LembrarPor as 'Lembrar por:' from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
+            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
+            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
         Else
             MsgBox("Selecione a despesa")
         End If
@@ -1104,24 +1105,28 @@ Public Class Form1
             TabelaVer(LstVDesp, "select Coddesp,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipodesp.nome as Tipo ,concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Sim'  and Veiculos.CodVei='" + DetalhesUtilizador.CodVeiculo.ToString + "' order by Veiculo_km", "LstVDesp")
         ElseIf SQL.TabelaSelecionada = "AgendaDespInsert" Then
             InserirDados("AgendaDespInsert")
+            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
+            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
         ElseIf SQL.TabelaSelecionada = "AgendaDespReagendar" Then
             EditarDados("AgendaDespReagendar")
-            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo, LembrarPor as 'Lembrar por:' from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
-            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo, LembrarPor as 'Lembrar por:' from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
+            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
+            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
         ElseIf SQL.TabelaSelecionada = "AgendaDespExecutar" Then
             EditarDados("AgendaDespExecutar")
-            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo, LembrarPor as 'Lembrar por:' from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
-            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo, LembrarPor as 'Lembrar por:' from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
+            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
+            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
         ElseIf SQL.TabelaSelecionada = "AgendaManuReagendar" Then
             EditarDados("AgendaManuReagendar")
-            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo, LembrarPor as 'Lembrar por:' from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
-            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo, LembrarPor as 'Lembrar por:' from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
+            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
+            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
         ElseIf SQL.TabelaSelecionada = "AgendaManuExecutar" Then
             EditarDados("AgendaManuExecutar")
-            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo, LembrarPor as 'Lembrar por:' from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
-            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',Veiculo_Km_Agendado as 'KM Agendados',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo, LembrarPor as 'Lembrar por:' from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
+            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
+            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
         ElseIf SQL.TabelaSelecionada = "AgendaManuInsert" Then
             InserirDados("AgendaManuInsert")
+            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
+            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
         End If
         Panel1.Hide()
         TxtInserirQuilometros.Text = ""
@@ -1226,11 +1231,9 @@ Public Class Form1
                 Exit Sub
             End If
         ElseIf SQL.TabelaSelecionadaAdmin = "VeiculoEdit" Then
-            MsgBox("ERRO", MsgBoxStyle.Critical, "ERRO")
-            Exit Sub
             If TxtAdminInserir1.Text <> "" And TxtAdminInserir2.Text <> "" And TxtAdminInserir3.Text <> "" And TxtAdminInserir4.Text <> "" And TxtAdminInserir5.Text <> "" And LstAdminInserir.SelectedItems.Count > 0 And LstAdminInserir2.SelectedItems.Count > 0 Then
                 If RegexMatch(TxtAdminInserir1.Text.ToString, "\b\d{2}[-.]?[a-zA-Z]{2}[-.]?\d{2}\b") = True Or RegexMatch(TxtAdminInserir1.Text.ToString, "\b[a-zA-Z]{2}[-.]?\d{2}[-.]?\d{2}\b") = True Or RegexMatch(TxtAdminInserir1.Text.ToString, "\b\d{2}[-.]?\d{2}[-.]?[a-zA-Z]{2}\b") = True And RegexMatch(TxtAdminInserir5.Text.ToString, "\b\d{4}\b") = True Then ' Verifica se a Matricula é portuguesa, Ano é 4 digitos 
-                    EditarDados("VeiculoEdit")
+                    EditarDadosAdmin("VeiculoEdit")
                 Else
                     MsgBox("Campos Inválidos.", MsgBoxStyle.Information, "Campos Inválidos")
                     Exit Sub
@@ -1313,6 +1316,29 @@ Public Class Form1
             EditarDadosAdmin("VeiculoDesativar", LstVAdminVeiculo.SelectedItems(0).Text)
         Else
             MsgBox("Selecione um Veiculo")
+        End If
+    End Sub
+
+
+    Private Sub BtnImagemAdminVeiculoEdit_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemAdminVeiculoEdit.ButtonClickMasterRace
+        Botao(BtnImagemAdminVeiculoEdit)
+        If LstVAdminVeiculo.SelectedItems.Count > 0 Then
+            PnlAdminInserir.Show()
+            PnlAdminInserir.BringToFront()
+            Inserir_EditarTabelaSQLAdmin("VeiculoEdit", LstVAdminVeiculo.SelectedItems(0).Text)
+        Else
+            MsgBox("Selecione um Veiculo")
+        End If
+    End Sub
+
+    Private Sub BtnImagemAdminFornecedorEdit_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemAdminFornecedorEdit.ButtonClickMasterRace
+        Botao(BtnImagemAdminFornecedorEdit)
+        If LstVAdminFornecedores.SelectedItems.Count > 0 Then
+            PnlAdminInserir.Show()
+            PnlAdminInserir.BringToFront()
+            Inserir_EditarTabelaSQLAdmin("FornecedorEdit", LstVAdminFornecedores.SelectedItems(0).Text)
+        Else
+            MsgBox("Selecione um Fornecedor")
         End If
     End Sub
 End Class

@@ -486,15 +486,10 @@
         ElseIf Tabela = "AgendaDespReagendar" Then
             Form1.LblInserirTitulo.Text = "Reagendar Despesa"
             Form1.BtnImagemInserirInserir.Texto = "Reagendar"
-            Form1.LblInserirQuilometros.Text = "Quilometros agendados:"
             Form1.LblInserirDataAgendada.Text = "Data agendada:"
             Form1.LblInserirTitulo.Show()
-            Form1.LblInserirQuilometros.Show()
-            Form1.TxtInserirQuilometros.Show()
             Form1.LblInserirDataAgendada.Show()
             Form1.DateTimePicker1.Show()
-            Form1.LstInserirLembrarPor.Show()
-            Form1.LblInserirLembrarPor.Show()
             Form1.LblInserirNota.Show()
             Form1.TxtInserirNota.Show()
             Form1.BtnImagemInserirInserir.Show()
@@ -525,17 +520,11 @@
             Form1.LblInserirTitulo.Text = "Agendar Despesa"
             Form1.BtnImagemInserirInserir.Texto = "Agendar"
             Form1.LblInserirTitulo.Show()
-            Form1.LblInserirQuilometros.Show()
-            Form1.LblInserirQuilometros.Text = "Quilometros a efetuar:"
-            Form1.TxtInserirQuilometros.Show()
-            Form1.LblInserirUltimoKM.Show()
             Form1.LstInserirTipo.Show()
             Form1.LblInserirManuTipo.Show()
             Form1.LblInserirNota.Show()
             Form1.TxtInserirNota.Show()
             Form1.BtnImagemInserirInserir.Show()
-            Form1.LblInserirLembrarPor.Show()
-            Form1.LstInserirLembrarPor.Show()
             'DATA
             Form1.LblInserirDataAgendada.Show()
             Form1.LblInserirDataAgendada.Text = "Data a efetuar:"
@@ -543,15 +532,10 @@
         ElseIf Tabela = "AgendaManuReagendar" Then
             Form1.LblInserirTitulo.Text = "Reagendar Manutenção"
             Form1.BtnImagemInserirInserir.Texto = "Reagendar"
-            Form1.LblInserirQuilometros.Text = "Quilometros agendados:"
             Form1.LblInserirDataAgendada.Text = "Data agendada:"
             Form1.LblInserirTitulo.Show()
-            Form1.LblInserirQuilometros.Show()
-            Form1.TxtInserirQuilometros.Show()
             Form1.LblInserirDataAgendada.Show()
             Form1.DateTimePicker1.Show()
-            Form1.LstInserirLembrarPor.Show()
-            Form1.LblInserirLembrarPor.Show()
             Form1.LblInserirNota.Show()
             Form1.TxtInserirNota.Show()
             Form1.BtnImagemInserirInserir.Show()
@@ -579,17 +563,11 @@
             Form1.LblInserirTitulo.Text = "Agendar Despesa"
             Form1.BtnImagemInserirInserir.Texto = "Agendar"
             Form1.LblInserirTitulo.Show()
-            Form1.LblInserirQuilometros.Show()
-            Form1.LblInserirQuilometros.Text = "Quilometros a efetuar:"
-            Form1.TxtInserirQuilometros.Show()
-            Form1.LblInserirUltimoKM.Show()
             Form1.LstInserirTipo.Show()
             Form1.LblInserirManuTipo.Show()
             Form1.LblInserirNota.Show()
             Form1.TxtInserirNota.Show()
             Form1.BtnImagemInserirInserir.Show()
-            Form1.LblInserirLembrarPor.Show()
-            Form1.LstInserirLembrarPor.Show()
             'DATA
             Form1.LblInserirDataAgendada.Show()
             Form1.LblInserirDataAgendada.Text = "Data a efetuar:"
@@ -636,11 +614,59 @@
         ElseIf Tabela = "VeiculoEdit" Then
             Form1.LblInserirTituloAdmin.Text = "Editar Veículo"
             Form1.BtnImagemInserirAdmin.Texto = "Editar"
+            Form1.BtnImagemInserirAdmin.Show()
             Form1.LblInserirTituloAdmin.Show()
+            Form1.LstAdminInserir.Show()
+            Form1.LstAdminInserir2.Show()
+            Form1.LblAdminInserir1.Text = "Matricula"
+            Form1.LblAdminInserir2.Text = "Marca"
+            Form1.LblAdminInserir3.Text = "Modelo"
+            Form1.LblAdminInserir5.Text = "Cor"
+            Form1.LblAdminInserir6.Text = "Ano"
+
+            Form1.LblAdminInserir1.Show()
+            Form1.LblAdminInserir2.Show()
+            Form1.LblAdminInserir3.Show()
+            Form1.LblAdminInserir5.Show()
+            Form1.LblAdminInserir6.Show()
+
+            Form1.TxtAdminInserir1.Show()
+            Form1.TxtAdminInserir2.Show()
+            Form1.TxtAdminInserir3.Show()
+            Form1.TxtAdminInserir4.Show()
+            Form1.TxtAdminInserir5.Show()
 
         ElseIf Tabela = "FornecedorInsert" Then
             Form1.LblInserirTituloAdmin.Text = "Novo Fornecedor"
             Form1.BtnImagemInserirAdmin.Texto = "Inserir"
+            Form1.BtnImagemInserirAdmin.Show()
+            Form1.LblInserirTituloAdmin.Show()
+            Form1.LstAdminInserir.Show()
+            Form1.LstAdminInserir2.Show()
+            Form1.LblAdminInserir1.Text = "Nome"
+            Form1.LblAdminInserir2.Text = "Rua"
+            Form1.LblAdminInserir3.Text = "Nº Telemóvel"
+            Form1.LblAdminInserir5.Text = "Nº Telefone"
+            Form1.LblAdminInserir6.Text = "Website"
+            Form1.LblAdminInserir7.Text = "Email"
+
+            Form1.LblAdminInserir1.Show()
+            Form1.LblAdminInserir2.Show()
+            Form1.LblAdminInserir3.Show()
+            Form1.LblAdminInserir5.Show()
+            Form1.LblAdminInserir6.Show()
+            Form1.LblAdminInserir7.Show()
+
+            Form1.TxtAdminInserir1.Show()
+            Form1.TxtAdminInserir2.Show()
+            Form1.TxtAdminInserir3.Show()
+            Form1.TxtAdminInserir4.Show()
+            Form1.TxtAdminInserir5.Show()
+            Form1.TxtAdminInserir6.Show()
+
+        ElseIf Tabela = "FornecedorEdit" Then
+            Form1.LblInserirTituloAdmin.Text = "Editar Fornecedor"
+            Form1.BtnImagemInserirAdmin.Texto = "Editar"
             Form1.BtnImagemInserirAdmin.Show()
             Form1.LblInserirTituloAdmin.Show()
             Form1.LstAdminInserir.Show()
@@ -731,11 +757,11 @@
             Form1.LstVDesp.Columns(0).Width = 0
         ElseIf Listview = "LstVAgendaManu" Then
             Form1.LstVAgendaManu.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
-            Form1.LstVAgendaManu.Columns(5).Width = Form1.LstVAgendaManu.Columns(5).Width + Form1.LstVAgendaManu.Columns(0).Width
+            Form1.LstVAgendaManu.Columns(3).Width = Form1.LstVAgendaManu.Columns(3).Width + Form1.LstVAgendaManu.Columns(0).Width
             Form1.LstVAgendaManu.Columns(0).Width = 0
         ElseIf Listview = "LstVAgendaDesp" Then
             Form1.LstVAgendaDesp.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
-            Form1.LstVAgendaDesp.Columns(5).Width = Form1.LstVAgendaDesp.Columns(5).Width + Form1.LstVAgendaDesp.Columns(0).Width
+            Form1.LstVAgendaDesp.Columns(3).Width = Form1.LstVAgendaDesp.Columns(3).Width + Form1.LstVAgendaDesp.Columns(0).Width
             Form1.LstVAgendaDesp.Columns(0).Width = 0
         ElseIf Listview = "LstVUtilizador" Then
             Form1.LstVAdminUtilizador.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
