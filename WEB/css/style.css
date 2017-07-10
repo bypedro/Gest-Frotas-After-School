@@ -150,7 +150,7 @@ h1 {
     font-family: "Raleway";
     text-align: justify;
     font-size: 150%;
-    margin: 48px 0 0 0px;
+    margin: 5px 0 0 0px;
 }
 
 h2 {
@@ -174,7 +174,7 @@ h4 {
     text-align: justify;
     font-size: 73%;
     float:left;
-    margin-left: 61%;
+    margin-left: 55%;
 }
 
 h5 {
@@ -213,16 +213,30 @@ h6 {
  background: url(http://i.imgur.com/5s1aQDf.png) no-repeat scroll 9px 24px;
 }
 
+.offservices{
+   background: url(http://i.imgur.com/5s1aQDf.png) no-repeat scroll 9px 24px;
+   pointer-events:none;
+   opacity:0.6;
+}
+
 .services:hover{
- background: url(http://i.imgur.com/OF6pwAx.png) no-repeat scroll 9px 24px;
+  background: url(http://i.imgur.com/OF6pwAx.png) no-repeat scroll 9px 24px;
 }
 
 .perfil{
- background: url(http://i.imgur.com/Jm9R1Ux.png) no-repeat scroll 9px 24px;
+  background: url(http://i.imgur.com/Jm9R1Ux.png) no-repeat scroll 9px 24px;
 }
 
 .perfil:hover{
- background: url(http://i.imgur.com/q2EqsIK.png) no-repeat scroll 9px 24px;
+  background: url(http://i.imgur.com/q2EqsIK.png) no-repeat scroll 9px 24px;
+}
+
+.history{
+  background: url(../logos/history.png) no-repeat scroll 9px 24px;
+}
+
+.history:hover{
+  background: url(../logos/historyr.png) no-repeat scroll 9px 24px;
 }
 
 .tooltip {
@@ -384,18 +398,101 @@ input[type=date] {
   opacity: 0.7;
 }
 
+.btnpop {
+  font-family: "Raleway";
+  background-color: rgb(112, 208, 133);
+  border: none;
+  color: #ffffff;
+  padding: 8px 28px;
+  text-align: center;
+  border-radius: 6px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 13px;
+  margin: 20% -51%;
+  cursor: pointer;
+  outline: none;
+}
+
+.btnpop:hover {
+  opacity: 0.7;
+}
+
+.btnpainel {
+  font-family: "Raleway";
+      background-color: rgba(84, 208, 104, 0);
+      border: 1px solid;
+      color: #71ca54;
+      padding: 1% 3%;
+      text-align: center;
+      border-radius: 6px;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 10px;
+      cursor: pointer;
+      outline: none;
+      margin: 1%;
+      display: none;
+      float: left;
+}
+
+.btnpainel:hover {
+  opacity: 0.7;
+}
+
+.btnpainel1 {
+      font-family: "Raleway";
+      background-color: rgba(241, 157, 74, 0);
+      border: 1px solid;
+      color: rgb(241, 157, 74);
+      padding: 1% 3%;
+      text-align: center;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 10px;
+      cursor: pointer;
+      outline: none;
+      margin: 1%;
+      display: none;
+      float: left;
+}
+
+.btnpainel1:hover {
+  opacity: 0.7;
+}
+
+.btnpainel2 {
+  font-family: "Raleway";
+  background-color: rgba(245, 77, 77, 0);
+  border: 1px solid;
+  color: #d62d2d;
+  padding: 1% 3%;
+  text-align: center;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 10px;
+  cursor: pointer;
+  outline: none;
+  margin: 1%;
+  display: none;
+  float: left;
+}
+
+.btnpainel2:hover {
+  opacity: 0.7;
+}
+
 .btnfilter {
     font-family: "Raleway";
     background-color: rgb(226, 120, 89);
     border: none;
     color: #ffffff;
-    padding: 8px 30px;
+    padding: 9px 22px;
     text-align: center;
     border-radius: 6px;
     text-decoration: none;
-    display: inline-block;
     font-size: 13px;
-  margin: 4px 2px 12px;
+    margin: 4px 2px 12px;
     cursor: pointer;
     outline: none;
 }
@@ -468,6 +565,26 @@ table#t01 {
 .sth:hover{
   background-color: #949494;
 
+}
+
+.imgdone{
+  height: 50%;
+  padding: 0px 9px 0px 10px;
+  margin: 3% 12% 11% 14%;
+  display: -webkit-box;
+}
+
+.imgdrop{
+  height: 50%;
+  padding-left: 96%;
+  display: block;
+}
+
+.imgaci{
+  height: 50%;
+  padding: 1px 9px 0px 10px;
+  margin: 3% 12% 11% 14%;
+  display: -webkit-box;
 }
 
 
@@ -552,7 +669,7 @@ color: #555;
     background-color: #fdfdfd;
     text-align: left;
     padding: 2%;
-    width: 28.3%;
+    width: 28%;
     box-shadow: 0 1px 1px 0 rgba(50,50,50,.2);
     margin: 0% 1% 4% 0%;
     background: url(http://i.imgur.com/VmlaoP9.png) no-repeat scroll 79% 91%;
@@ -565,7 +682,7 @@ color: #555;
     background-color: #fdfdfd;
     text-align: left;
     padding: 2%;
-    width: 28.3%;
+    width: 28%;
     box-shadow: 0 1px 1px 0 rgba(50,50,50,.2);
     margin: 0% 1% 4% 0%;
     background: url(http://i.imgur.com/dFJaPKj.png) no-repeat scroll 79% 91%;
@@ -578,7 +695,7 @@ color: #555;
     background-color: #fdfdfd;
     text-align: left;
     padding: 2%;
-    width: 28.3%;
+    width: 28%;
     box-shadow: 0 1px 1px 0 rgba(50,50,50,.2);
     margin: 0% 1% 4% 0%;
     background: url(http://i.imgur.com/78oqhlU.png) no-repeat scroll 79% 91%;
@@ -596,6 +713,7 @@ color: #555;
   margin: 0% 0% 2% 0%;
   border-radius: 5px;
   display: table;
+  background: url(http://i.imgur.com/dFJaPKj.png) no-repeat scroll 26% 86%;
 }
 
 .indextabel{
@@ -731,18 +849,14 @@ input[type=text] {
 }
 
 input[type=count] {
-      font-family: "Raleway";
-      border: none;
-      margin: 7px 7px 6px;
-      color: #676767;
-      padding: 15px 16px 12px 5px;
-      border: none;
-      font: 400 14px 'Cabin', sans-serif;
-      background: #78d270;
-      max-width: 6%;
-      text-align: right;
-      border-radius: 46%;
-      font-size: 12px;
+    font-family: "Raleway";
+    border: none;
+    color: #000000;
+    padding: 15px 16px 12px 5px;
+    font: 400 14px 'Cabin', sans-serif;
+    background: rgba(120, 210, 112, 0);
+    max-width: 45%;
+    font-size: 12px;
 
 }
 
@@ -779,8 +893,160 @@ td a {
 
 .textagenda{
     float: left;
-    padding: 6% 4% 5% 3%;
+    padding: 5% 8% 5% 3%;
     font-family: "Raleway";
     font-size: 14px;
     font-weight: bold;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 22px;
+  border: 1px solid #888;
+  width: 28%;
+  height: 15%;
+
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.modal-footer{
+  font-family: "Raleway";
+  margin-top: -36%;
+  font-size: 85%;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 5%;
+    -webkit-animation: fadeEffect 1s;
+    animation: fadeEffect 1s;
+}
+
+ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #ffffff;
+}
+
+td.tab {
+  width: 40px;
+}
+
+
+/* Float the list items side by side */
+ul.tab li {float: left;
+width: 160px;
+padding: 2px;}
+
+/* Style the links inside the list items */
+ul.tab li a {
+  margin-bottom: 0px;
+      font-family: "Montserrat";
+      font-size: 11px;
+      color: #a9a9a9;
+      text-align: center;
+      text-decoration: none;
+      transition: 0.3s;
+      border: solid 0.1px;
+      margin: 4% 11% 7% 18%;
+      display: table-cell;
+      width: 160px;
+      padding: 7% 6% 7% 0%;
+}
+
+/* Change background color of links on hover */
+ul.tab li a:hover {
+    color: #FF5252;
+    width: 160px;
+}
+
+/* Create an active/current tablink class */
+ul.tab li a:focus, .active {
+    color: #FF5252 !important;
+    width: 160px;
+}
+
+.perfiltab{
+      width: 50%;
+      box-shadow: -4px 1px 13px -7px grey;
+}
+
+.imgprofile{
+  width: 60px;
+height: 60px;
+border-radius: 50%;
+}
+
+.imgmini{
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin: 5px;
+  margin-left: 13px;
+}
+
+.imgmini:hover{
+  opacity:0.6;
+}
+
+.topnav {
+  background-color: #f7f7f7;
+  margin-left: 75%;
+  width: 21%;
+  height: 7%;
+  box-shadow: 0px 4px 6px -6px grey;
+  display: table;
+  border-right: solid 2px;
+  border-right-color: #df314d;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+}
+/*
+.topp{
+      font-family: "Raleway";
+      text-align: justify;
+      font-size: 90%;
+      float: right;
+      padding: 4.7% 64% 0% 0%;
+}
+*/
+
+.topp{
+  font-family: "Raleway";
+  text-align: justify;
+  font-size: 90%;
+  float: right;
+  padding: 4.7% 60% 0% 0%;
 }

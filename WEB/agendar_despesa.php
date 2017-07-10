@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
   ob_start();
   session_start();
@@ -11,8 +10,14 @@
   }
 
   // select loggedin users detail
-  $res=mysql_query("SELECT * from despesas, veiculos, fornecedores, utilizador, tipodesp WHERE despesas.codVei=veiculos.codVei AND despesas.codForn=fornecedores.CodForn and despesas.CodUser=utilizador.CodUser and despesas.CodTipoD=tipodesp.CodTipoD");
+  $res=mysql_query("SELECT * from despesas, veiculos, fornecedores, utilizador, tipodesp
+                    WHERE despesas.codVei=veiculos.codVei AND despesas.codForn=fornecedores.CodForn AND despesas.CodUser=utilizador.CodUser AND despesas.CodTipoD=tipodesp.CodTipoD");
   $userRow=mysql_fetch_array($res);
+
+  $ress=mysql_query("SELECT utilizador.Nome_Registo, photos.location
+                      FROM photos, utilizador
+                      WHERE photos.CodUser=utilizador.CodUser AND utilizador.CodUser = " .$_SESSION['user']);
+  $usersRow=mysql_fetch_array($ress);
 
   if ( isset($_POST['btn-signup']) ) {
 
@@ -84,6 +89,12 @@
 </head>
 
 <body>
+
+  <div class="topnav">
+    <div class="topp">&#124;&nbsp;&nbsp;<?php echo $usersRow['Nome_Registo']; ?></div>
+     <?php echo '<p><img class="imgmini" src="'.$usersRow['location'].'"></p>'; ?>
+  </div>
+
   <ul class="menu">
 
       <li title="home"><a href="#" class="menu-button home">menu</a></li>
@@ -105,14 +116,14 @@
 
   <div class="container">
 
-  <h1>Início<div class="tooltip"><img src="logos/info.png" class="imgaddd"><span class="tooltiptext">Home</span></div></h1>
+  <h1>Agendar Despesa<div class="tooltip"><img src="logos/info.png" class="imgaddd"><span class="tooltiptext">Home</span></div></h1>
   <div class="page-title">
   </div>
   <br>
 
   <div class="boxagenda">
     <div class="textagenda">Valor Total (€) </div>
-    <input type="count" placeholder="0" name="n2" readonly='readonly' id="total_price_amount"/>
+    <input type="count" placeholder="0 €" name="n2" readonly='readonly' id="total_price_amount"/>
   </div>
 
     <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" autocomplete="off">
@@ -186,10 +197,10 @@
   echo "</select>";
   ?>
 
-    <p align="right">
-         <button type="submit" class="btnnn" name="btn-signup">Registar Despesa</button>
+  <p align="right">
+     <button type="submit" class="btnnn" name="btn-signup">Registar Despesa</button>
      <button class="btnn" type=button onClick="parent.location='services.php'">Voltar</button>
-         </p>
+  </p>
 
 
     </form>

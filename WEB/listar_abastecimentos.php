@@ -4,7 +4,7 @@ session_start();
 $con=mysqli_connect("localhost","root","") or die(mysqli_error());
 mysqli_select_db($con,"frotas") or die(mysqli_error($con));
 ?>
-<html style="overflow: hidden";>
+<html>
 <head>
   <meta charset="UTF-8">
   <title>Lista Despesas Agendadas</title>
@@ -50,8 +50,9 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
     $start=($page-1)*$limit;
   }
 
-  $sql=mysqli_query($con, "SELECT despesas.CodDesp, despesas.Data_Agendada, despesas.Veiculo_Km_Agendado, despesas.Valor, veiculos.Matricula, fornecedores.nome as nomef, tipodesp.nome, despesas.Nota from despesas, veiculos, fornecedores, utilizador, tipodesp
-                            WHERE Efetuada='Sim' AND despesas.codVei=veiculos.codVei AND despesas.codForn=fornecedores.CodForn AND despesas.CodUser=utilizador.CodUser AND despesas.CodTipoD=tipodesp.CodTipoD ORDER BY despesas.CodDesp
+  $sql=mysqli_query($con, "SELECT veiabast.Data, veiabast.Veiculo_Km, veiabast.Quantidade, veiabast.Valor, fornecedores.nome as nomef, veiculos.Marca, veiculos.Matricula, veiabast.Notas
+                            FROM veiabast, utilizador, veiculos, fornecedores
+                            WHERE veiabast.CodUser=utilizador.CodUser AND veiabast.CodVei=veiculos.CodVei AND veiabast.CodForn=fornecedores.CodForn and utilizador.CodUser = " .$_SESSION['user'] . " ORDER BY veiabast.CodVeiAbast
                             DESC LIMIT $start, $limit") or die(mysqli_error($con));
 
 ?>
@@ -61,14 +62,14 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
 <table align='center' id="myTable" class='table-fill'>
   <?php
   echo "<tr>";
-        echo "<th>Data Agendada</th>";
-        echo "<th>Veiculo (KM)</th>";
-        echo "<th>Valor (€)</th>";
-        echo "<th>Veículo</th>";
-        echo "<th>Fornecedor</th>";
-        echo "<th>Despesa</th>";
-        echo "<th>Notas</th>";
-        echo "<th class='optionsop'>Opção</th>";
+  echo "<th>Data</th>";
+  echo "<th>Veículo (KM)</th>";
+  echo "<th>Quantidade (L)</th>";
+  echo "<th>Valor (€)</th>";
+  echo "<th>Fornecedor</th>";
+  echo "<th>Veículo</th>";
+  echo "<th>Matrícula</th>";
+  echo "<th>Notas</th>";
   echo "</tr>";
 
   ?>
@@ -80,16 +81,16 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
   ?>
   <?php
 
-  echo "<tr>";
-        echo "<td>" . $row['Data_Agendada'] . "</td>";
-        echo "<td>" . $row['Veiculo_Km_Agendado'] . "</td>";
-        echo "<td>" . $row['Valor'] . "</td>";
-        echo "<td>" . $row['Matricula'] . "</td>";
-        echo "<td>" . $row['nomef'] . "</td>";
-        echo "<td>" . $row['nome'] . "</td>";
-        echo "<td>" . $row['Nota'] . "</td>";
-        echo "<td class='options'>" . "<a href='#.php?id=".$row['CodDesp']."' target='_blank'><img src='logos/view.png' class='imgg' /></a>" . "</td>";
-  echo "</tr>";
+    echo "<tr>";
+    echo "<td>" . $row['Data'] . "</td>";
+    echo "<td>" . $row['Veiculo_Km'] . "</td>";
+    echo "<td>" . $row['Quantidade'] . "</td>";
+    echo "<td>" . $row['Valor'] . "</td>";
+    echo "<td>" . $row['nomef'] . "</td>";
+    echo "<td>" . $row['Marca'] . "</td>";
+    echo "<td>" . $row['Matricula'] . "</td>";
+    echo "<td>" . $row['Notas'] . "</td>";
+    echo "</tr>";
 
 
 
@@ -104,7 +105,7 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
 
   <?php
 
-  $rows=mysqli_num_rows(mysqli_query($con, "select * from despesas WHERE Efetuada='Nao'"));
+  $rows=mysqli_num_rows(mysqli_query($con, "select * from veiabast where CodUser = " .$_SESSION['user']));
   $total=ceil($rows/$limit);
   if(isset($page))
   {

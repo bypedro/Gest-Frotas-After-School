@@ -35,7 +35,7 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
 
   <div class="container">
 
-  <h1>Lista Despesas<div class="tooltip"><img src="logos/info.png" class="imgaddd"><span class="tooltiptext">Home</span></div></h1>
+  <h1>Lista Despesas Agendadas<div class="tooltip"><img src="logos/info.png" class="imgaddd"><span class="tooltiptext">Home</span></div></h1>
   <div class="page-title">
   </div>
   <br>
@@ -51,7 +51,7 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
   }
 
   $sql=mysqli_query($con, "SELECT despesas.CodDesp, despesas.Data_Agendada, despesas.Veiculo_Km_Agendado, despesas.Valor, veiculos.Matricula, fornecedores.nome as nomef, tipodesp.nome, despesas.Nota from despesas, veiculos, fornecedores, utilizador, tipodesp
-                            WHERE Efetuada='Sim' AND despesas.codVei=veiculos.codVei AND despesas.codForn=fornecedores.CodForn AND despesas.CodUser=utilizador.CodUser AND despesas.CodTipoD=tipodesp.CodTipoD ORDER BY despesas.CodDesp
+                            WHERE Efetuada='Nao' AND despesas.codVei=veiculos.codVei AND despesas.codForn=fornecedores.CodForn AND despesas.CodUser=utilizador.CodUser AND despesas.CodTipoD=tipodesp.CodTipoD ORDER BY despesas.CodDesp
                             DESC LIMIT $start, $limit") or die(mysqli_error($con));
 
 ?>
@@ -62,14 +62,14 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
   <?php
   echo "<tr>";
         echo "<th>Data Agendada</th>";
-        echo "<th>Veiculo (KM)</th>";
-        echo "<th>Valor (€)</th>";
+                echo "<th>Veiculo (KM)</th>";
+                echo "<th>Valor (€)</th>";
         echo "<th>Veículo</th>";
         echo "<th>Fornecedor</th>";
         echo "<th>Despesa</th>";
         echo "<th>Notas</th>";
         echo "<th class='optionsop'>Opção</th>";
-  echo "</tr>";
+            echo "</tr>";
 
   ?>
   <?php
@@ -80,16 +80,16 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
   ?>
   <?php
 
-  echo "<tr>";
-        echo "<td>" . $row['Data_Agendada'] . "</td>";
-        echo "<td>" . $row['Veiculo_Km_Agendado'] . "</td>";
-        echo "<td>" . $row['Valor'] . "</td>";
-        echo "<td>" . $row['Matricula'] . "</td>";
+    echo "<tr>";
+  echo "<td>" . $row['Data_Agendada'] . "</td>";
+                echo "<td>" . $row['Veiculo_Km_Agendado'] . "</td>";
+                echo "<td>" . $row['Valor'] . "</td>";
+                echo "<td>" . $row['Matricula'] . "</td>";
         echo "<td>" . $row['nomef'] . "</td>";
         echo "<td>" . $row['nome'] . "</td>";
         echo "<td>" . $row['Nota'] . "</td>";
-        echo "<td class='options'>" . "<a href='#.php?id=".$row['CodDesp']."' target='_blank'><img src='logos/view.png' class='imgg' /></a>" . "</td>";
-  echo "</tr>";
+        echo "<td class='options'>" . "<a href='edit.php?id=".$row['CodDesp']."' target='_blank'><img title='Editar Despesa Agendada' src='logos/edit.png' class='imgg' /></a>" . "<a href='done.php?id=".$row['CodDesp']."' target='_blank'><img title='Marcar Como Efetuado' src='logos/done.png' class='imgg' /></a>" . "<a href='delete.php?id=".$row['CodDesp']."' target='_blank'><img title='Remover' src='logos/remove.png' class='imgg' /></a>" . "</td>";
+            echo "</tr>";
 
 
 

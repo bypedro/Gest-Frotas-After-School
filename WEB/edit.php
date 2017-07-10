@@ -47,11 +47,21 @@
 
   }
   }
-  $query1=mysql_query("SELECT despesas.CodDesp as coddespesa, despesas.Valor as desp, despesas.Data_Agendada as datea, fornecedores.nome as forn, tipodesp.nome as tipdesp, veiculos.Matricula as vei 
+  $query1=mysql_query("SELECT despesas.CodDesp as coddespesa, despesas.Valor as desp, despesas.Data_Agendada as datea, fornecedores.nome as forn, tipodesp.nome as tipdesp, veiculos.Matricula as vei
                       from despesas, fornecedores, tipodesp, veiculos
                       where despesas.CodTipoD = tipodesp.CodTipoD and despesas.CodDesp = despesas.CodDesp and despesas.codVei = veiculos.codVei and despesas.CodDesp ='$id'");
   $query2=mysql_fetch_array($query1);
+
+  $ress=mysql_query("SELECT utilizador.Nome_Registo, photos.location
+                      FROM photos, utilizador
+                      WHERE photos.CodUser=utilizador.CodUser AND utilizador.CodUser = " .$_SESSION['user']);
+  $usersRow=mysql_fetch_array($ress);
   ?>
+
+  <div class="topnav">
+    <div class="topp">&#124;&nbsp;&nbsp;<?php echo $usersRow['Nome_Registo']; ?></div>
+     <?php echo '<p><img class="imgmini" src="'.$usersRow['location'].'"></p>'; ?>
+  </div>
 
   <ul class="menu">
 

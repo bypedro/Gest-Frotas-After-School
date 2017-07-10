@@ -116,10 +116,35 @@ function checkolddesp () {
   $result6 = mysql_query($sql6);
 
   if(mysql_num_rows($result6) > 0){
-      echo "<div class='alert'>
-      <span></span>
-      <strong>ATENÇÃO!</strong> Tem <strong>" . $userCount['counter'] . "</strong> despesas para efetuar até hoje referente ao dia <strong>" . $userCount['data_agendada'] . "</strong> !
-    </div>";
+
+    echo "<div class='alert'>
+    <span></span>
+    <strong>ATENÇÃO!</strong> Tem <strong>" . $userCount['counter'] . "</strong> despesas para efetuar até hoje referente ao dia <strong>" . $userCount['data_agendada'] . "</strong> !
+  </div>";
   }
 
 }
+
+function ifgest(){
+  $q = mysql_query ("SELECT CodTipoU from utilizador where CodTipoU=2 and CodUser=".$_SESSION['user']);
+  $num = mysql_num_rows ($q);
+
+  if($num == '1'){
+    echo '<li title="pencil"><a href="services.php" class="offservices"></a></li>';
+
+  }else {
+    echo '<li title="pencil"><a href="services.php" class="services"></a></li>';
+  }
+}
+
+ function gestalert() {
+    $j = mysql_query ("SELECT utilizador.CodTipoU from utilizador where CodTipoU=2 and CodUser=".$_SESSION['user']);
+    $nums = mysql_num_rows ($j);
+
+    if($nums == '1'){
+      echo "<div class='alert'>
+      <span></span>
+      <strong>Novo Utilizador!</strong> Para poder utilizar o sistema espere que o administrador <strong>ative</strong> a sua conta !
+      </div>";
+    }
+  }
