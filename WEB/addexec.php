@@ -1,5 +1,10 @@
 <?php
+ob_start();
+session_start();
 include('dbconnect.php');
+
+$user_id = $_SESSION['user'];
+
 if (!isset($_FILES['image']['tmp_name'])) {
 	echo "";
 	}else{
@@ -12,7 +17,7 @@ if (!isset($_FILES['image']['tmp_name'])) {
 			$location="photos/" . $_FILES["image"]["name"];
 			$caption=$_POST['caption'];
 
-			$save=mysql_query("INSERT INTO photos (location, CodUser) VALUES ('$location', '1')");
+			$save=mysql_query("UPDATE utilizador SET location='$location' WHERE CodUser = '$user_id'");
 			header("location: perfil.php");
 			exit();
 	}

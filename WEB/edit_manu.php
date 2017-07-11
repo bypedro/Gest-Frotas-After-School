@@ -25,7 +25,7 @@ $userRow=mysql_fetch_array($res);
 <html style="overflow: hidden";>
 <head>
   <meta charset="UTF-8">
-  <title>Reagendar Servico</title>
+  <title>Editar Manutenção</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Oswald" />
   <script src="js/validations.js"></script>
@@ -45,22 +45,19 @@ $userRow=mysql_fetch_array($res);
   if(isset($_POST['submit']))
   {
   $date=$_POST['date'];
-  $query3=mysql_query("update despesas set Data_Efetuada='$date', Data_Agendada='$date' where CodDesp='$id'");
+  $query3=mysql_query("update manutencao set Data_Efetuada='$date', Data_Agendada='$date' where CodManu='$id'");
   header("Location: services.php");
   if($query3)
   {
 
   }
   }
-  $query1=mysql_query("SELECT despesas.CodDesp as coddespesa, despesas.Valor as desp, despesas.Data_Agendada as datea, fornecedores.nome as forn, tipodesp.nome as tipdesp, veiculos.Matricula as vei
-                      from despesas, fornecedores, tipodesp, veiculos
-                      where despesas.CodTipoD = tipodesp.CodTipoD and despesas.CodDesp = despesas.CodDesp and despesas.codVei = veiculos.codVei and despesas.CodDesp ='$id'");
+  $query1=mysql_query("SELECT manutencao.CodManu as codmanu, manutencao.Data_Agendada as datea, manutencao.Valor as desp, tipomanu.nome as tipdesp, fornecedores.nome as nomef
+                        FROM manutencao, veiculos, tipomanu, fornecedores
+                        WHERE manutencao.CodVei=veiculos.codVei AND manutencao.CodTipoM=tipomanu.CodTipoM
+                        AND manutencao.CodForn=fornecedores.CodForn AND manutencao.CodManu ='$id'");
   $query2=mysql_fetch_array($query1);
 
-  $ress=mysql_query("SELECT utilizador.Nome_Registo, photos.location
-                      FROM photos, utilizador
-                      WHERE photos.CodUser=utilizador.CodUser AND utilizador.CodUser = " .$_SESSION['user']);
-  $usersRow=mysql_fetch_array($ress);
   ?>
 
   <div class="topnav">
@@ -87,7 +84,7 @@ $userRow=mysql_fetch_array($res);
 
   <div class="container">
 
-  <h1>Editar Agenda<div class="tooltip"><img src="logos/info.png" class="imgaddd"><span class="tooltiptext">Home</span></div></h1>
+  <h1>Editar Manutenção<div class="tooltip"><img src="logos/info.png" class="imgaddd"><span class="tooltiptext">Home</span></div></h1>
   <div class="page-title">
   </div>
   <br>
@@ -95,9 +92,9 @@ $userRow=mysql_fetch_array($res);
    <th class="tdindex">
     <table id="t02">
     <tr>
-      <th class="ttthh"><h5><br><div class="thref">Referência</div><?php echo $query2['coddespesa'] ?></h5></th>
-      <th class="tthhh"><h5><br><div class="thforn">Fornecedor</div><?php echo $query2['forn'] ?></h5></th>
-      <th class="tthh"><h5><br><div class="thforn">Despesa</div><?php echo $query2['tipdesp'] ?></h5></th>
+      <th class="ttthh"><h5><br><div class="thref">Referência</div><?php echo $query2['codmanu'] ?></h5></th>
+      <th class="tthhh"><h5><br><div class="thforn">Fornecedor</div><?php echo $query2['nomef'] ?></h5></th>
+      <th class="tthh"><h5><br><div class="thforn">Manutenção</div><?php echo $query2['tipdesp'] ?></h5></th>
       <th class="sthh"><h5><br><div class="thforn">Valor</div><?php echo $query2['desp'] ?> €</h5></th>
     </tr>
 

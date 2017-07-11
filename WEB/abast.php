@@ -49,7 +49,6 @@ if($result = mysqli_query($link, $sql)){
 				echo "<th>Fornecedor</th>";
 				echo "<th>Veículo</th>";
 				echo "<th>Matrícula</th>";
-				echo "<th>Notas</th>";
         echo "</tr>";
         while($row = mysqli_fetch_array($result)){
         echo "<tr>";
@@ -60,7 +59,6 @@ if($result = mysqli_query($link, $sql)){
 				echo "<td>" . $row['nomef'] . "</td>";
 				echo "<td>" . $row['Marca'] . "</td>";
 				echo "<td>" . $row['Matricula'] . "</td>";
-				echo "<td>" . $row['Notas'] . "</td>";
         echo "</tr>";
         }
         echo "</table>";

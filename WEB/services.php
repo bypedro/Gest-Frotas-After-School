@@ -1,4 +1,3 @@
-<html>
 <?php
   ob_start();
   session_start();
@@ -11,11 +10,11 @@
     exit;
   }
 
-  $ress=mysql_query("SELECT utilizador.Nome_Registo, photos.location
-                      FROM photos, utilizador
-                      WHERE photos.CodUser=utilizador.CodUser AND utilizador.CodUser = " .$_SESSION['user']);
-  $usersRow=mysql_fetch_array($ress);
+  $res=mysql_query("SELECT tipouser.designacao, utilizador.location, utilizador.Nome_Registo
+                      FROM utilizador, tipouser
+                        WHERE tipouser.CodTipoU=utilizador.CodTipoU and utilizador.CodUser=" .$_SESSION['user']);
 
+	$userRow=mysql_fetch_array($res);
 
 ?>
 
@@ -29,10 +28,10 @@
 <body>
 
   <div class="topnav">
-		<div class="topp">&#124;&nbsp;&nbsp;<?php echo $usersRow['Nome_Registo']; ?></div>
-		 <?php echo '<p><img class="imgmini" src="'.$usersRow['location'].'"></p>'; ?>
+		<div class="topp"><?php echo $userRow['Nome_Registo']; ?></div><div class="topd"><?php echo $userRow['designacao']; ?></div>
+		 <?php echo '<p><img class="imgmini" src="'.$userRow['location'].'"></p>'; ?>
   </div>
-  
+
   <ul class="menu">
       <li title="home"><a href="#" class="menu-button home">menu</a></li>
       <li title="Home"><a href="painel.php" class="ico"></a></li>
@@ -61,24 +60,34 @@
   <iframe src="veiact.php" frameborder="0" width="100%" height="180px"></iframe>
   </div>
 
-  <button class="accordion"><img src="logos/notes.png" class="imggg"><h3>DESPESAS </h3> </button>
+  <button class="accordion"><img src="logos/notes.png" class="imggg"><h3>DESPESAS</h3> </button>
   <div class="panel">
     <iframe src="despesas.php" frameborder="0" width="100%" height="250px"></iframe><h6>Mais despesas associadas: <?php despesacount(); ?> !</h6>
-    <p align="right"><a href="inserir_despesa.php"><img src="logos/add.png" title="Adicionar Despesa" class="imgadd"></a> <a href="listar_despesas.php"><img src="logos/file.png" title="Ver Lista" class="imgadd"></a></p>
+    <p align="right"><?php cantdeclare(); ?> <a href="listar_despesas.php"><img src="logos/file.png" title="Ver Lista" class="imgadd"></a></p>
+  </div>
+
+  <button class="accordion"><img src="logos/wrench.png" class="imggg"><h3>MANUTENÇÕES</h3> </button>
+  <div class="panel">
+    <iframe src="manutencao.php" frameborder="0" width="100%" height="250px"></iframe><h6>Mais manutenções associadas: <?php manucount(); ?> !</h6>
+    <p align="right"><?php cantdeclare3(); ?><a href="listar_manutencao.php"><img src="logos/file.png" title="Ver Histórico" class="imgadd"></a></p>
   </div>
 
   <button class="accordion"><img src="logos/bell.png" class="imggg"><h3>AGENDA</h3>
   </button>
   <div class="panel">
-    <iframe src="agenda.php" frameborder="0" width="100%" height="250px"></iframe><h6>Mais agendas associadas: <?php agendacount(); ?> !</h6>
-    <p align="right"><a href="agendar_despesa.php"><img src="logos/add.png" title="Adicionar Despesa" class="imgadd"></a> <a href="listar_despesas_agendadas.php"><img src="logos/file.png" title="Ver Lista" class="imgadd"></a></p>
+    <iframe src="agenda.php" frameborder="0" width="100%" height="250px"></iframe><h6>Mais despesas agendadas: <?php agendacount(); ?> !</h6>
+    <p align="right"><?php cantdeclare1(); ?>  <a href="listar_despesas_agendadas.php"><img src="logos/file.png" title="Ver Lista" class="imgadd"></a></p>
+    <br>
+      <iframe src="manutencao_agendadas.php" frameborder="0" width="100%" height="250px"></iframe><h6>Mais manutenções agendadas: <?php manucounts(); ?> !</h6>
+      <p align="right"><?php cantdeclare4(); ?>  <a href="listar_manutencoes_agendadas.php"><img src="logos/file.png" title="Ver Lista" class="imgadd"></a></p>
   </div>
 
   <button class="accordion"><img src="logos/fuel.png" class="imggg"><h3>ABASTECIMENTO</h3> </button>
   <div class="panel">
     <iframe src="abast.php" frameborder="0" width="100%" height="250px"></iframe><h6>Mais abastecimentos associados: <?php abastcount(); ?> !</h6>
-    <p align="right"><a href="inserir_abastecimento.php"><img src="logos/add.png" title="Adicionar Despesa" class="imgadd"></a> <a href="listar_abastecimentos.php"><img src="logos/file.png" title="Ver Histórico" class="imgadd"></a></p>
+    <p align="right"><?php cantdeclare2(); ?><a href="listar_abastecimentos.php"><img src="logos/file.png" title="Ver Histórico" class="imgadd"></a></p>
   </div>
+
 
 
   <script>

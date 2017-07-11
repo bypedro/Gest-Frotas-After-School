@@ -31,7 +31,7 @@ if($link === false){
 
 $sql = "SELECT despesas.CodDesp, despesas.Data_Agendada, despesas.Veiculo_Km_Agendado, despesas.Valor, veiculos.Matricula, fornecedores.nome AS nomef, tipodesp.nome
           FROM despesas, veiculos, fornecedores, utilizador, tipodesp WHERE Efetuada='Nao' AND despesas.codVei=veiculos.codVei AND despesas.codForn=fornecedores.CodForn
-          AND despesas.CodUser=utilizador.CodUser AND despesas.CodTipoD=tipodesp.CodTipoD AND utilizador.CodUser=".$_SESSION['user'] . " ORDER BY Data_Efetuada DESC LIMIT 3 ";
+          AND despesas.CodUser=utilizador.CodUser AND despesas.CodTipoD=tipodesp.CodTipoD AND utilizador.CodUser=".$_SESSION['user'] . " ORDER BY Data_agendada DESC LIMIT 3";
 
 if($result = mysqli_query($link, $sql)){
     if(mysqli_num_rows($result) > 0){
