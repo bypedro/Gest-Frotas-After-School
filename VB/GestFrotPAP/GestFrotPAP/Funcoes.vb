@@ -137,34 +137,46 @@ Public Module Funcoes
     End Function
 
     Function ConverterDistancia(ByVal Distancia As String) As String
-        If My.Settings.SqlDistancia = "Km" Then
-            Return Distancia * 1
-        ElseIf My.Settings.SqlDistancia = "Mi" Then
-            Return Round(Distancia * 1.609344, 2) '1.609344->Valor de 1Mi em Km
-        End If
-        Return 1
+        Try
+            If My.Settings.SqlDistancia = "Km" Then
+                Return Distancia * 1
+            ElseIf My.Settings.SqlDistancia = "Mi" Then
+                Return Round(Distancia * 1.609344, 2) '1.609344->Valor de 1Mi em Km
+            End If
+            Return 1
+        Catch ex As Exception
+            MsgBox("Campo Inválido.", MsgBoxStyle.Information, "Campos Inválidos")
+        End Try
     End Function
 
     Function ConverterMoeda(ByVal Moeda As String, Optional ByVal Oposto As Boolean = False) As String
-        If My.Settings.SqlMoeda = "Euro" Then
-            Return Moeda * 1
-        ElseIf My.Settings.SqlMoeda = "Dolar" Then
-            If Oposto = True Then
-                Return Round(Moeda * 1.12235, 2) '1.12235->Valor de 1€ em Dolar 
-            Else
-                Return Round(Moeda / 1.12235, 2) '1.12235->Valor de 1€ em Dolar
+        Try
+            If My.Settings.SqlMoeda = "Euro" Then
+                Return Moeda * 1
+            ElseIf My.Settings.SqlMoeda = "Dolar" Then
+                If Oposto = True Then
+                    Return Round(Moeda * 1.12235, 2) '1.12235->Valor de 1€ em Dolar 
+                Else
+                    Return Round(Moeda / 1.12235, 2) '1.12235->Valor de 1€ em Dolar
+                End If
             End If
-        End If
-        Return 1
+            Return 1
+        Catch ex As Exception
+            MsgBox("Campo Inválido.", MsgBoxStyle.Information, "Campos Inválidos")
+        End Try
     End Function
 
     Function ConverterVolume(ByVal Volume As String) As String
-        If My.Settings.SqlVolume = "L" Then
-            Return Volume * 1
-        ElseIf My.Settings.SqlVolume = "UsGal" Then
-            Return Volume * 3.78541178 '3.78541178-> Valor de 1UsGal em L
-        End If
-        Return 1
+        Try
+            If My.Settings.SqlVolume = "L" Then
+                Return Volume * 1
+            ElseIf My.Settings.SqlVolume = "UsGal" Then
+                Return Volume * 3.78541178 '3.78541178-> Valor de 1UsGal em L
+            End If
+            Return 1
+        Catch ex As Exception
+            MsgBox("Campo Inválido.", MsgBoxStyle.Information, "Campos Inválidos")
+        End Try
     End Function
 
     Public Sub Grafico(ByVal AbastecimentoValor As Decimal, ByVal despesaValor As Decimal, ByVal manutencaoValor As Decimal)

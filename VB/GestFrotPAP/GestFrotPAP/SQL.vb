@@ -161,7 +161,7 @@ Module SQL
         End If
     End Function
 
-    Public Function RegistarUtilizador(ByVal Utilizador As String, ByVal Password1 As String, ByVal Password2 As String, ByVal Email As String) As Boolean
+    Public Function RegistarUtilizador(ByVal Utilizador As String, ByVal Password1 As String, ByVal Password2 As String, ByVal Email As String, ByVal Nome_Proprio As String, ByVal Apelido As String) As Boolean
         Dim Comando As MySqlCommand
         Dim Objecto As Object
 
@@ -243,14 +243,14 @@ Module SQL
         End If
         'PILAS
         Try
-            Comando = New MySqlCommand("insert into utilizador (Nome_Registo, Senha,Email) values ('" + Utilizador + "', '" + HashPassword(Password1) + "', '" + Email + "')", ligacao)
+            Comando = New MySqlCommand("insert into utilizador (Nome_Registo, Senha,Email,Nome_Proprio,Apelido,Genero,Data_Nascimento,Rua,N_Telemovel,CodCi) values ('" + Utilizador + "', '" + HashPassword(Password1) + "', '" + Email + "', '" + Nome_Proprio + "', '" + Apelido + "','Masculino','2017-07-11',' ', '960000000','63')", ligacao)
             ligacao.Open()
             Comando.ExecuteNonQuery()
             ligacao.Close()
             Return (True)
             Exit Function
         Catch ex As Exception
-            MsgBox("ERRO SQL INSERT")
+            MsgBox("Erro! Contate o administrador com o seguinte erro:  " + ex.Message, MsgBoxStyle.Critical, "Erro!!!")
         End Try
         Return (False)
     End Function
@@ -277,7 +277,7 @@ Module SQL
         End Try
     End Function
 
-    Public Function UltimoKM() As Double
+    Public Function UltimoKM() As Decimal
         Dim Max As Double = 0
         Dim KMDespesas As Double = 0
         Dim KMManutencao As Double = 0
@@ -1457,6 +1457,8 @@ Module SQL
                     Form1.TxtAdminInserir4.Text = reader("Rua")
                     Form1.TxtAdminInserir5.Text = reader("N_Telemovel")
                     Form1.TxtAdminInserir6.Text = reader("Email")
+                    Form1.DtpAdminInserir.CustomFormat = "yyyy-MM-dd"
+                    Form1.DtpAdminInserir.Value = reader.GetDateTime("Data_Nascimento")
                 End While
                 ligacao.Close()
             ElseIf Tabela = "UtilizadorAtivar" Then
@@ -1563,20 +1565,22 @@ Module SQL
         '
         Dim data As String
         'data = Form1.CmbInserirAno.Text + "-" + Form1.CmbInserirMes.Text + "-" + Form1.CmbInserirDia.Text
-        data = String.Format("{0:yyyy-MM-dd}", Form1.DateTimePicker1.Value.Date)
+        data = String.Format("{0:yyyy-MM-dd}", Form1.DtpAdminInserir.Value.Date)
         '
         'Selecionar comando para editar
         '
         If Tabela = "VeiculoEdit" Then
             comando = New MySqlCommand("Update veiculos set Matricula='" + Form1.TxtAdminInserir1.Text.ToString + "',Marca='" + Form1.TxtAdminInserir2.Text.ToString + "',Modelo='" + Form1.TxtAdminInserir3.Text.ToString + "',Cor='" + Form1.TxtAdminInserir4.Text.ToString + "',Ano='" + Form1.TxtAdminInserir5.Text.ToString + "',CodTipoC='" + Form1.LstAdminInserir2.SelectedValue.ToString + "',CodTipoV='" + Form1.LstAdminInserir.SelectedValue.ToString + "' where CodVei='" + IDSelecionadoAdmin + "'", ligacao)
         ElseIf Tabela = "UtilizadorEdit" Then
-            comando = New MySqlCommand("Update Utilizador set Nome_Registo='" + Form1.TxtAdminInserir1.Text.ToString + "',Nome_Proprio='" + Form1.TxtAdminInserir2.Text.ToString + "',Apelido='" + Form1.TxtAdminInserir3.Text.ToString + "',Rua='" + Form1.TxtAdminInserir4.Text.ToString + "', N_Telemovel='" + Form1.TxtAdminInserir5.Text.ToString + "',Email='" + Form1.TxtAdminInserir6.Text.ToString + "' where CodUser='" + IDSelecionadoAdmin + "'", ligacao)
+            comando = New MySqlCommand("Update Utilizador set data_nascimento='" + data + "',Nome_Registo='" + Form1.TxtAdminInserir1.Text.ToString + "',Nome_Proprio='" + Form1.TxtAdminInserir2.Text.ToString + "',Apelido='" + Form1.TxtAdminInserir3.Text.ToString + "',Rua='" + Form1.TxtAdminInserir4.Text.ToString + "', N_Telemovel='" + Form1.TxtAdminInserir5.Text.ToString + "',Email='" + Form1.TxtAdminInserir6.Text.ToString + "' where CodUser='" + IDSelecionadoAdmin + "'", ligacao)
         ElseIf Tabela = "UtilizadorAtivar" Then
             comando = New MySqlCommand("Update Utilizador set CodTipoU='" + Form1.LstAdminInserir.SelectedValue.ToString + "' where CodUser='" + IDSelecionadoAdmin + "'", ligacao)
         ElseIf Tabela = "FornecedorEdit" Then
             comando = New MySqlCommand("Update Fornecedores set Nome='" + Form1.TxtAdminInserir1.Text.ToString + "',Rua='" + Form1.TxtAdminInserir2.Text.ToString + "',N_Telemovel='" + Form1.TxtAdminInserir3.Text.ToString + "',N_Telefone='" + Form1.TxtAdminInserir4.Text.ToString + "',Site='" + Form1.TxtAdminInserir5.Text.ToString + "',Email='" + Form1.TxtAdminInserir6.Text.ToString + "',CodTipoF='" + Form1.LstAdminInserir.SelectedValue.ToString + "',CodCi='" + Form1.LstAdminInserir2.SelectedValue.ToString + "' where CodForn='" + IDSelecionadoAdmin + "'", ligacao)
         ElseIf Tabela = "VeiculoDesativar" Then
             comando = New MySqlCommand("Update veiculos set codTipoV=4 where Codvei='" + Cod + "'", ligacao)
+        ElseIf Tabela = "CidadeEdit" Then
+            comando = New MySqlCommand("Update Cidade set Nome='" + Form1.TxtAdminCidadeEdit.Text.ToString + "', CodPais='" + Form1.LstAdminCidadeEditPais.SelectedValue.ToString + "' where CodCi='" + Cod + "'", ligacao)
         End If
         '
         'Executar comando
@@ -1617,6 +1621,25 @@ Module SQL
         Lst.DataSource = Dados.Tables(0)
         Lst.DisplayMember = display
         Lst.ValueMember = Cod
+    End Sub
 
+    Public Sub SelecionarCidade(ByVal cod As String)
+        Comando = New MySqlCommand
+        Comando.Connection = ligacao
+        'Por o tipo de unidade que o form espera nas labels!
+        Try
+            Comando.CommandText = "SELECT * FROM Cidade where CodCi='" + cod + "'"
+            ligacao.Open()
+            reader = Comando.ExecuteReader
+            While reader.Read
+                Form1.LstAdminCidadeEditPais.SelectedValue = reader.GetString("CodPais")
+                Form1.TxtAdminCidadeEdit.Text = reader.GetString("Nome")
+            End While
+        Catch ex As Exception
+            MsgBox("Erro! Contate o administrador com o seguinte erro:  " + ex.Message, MsgBoxStyle.Critical, "Erro!!!")
+        Finally
+            ligacao.Close()
+        End Try
+        
     End Sub
 End Module
