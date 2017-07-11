@@ -2,16 +2,23 @@
 	ob_start();
 	session_start();
 	require_once 'dbconnect.php';
-
+	  include 'functions.php';
 	// if session is not set this will redirect to login page
 	if( !isset($_SESSION['user']) ) {
 		header("Location: index.php");
 		exit;
+
 	}
 
-	// select loggedin users detail
-	$res=mysql_query("SELECT * FROM veiabast, utilizador, veiculos, fornecedores where veiabast.CodUser=utilizador.CodUser and veiabast.CodVei=veiculos.CodVei and veiabast.CodForn=fornecedores.CodForn");
+	$id = $_SESSION['user'];
+	// var_dump($id); die;
+	$res=mysql_query("SELECT * from despesas, veiculos, fornecedores, utilizador, tipodesp WHERE despesas.codVei=veiculos.codVei AND despesas.codForn=fornecedores.CodForn and despesas.CodUser=utilizador.CodUser and despesas.CodTipoD=tipodesp.CodTipoD and utilizador.Coduser");
 	$userRow=mysql_fetch_array($res);
+
+	$ress=mysql_query("SELECT tipouser.designacao, utilizador.location, utilizador.Nome_Registo
+                      FROM utilizador, tipouser
+                        WHERE tipouser.CodTipoU=utilizador.CodTipoU and utilizador.CodUser=" .$_SESSION['user']);
+	$usersRow=mysql_fetch_array($ress);
 
 	if ( isset($_POST['btn-signup']) ) {
 
@@ -82,14 +89,17 @@
 
 
 <body>
-  <ul class="menu">
 
+	<div class="topnav">
+		<div class="topp"><?php echo $usersRow['Nome_Registo']; ?></div><div class="topd"><?php echo $usersRow['designacao']; ?></div>
+		 <?php echo '<p><img class="imgmini" src="'.$usersRow['location'].'"></p>'; ?>
+	</div>
+	<ul class="menu">
       <li title="home"><a href="#" class="menu-button home">menu</a></li>
-
-      <li title="Home"><a href="#" class="ico"></a></li>
-      <li title="pencil"><a href="services.php" class="services">pencil</a></li>
-      <li title="about"><a href="#" class="perfil">about</a></li>
-      <li title="archive"><a href="#" class="">archive</a></li>
+      <li title="Home"><a href="painel.php" class="ico"></a></li>
+      <?php   ifgest(); ?>
+      <li title="about"><a href="perfil.php" class="perfil">about</a></li>
+      <li title="archive"><a href="listar_servicos.php" class="history">archive</a></li>
       <li title="contact"><a href="#" class="">contact</a></li>
     </ul>
 
@@ -170,7 +180,7 @@
 
   		<p align="right">
            <button type="submit" class="btnnn" name="btn-signup">Registar Abastecimento</button>
-  		 <button class="btnn" type=button onClick="parent.location='demo5.php'">Voltar</button>
+  		 <button class="btnn" type=button onClick="parent.location='services.php'">Voltar</button>
   				 </p>
 
 

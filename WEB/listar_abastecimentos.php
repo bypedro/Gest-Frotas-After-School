@@ -3,25 +3,33 @@ ob_start();
 session_start();
 $con=mysqli_connect("localhost","root","") or die(mysqli_error());
 mysqli_select_db($con,"frotas") or die(mysqli_error($con));
+  include 'functions.php';
+$sql=mysqli_query($con, "SELECT tipouser.designacao, utilizador.location, utilizador.Nome_Registo
+                    FROM utilizador, tipouser
+                      WHERE tipouser.CodTipoU=utilizador.CodTipoU and utilizador.CodUser=" .$_SESSION['user']) or die(mysqli_error($con));
+$usersRow=mysqli_fetch_assoc($sql);
 ?>
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Lista Despesas Agendadas</title>
+  <title>Lista Abastecimentos</title>
       <link rel="stylesheet" href="css/style.css">
       <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Oswald" />
       <script src="js/validations.js"></script>
 </head>
 
 <body>
+
+  <div class="topnav">
+    <div class="topp"><?php echo $usersRow['Nome_Registo']; ?></div><div class="topd"><?php echo $usersRow['designacao']; ?></div>
+     <?php echo '<p><img class="imgmini" src="'.$usersRow['location'].'"></p>'; ?>
+  </div>
   <ul class="menu">
-
       <li title="home"><a href="#" class="menu-button home">menu</a></li>
-
-      <li title="Home"><a href="#" class="ico"></a></li>
-      <li title="pencil"><a href="services.php" class="services">pencil</a></li>
-      <li title="about"><a href="#" class="perfil">about</a></li>
-      <li title="archive"><a href="#" class="">archive</a></li>
+      <li title="Home"><a href="painel.php" class="ico"></a></li>
+      <?php   ifgest(); ?>
+      <li title="about"><a href="perfil.php" class="perfil">about</a></li>
+      <li title="archive"><a href="listar_servicos.php" class="history">archive</a></li>
       <li title="contact"><a href="#" class="">contact</a></li>
     </ul>
 
@@ -35,7 +43,7 @@ mysqli_select_db($con,"frotas") or die(mysqli_error($con));
 
   <div class="container">
 
-  <h1>Lista Despesas<div class="tooltip"><img src="logos/info.png" class="imgaddd"><span class="tooltiptext">Home</span></div></h1>
+  <h1>Lista Abastecimentos<div class="tooltip"><img src="logos/info.png" class="imgaddd"><span class="tooltiptext">Home</span></div></h1>
   <div class="page-title">
   </div>
   <br>

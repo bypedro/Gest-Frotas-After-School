@@ -9,21 +9,29 @@
 	$error = false;
 
 	if ( isset($_POST['btn-signup']) ) {
-		
+
 		// clean user inputs to prevent sql injections
 		$name = trim($_POST['name']);
 		$name = strip_tags($name);
 		$name = htmlspecialchars($name);
-		
+
 		$email = trim($_POST['email']);
 		$email = strip_tags($email);
 		$email = htmlspecialchars($email);
-		
+
+		$nomep = trim($_POST['nomep']);
+		$nomep = strip_tags($nomep);
+		$nomep = htmlspecialchars($nomep);
+
+		$nomea = trim($_POST['nomea']);
+		$nomea = strip_tags($nomea);
+		$nomea = htmlspecialchars($nomea);
+
 		$pass = trim($_POST['pass']);
 		$pass = strip_tags($pass);
 		$pass = htmlspecialchars($pass);
-		
-		
+
+
 		// basic name validation
 		if (empty($name)) {
 			$error = true;
@@ -35,7 +43,7 @@
 			$error = true;
 			$nameError = "Name must contain alphabets and space.";
 		}
-		
+
 		//basic email validation
 		if ( !filter_var($email,FILTER_VALIDATE_EMAIL) ) {
 			$error = true;
@@ -58,16 +66,17 @@
 			$error = true;
 			$passError = "Password tem de ter pelo menos 6 carateres.";
 		}
-		
+
 		// password encrypt using SHA256();
 		$password = hash('sha256', $pass);
-		
+
+
 		// if there's no error, continue to signup
 		if( !$error ) {
-			
-			$query = "INSERT INTO utilizador(Nome_Registo, Email, Senha) VALUES('$name','$email','$password')";
+
+			$query = "INSERT INTO utilizador(Nome_Registo, Email, Nome_Proprio, Apelido, Senha) VALUES('$name','$email', '$nomep', '$nomea', '$password')";
 			$res = mysql_query($query);
-				
+
 			if ($res) {
 				$errTyp = "Concluído!";
 				$errMSG = "Registo concluído com sucesso, agora pode entrar.";
@@ -77,12 +86,12 @@
 			} else {
 				$errTyp = "Erro";
 				$errMSG = "Alguma coisa está mal, tente novamente mais tarde...";
-				
-			}	
-				
+
+			}
+
 		}
-		
-		
+
+
 	}
 ?>
 <!DOCTYPE html>
@@ -91,26 +100,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Registar</title>
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css"  />
-<link rel="stylesheet" href="old/style.css"/>
+<link rel="stylesheet" href="css/oldcss/style.css"/>
 </head>
-<body style="background-color:#f7f7f7;>
+<body style="background-color:#f7f7f7";>
 
 <div class="container">
 
 	<div id="login-form">
     <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" autocomplete="off">
-    
+
     	<div class="col-md-12">
-        
+
         	<div class="form-group">
 
             </div>
-        
-        
-            
+
+
+
             <?php
 			if ( isset($errMSG) ) {
-				
+
 				?>
 				<div class="form-group">
             	<div class="alert alert-<?php echo ($errTyp=="success") ? "success" : $errTyp; ?>">
@@ -120,20 +129,20 @@
                 <?php
 			}
 			?>
-            
-			
-		<div class="boxxx">	
+
+
+		<div class="boxxx">
 		<h6>Registar Utilizador</h6>
             <div class="form-group">
             	<div class="">
-			
+
 			<br>
                 <span class=""><span class=""></span></span>
             	<input type="text" name="name" class="" placeholder="Utilizador" maxlength="50" value="<?php echo $name ?>" />
                 </div>
                 <span class="text-danger"><?php echo $nameError; ?></span>
             </div>
-            
+
             <div class="form-group">
             	<div  class="">
                 <span class=""><span class=""></span></span>
@@ -141,32 +150,45 @@
                 </div>
                 <span class="text-danger"><?php echo $emailError; ?></span>
             </div>
-            
+<br>
+						<div class="form-group">
+							<div  class="">
+								<span class=""><span class=""></span></span>
+							<input type="text" name="nomep" class="" placeholder="Nome Próprio" maxlength="40" value="<?php echo $nomep ?>" />
+								</div>
+								<span class="text-danger"><?php echo $nameError; ?></span>
+						</div>
+
+						<div class="form-group">
+							<div  class="">
+								<span class=""><span class=""></span></span>
+							<input type="text" name="nomea" class="" placeholder="Apelido" maxlength="40" value="<?php echo $nomea ?>" />
+								</div>
+								<span class="text-danger"><?php echo $nameError; ?></span>
+						</div>
+
             <div class="form-group">
-            	<div class=""> 
-                <span class=""><span class=""></span></span> 
+            	<div class="">
+                <span class=""><span class=""></span></span>
             	<input type="password" name="pass" class="" placeholder="•••••••" maxlength="15" />
                 </div>
                 <span class="text-danger"><?php echo $passError; ?></span>
             </div>
 
-			
 			<br>
          <button type="submit" class="btnreg" name="btn-signup">Registar</button>
-				   
-        <button class="btnlogin" type=button onClick="parent.location='index.php'">Entrar</button>   
+
+        <button class="btnlogin" type=button onClick="parent.location='index.php'">Entrar</button>
             <div class="form-group">
             </div>
-			
-        </div> 
-		
 
-		
-		
+        </div>
+
+
     </form>
-    </div>	
+    </div>
     </form>
-    </div>	
+    </div>
 
 </div>
 

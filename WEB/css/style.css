@@ -219,6 +219,22 @@ h6 {
    opacity:0.6;
 }
 
+.imgdropoff{
+  height: 50%;
+  padding-left: 96%;
+  display: inline-block;
+  pointer-events:none;
+  opacity:0.6;
+}
+
+.imgaddoff{
+  margin: 0px 0px 0px 0px;
+  width: 30px;
+  height: 30px;
+  pointer-events:none;
+  opacity:0.6;
+}
+
 .services:hover{
   background: url(http://i.imgur.com/OF6pwAx.png) no-repeat scroll 9px 24px;
 }
@@ -577,7 +593,7 @@ table#t01 {
 .imgdrop{
   height: 50%;
   padding-left: 96%;
-  display: block;
+  display: inline-block;
 }
 
 .imgaci{
@@ -796,6 +812,7 @@ color: #555;
 }
 
 input[type=password] {
+    margin: 0px 0px 10px;
     padding: 14px 10px 14px 40px;
     width: calc(100%);
     border-radius: 3px;
@@ -808,6 +825,7 @@ input[type=password] {
 
 
 input[type=email] {
+    margin: 0px 0px 10px;
     padding: 14px 10px 14px 40px;
     width: calc(100%);
     border-radius: 3px;
@@ -1004,17 +1022,27 @@ ul.tab li a:focus, .active {
 }
 
 .imgprofile{
-  width: 60px;
-height: 60px;
-border-radius: 50%;
+  width: 135px;
+  height: 135px;
+  border-radius: 50%;
+  box-shadow: 4px 2px 17px -8px grey;
+  border: solid 1px;
+  border-color: white;
+}
+
+.imgprofile:hover{
+  opacity:0.6;
 }
 
 .imgmini{
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  margin: 5px;
+  margin: -48px;
   margin-left: 13px;
+  margin-bottom: 5%;
+  display: inline;
+  box-shadow: 1px -1px 15px -5px grey;
 }
 
 .imgmini:hover{
@@ -1023,15 +1051,17 @@ border-radius: 50%;
 
 .topnav {
   background-color: #f7f7f7;
-  margin-left: 75%;
-  width: 21%;
-  height: 7%;
-  box-shadow: 0px 4px 6px -6px grey;
-  display: table;
+  margin-left: 70%;
+  width: 26%;
+  height: 52px;
+  box-shadow: 4px 5px 4px -6px grey;
+  display: block;
   border-right: solid 2px;
   border-right-color: #df314d;
   border-top-left-radius: 25px;
   border-bottom-left-radius: 25px;
+  border-left: solid 3px;
+  border-left-color: #df314d;
 }
 /*
 .topp{
@@ -1045,8 +1075,21 @@ border-radius: 50%;
 
 .topp{
   font-family: "Raleway";
-  text-align: justify;
   font-size: 90%;
-  float: right;
-  padding: 4.7% 60% 0% 0%;
+  font-weight: bold;
+  float: initial;
+  padding: 10px 60px 1px;
+  text-align: left;
+  display: block;
+}
+
+.topd{
+  font-family: "Raleway";
+  font-size: 55%;
+  font-weight: bold;
+  float: initial;
+  padding: 1px 61px 1px;
+  text-align: start;
+  display: block;
+  color: #df314d;
 }

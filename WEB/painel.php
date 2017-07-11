@@ -14,10 +14,10 @@
 
   }
 
-  $ress=mysql_query("SELECT utilizador.Nome_Registo, photos.location
-                      FROM photos, utilizador
-                      WHERE photos.CodUser=utilizador.CodUser AND utilizador.CodUser = " .$_SESSION['user']);
-  $usersRow=mysql_fetch_array($ress);
+  $ress=mysql_query("SELECT tipouser.designacao, utilizador.location, utilizador.senha, utilizador.CodUser, utilizador.Nome_Registo, utilizador.Nome_Proprio, utilizador.Apelido, utilizador.Genero, utilizador.Data_Nascimento, utilizador.Rua, utilizador.Email, tipouser.designacao, cidade.Nome, utilizador.N_Telemovel
+                      FROM utilizador, cidade, tipouser, pais
+                        WHERE pais.CodPais=cidade.CodPais and tipouser.CodTipoU=utilizador.CodTipoU and cidade.CodCi=utilizador.CodCi and utilizador.CodUser=" .$_SESSION['user']);
+  $userRow=mysql_fetch_array($ress);
 
 ?>
 <html>
@@ -33,8 +33,8 @@
 <body>
 
   <div class="topnav">
-		<div class="topp">&#124;&nbsp;&nbsp;<?php echo $usersRow['Nome_Registo']; ?></div>
-		 <?php echo '<p><img class="imgmini" src="'.$usersRow['location'].'"></p>'; ?>
+		<div class="topp"><?php echo $userRow['Nome_Registo']; ?></div><div class="topd"><?php echo $userRow['designacao']; ?></div>
+		 <?php echo '<p><img class="imgmini" src="'.$userRow['location'].'"></p>'; ?>
   </div>
 
 	<ul class="menu">
@@ -114,7 +114,7 @@
   <tr>
   <th class="trindex">OPÇÕES</th>
   <td class="tdindex">
-    <img src="logos/drop.png" id="idrop" class="imgdrop" onclick="optionssho()">
+    <?php noservice(); ?>
     <button src="logos/checked.png"  id="imdone" class="btnpainel" type=button><img src="logos/parked-car.png" class="imgdone">TERMINAR</button>
     <button class="btnpainel1" id="imaci" type=button onClick=""><img src="logos/tools.png" class="imgaci">ACIDENTE</button>
     <button class="btnpainel2" id="imdesp" type=button onClick="parent.location='inserir_despesa.php'"><img src="logos/painelfuel.png" class="imgaci">DESPESAS</button></td>

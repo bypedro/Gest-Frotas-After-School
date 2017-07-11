@@ -12,7 +12,7 @@
 
   $id = $_SESSION['user'];
 	// var_dump($id); die;
-	$res=mysql_query("SELECT * from despesas, veiculos, fornecedores, utilizador, tipodesp WHERE despesas.codVei=veiculos.codVei AND despesas.codForn=fornecedores.CodForn and despesas.CodUser=utilizador.CodUser and despesas.CodTipoD=tipodesp.CodTipoD and utilizador.Coduser");
+	$res=mysql_query("SELECT manutencao.Data_Efetuada, manutencao.Veiculo_Km, manutencao.Valor, veiculos.Matricula, tipomanu.nome, fornecedores.nome, manutencao.Nota FROM manutencao, veiculos, tipomanu, fornecedores, utilizador WHERE manutencao.CodVei=veiculos.codVei AND manutencao.CodTipoM=tipomanu.CodTipoM AND manutencao.CodForn=fornecedores.CodForn AND manutencao.CodUser=utilizador.CodUser");
 	$userRow=mysql_fetch_array($res);
 
 	$ress=mysql_query("SELECT tipouser.designacao, utilizador.location, utilizador.Nome_Registo
@@ -59,7 +59,7 @@
     // if there's no error, continue to signup
     if( !$error ) {
 
-      $query = "INSERT INTO despesas (codForn, codVei, CodUser, CodTipoD, Data_Agendada, Veiculo_Km_Agendado, valor, Nota, Efetuada, Data_Efetuada, Veiculo_Km)
+      $query = "INSERT INTO manutencao (codForn, codVei, CodUser, CodTipoM, Data_Agendada, Veiculo_Km_Agendado, valor, Nota, Efetuada, Data_Efetuada, Veiculo_Km)
                 VALUES ( '$email', '$veiculo', '$userid', '$tipod', '$date', '$veikm', '$valor', '$Notes', 'Nao', '$date', '$veikm')";
 
       $res = mysql_query($query);
@@ -83,7 +83,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Agendar Despesa</title>
+  <title>Agendar Manutenção</title>
       <link rel="stylesheet" href="css/style.css">
       <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Oswald" />
       <script src="js/validations.js"></script>
@@ -115,7 +115,7 @@
 
   <div class="container">
 
-  <h1>Agendar Despesa<div class="tooltip"><img src="logos/info.png" class="imgaddd"><span class="tooltiptext">Home</span></div></h1>
+  <h1>Agendar Manutenção<div class="tooltip"><img src="logos/info.png" class="imgaddd"><span class="tooltiptext">Home</span></div></h1>
   <div class="page-title">
   </div>
   <br>
@@ -153,14 +153,14 @@
   }
   echo "</select>";
   ?></td></tr>
-      <tr><th>Tipo Despesa</th><td><?php
+      <tr><th>Tipo Manutenção</th><td><?php
     echo "<select name=tipod id=despt onchange=vhiden() class=search_categories>";
-  $q = mysql_query ("select CodTipoD, nome from tipodesp");
+  $q = mysql_query ("select CodTipoM, nome from tipomanu");
   $num = mysql_num_rows ($q);
   for ($i = 0; $i < $num; $i++)
   {
     $reg = mysql_fetch_assoc($q);
-    echo "<option value='" . $reg['CodTipoD'] ."'>" . $reg['nome'] ."</option>";
+    echo "<option value='" . $reg['CodTipoM'] ."'>" . $reg['nome'] ."</option>";
   }
   echo "</select>";
   ?></td></tr>

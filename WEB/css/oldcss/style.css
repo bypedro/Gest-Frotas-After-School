@@ -28,7 +28,7 @@ th, td {
 	font-family: "Raleway";
     border-bottom: solid #f9f5f5 1px;
 	 padding: 14px;
-	 
+
 }
 
 td{
@@ -40,7 +40,7 @@ input, select {
     border: 0px solid #ccc;
 	border-bottom: solid #a7a7a7 1px;
 	width: 350px;
-	
+
 }
 
 
@@ -107,14 +107,14 @@ font-size: 18px;
 	padding-bottom: 15px;
 	border-radius: 13px;
 	-moz-border-radius: 130px;
-	
+
 
 }
 .hover08 figure:hover img {
 
 	-webkit-filter: grayscale(70%) blur(0px);
 	filter: grayscale(70%) blur(0px);
-	
+
 }
 
 
@@ -229,7 +229,7 @@ font-size: 18px;
   width: 286px;
   height: 10px;
   margin: 10px;
- 
+
 }
 
 .boxx:hover {
@@ -316,7 +316,7 @@ width: 281px;
 }
 
 .btnreg {
-	
+
 	bottom-align: right;
 	background-color: rgba(236, 236, 236, 0);
     border: none;
@@ -341,7 +341,7 @@ width: 281px;
 }
 
 .btnadmin {
-	
+
 	bottom-align: right;
 	background-color: rgba(236, 236, 236, 0);
      border: none;
@@ -363,7 +363,7 @@ width: 281px;
 }
 
 .optionsop{
-    background-color: #f9f9f9 !important; 
+    background-color: #f9f9f9 !important;
     text-align: center;
     width: 130px;
 }
@@ -403,7 +403,7 @@ input[type=text] {
     color: #66737E;
     font: 400 14px 'Cabin', sans-serif;
     max-width: 230px;
-	
+
 }
 
 
@@ -416,12 +416,13 @@ input[type=adress] {
     color: #66737E;
     font: 400 14px 'Cabin', sans-serif;
     max-width: 230px;
-	
+
 }
 
 
 
 input[type=password] {
+		margin: 0px 0px 10px;
     padding: 14px 10px 14px 40px;
     width: calc(100%);
     border-radius: 3px;
@@ -434,6 +435,7 @@ input[type=password] {
 
 
 input[type=email] {
+		margin: 0px 0px 10px;
     padding: 14px 10px 14px 40px;
     width: calc(100%);
     border-radius: 3px;
@@ -476,7 +478,7 @@ img {
     height: 20px;
 	margin-top: 0px;
 	float: left;
-	
+
 }
 
 .imggg:hover{
@@ -523,7 +525,7 @@ h5 {
     color: white;
 	font: 500 15px 'Cabin', sans-serif;
 	}
-	
+
 
 
 img.bottom {
@@ -539,13 +541,13 @@ th {
 }
 
 
-  
+
  .btne img{
 	 opacity: 1;
 	 border-radius: 7px;
 	 width: 25px;
  }
- 
+
  .btne:hover {
 	 opacity: .5;
 	-webkit-transition: .3s ease-in-out;
@@ -572,7 +574,7 @@ ul.tab li a {
     font-size: 13px;
     display: inline-block;
     color: #616161;
-    text-align:center; 
+    text-align:center;
     padding: 0px 78px;
     text-decoration: none;
     transition: 0.3s;
@@ -590,7 +592,7 @@ ul.tab li a:focus, .active {
 
 /* Style the tab content */
 .tabcontent {
-	
+
     display: none;
     padding: 6px 12px;
     -webkit-animation: fadeEffect 1s;

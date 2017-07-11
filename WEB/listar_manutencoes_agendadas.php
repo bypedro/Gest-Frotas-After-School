@@ -60,8 +60,9 @@ $usersRow=mysqli_fetch_assoc($sql);
     $start=($page-1)*$limit;
   }
 
-  $sql=mysqli_query($con, "SELECT despesas.CodDesp, despesas.Data_Agendada, despesas.Veiculo_Km_Agendado, despesas.Valor, veiculos.Matricula, fornecedores.nome as nomef, tipodesp.nome, despesas.Nota from despesas, veiculos, fornecedores, utilizador, tipodesp
-                            WHERE Efetuada='Nao' AND despesas.codVei=veiculos.codVei AND despesas.codForn=fornecedores.CodForn AND despesas.CodUser=utilizador.CodUser AND despesas.CodTipoD=tipodesp.CodTipoD AND utilizador.CodUser=".$_SESSION['user'] . " ORDER BY despesas.CodDesp
+  $sql=mysqli_query($con, "SELECT manutencao.CodManu, manutencao.CodTipoM, manutencao.Data_Agendada, manutencao.Veiculo_Km_Agendado, manutencao.Valor, veiculos.Matricula, tipomanu.nome, fornecedores.nome as nomef, manutencao.Nota
+                            FROM manutencao, veiculos, tipomanu, fornecedores, utilizador
+                            WHERE manutencao.CodVei=veiculos.codVei AND manutencao.CodTipoM=tipomanu.CodTipoM AND manutencao.CodForn=fornecedores.CodForn AND manutencao.CodUser=utilizador.CodUser AND efetuada='Nao' AND utilizador.CodUser =".$_SESSION['user'] . " ORDER BY manutencao.CodTipoM
                             DESC LIMIT $start, $limit") or die(mysqli_error($con));
 
 ?>
@@ -72,14 +73,14 @@ $usersRow=mysqli_fetch_assoc($sql);
   <?php
   echo "<tr>";
         echo "<th>Data Agendada</th>";
-                echo "<th>Veiculo (KM)</th>";
-                echo "<th>Valor (€)</th>";
+        echo "<th>Veiculo (KM)</th>";
+        echo "<th>Valor (€)</th>";
         echo "<th>Veículo</th>";
         echo "<th>Fornecedor</th>";
-        echo "<th>Despesa</th>";
+        echo "<th>Manutenção</th>";
         echo "<th>Notas</th>";
         echo "<th class='optionsop'>Opção</th>";
-            echo "</tr>";
+          echo "</tr>";
 
   ?>
   <?php
@@ -98,7 +99,7 @@ $usersRow=mysqli_fetch_assoc($sql);
         echo "<td>" . $row['nomef'] . "</td>";
         echo "<td>" . $row['nome'] . "</td>";
         echo "<td>" . $row['Nota'] . "</td>";
-        echo "<td class='options'>" . "<a href='edit.php?id=".$row['CodDesp']."' target='_blank'><img title='Editar Despesa Agendada' src='logos/edit.png' class='imgg' /></a>" . "<a href='done.php?id=".$row['CodDesp']."' target='_blank'><img title='Marcar Como Efetuado' src='logos/done.png' class='imgg' /></a>" . "<a href='delete.php?id=".$row['CodDesp']."' target='_blank'><img title='Remover' src='logos/remove.png' class='imgg' /></a>" . "</td>";
+        echo "<td class='options'>" . "<a href='edit.php?id=".$row['CodManu']."' target='_blank'><img title='Editar Despesa Agendada' src='logos/edit.png' class='imgg' /></a>" . "<a href='done.php?id=".$row['CodManu']."' target='_blank'><img title='Marcar Como Efetuado' src='logos/done.png' class='imgg' /></a>" . "<a href='delete.php?id=".$row['CodManu']."' target='_blank'><img title='Remover' src='logos/remove.png' class='imgg' /></a>" . "</td>";
             echo "</tr>";
 
 

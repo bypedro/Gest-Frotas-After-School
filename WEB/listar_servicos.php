@@ -5,10 +5,10 @@ $con=mysqli_connect("localhost","root","") or die(mysqli_error());
 mysqli_select_db($con,"frotas") or die(mysqli_error($con));
 include 'functions.php';
 
-$ress=mysql_query("SELECT utilizador.Nome_Registo, photos.location
-                    FROM photos, utilizador
-                    WHERE photos.CodUser=utilizador.CodUser AND utilizador.CodUser = " .$_SESSION['user']);
-$usersRow=mysql_fetch_array($ress);
+  $ress=mysql_query("SELECT tipouser.designacao, utilizador.location, utilizador.Nome_Registo
+                      FROM utilizador, tipouser
+                        WHERE tipouser.CodTipoU=utilizador.CodTipoU and utilizador.CodUser=" .$_SESSION['user']);
+  $usersRow=mysql_fetch_array($ress);
 ?>
 <html style="overflow: hidden";>
 <head>
@@ -22,8 +22,8 @@ $usersRow=mysql_fetch_array($ress);
 <body>
 
   <div class="topnav">
-		<div class="topp">&#124;&nbsp;&nbsp;<?php echo $usersRow['Nome_Registo']; ?></div>
-		 <?php echo '<p><img class="imgmini" src="'.$usersRow['location'].'"></p>'; ?>
+    <div class="topp"><?php echo $usersRow['Nome_Registo']; ?></div><div class="topd"><?php echo $usersRow['designacao']; ?></div>
+     <?php echo '<p><img class="imgmini" src="'.$usersRow['location'].'"></p>'; ?>
   </div>
 
     	<ul class="menu">

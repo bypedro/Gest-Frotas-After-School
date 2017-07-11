@@ -10,15 +10,12 @@
 		exit;
 	}
 	// select loggedin users detail
-	$res=mysql_query("SELECT utilizador.senha, utilizador.CodUser, utilizador.Nome_Registo, utilizador.Nome_Proprio, utilizador.Apelido, utilizador.Genero, utilizador.Data_Nascimento, utilizador.Rua, utilizador.Email, tipouser.designacao, cidade.Nome, utilizador.N_Telemovel
+	$res=mysql_query("SELECT tipouser.designacao, utilizador.location, utilizador.senha, utilizador.CodUser, utilizador.Nome_Registo, utilizador.Nome_Proprio, utilizador.Apelido, utilizador.Genero, utilizador.Data_Nascimento, utilizador.Rua, utilizador.Email, tipouser.designacao, cidade.Nome, utilizador.N_Telemovel
                       FROM utilizador, cidade, tipouser, pais
                         WHERE pais.CodPais=cidade.CodPais and tipouser.CodTipoU=utilizador.CodTipoU and cidade.CodCi=utilizador.CodCi and utilizador.CodUser=" .$_SESSION['user']);
 
 	$userRow=mysql_fetch_array($res);
-
-	$ress=mysql_query("SELECT location FROM photos WHERE CodUser = " .$_SESSION['user']);
-	$usersRow=mysql_fetch_array($ress);
-
+adada
 ?>
 <html>
 <head>
@@ -33,8 +30,8 @@
 <body>
 
 	<div class="topnav">
-		<div class="topp"><?php echo $userRow['Nome_Registo']; ?></div>
-		 <?php echo '<p><img class="imgmini" src="'.$usersRow['location'].'"></p>'; ?>
+		<div class="topp"><?php echo $userRow['Nome_Registo']; ?></div><div class="topd"><?php echo $userRow['designacao']; ?></div>
+		 <?php echo '<p><img class="imgmini" src="'.$userRow['location'].'"></p>'; ?>
   </div>
 
 	<ul class="menu">
@@ -107,7 +104,7 @@
 <div id="Password" class="tabcontent">
 <p><table cellspacing='0'>
     <tr><th>Senha</th><td class="perfiltab">••••••••••••••</td></tr>
-		<tr><th>Imagem</th><td class="perfiltab"><?php echo '<p><img class="imgprofile" src="'.$usersRow['location'].'"></p>'; ?></td></tr>
+		<tr><th>Imagem</th><td class="perfiltab"><?php echo '<a href="upload.php"><p><img class="imgprofile" src="'.$userRow['location'].'"></p></a>'; ?></td></tr>
     </table>
     </p>
 <br>

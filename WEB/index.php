@@ -61,10 +61,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Entrar</title><link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css"  />
-<link rel="stylesheet" href="old/style.css"/>
+<link rel="stylesheet" href="css/oldcss/style.css"/>
 
 </head>
-<body style="background-color:#f7f7f7;>
+<body style="background-color:#f7f7f7;">
 
 <div class="container" >
 

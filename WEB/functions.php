@@ -1,5 +1,6 @@
 <head>
       <link rel="stylesheet" href="css/style.css">
+      <script src="js/validations.js"></script>
 </head>
 
 <?php
@@ -55,6 +56,40 @@ function abastcount() {
       echo $abastCount['useabast'] - 3;
   }else{
       echo $abastCount['useabast'] = 0;
+  }
+
+
+}
+
+function manucount() {
+
+  $sql = mysql_query("SELECT COUNT(CodManu) as usermanu
+                      FROM manutencao
+                      WHERE efetuada='Sim' AND CodUser = ".$_SESSION['user']);
+
+  $abastCount=mysql_fetch_assoc($sql);
+
+  if($abastCount['usermanu'] >= 4){
+      echo $abastCount['usermanu'] - 3;
+  }else{
+      echo $abastCount['usermanu'] = 0;
+  }
+
+
+}
+
+function manucounts() {
+
+  $sql = mysql_query("SELECT COUNT(CodManu) as usermanu
+                      FROM manutencao
+                      WHERE efetuada='Nao' AND CodUser = ".$_SESSION['user']);
+
+  $abastCount=mysql_fetch_assoc($sql);
+
+  if($abastCount['usermanu'] >= 4){
+      echo $abastCount['usermanu'] - 3;
+  }else{
+      echo $abastCount['usermanu'] = 0;
   }
 
 
@@ -146,5 +181,71 @@ function ifgest(){
       <span></span>
       <strong>Novo Utilizador!</strong> Para poder utilizar o sistema espere que o administrador <strong>ative</strong> a sua conta !
       </div>";
+    }
+  }
+
+  function noservice(){
+    $h = mysql_query ("SELECT CodVeic FROM veicondu WHERE EmUso='Sim' AND CodUser = ".$_SESSION['user']);
+    $resulth = mysql_num_rows ($h);
+
+    if($resulth == '0'){
+      echo '<img src="logos/drop.png" id="idrop" class="imgdropoff" onclick="optionssho()">';
+    }else{
+      echo '<img src="logos/drop.png" id="idrop" class="imgdrop" onclick="optionssho()">';
+    }
+  }
+
+  function cantdeclare(){
+    $g = mysql_query ("SELECT CodVeic FROM veicondu WHERE EmUso='Sim' AND CodUser = ".$_SESSION['user']);
+    $resultg = mysql_num_rows ($g);
+
+    if($resultg == '1'){
+      echo '<a href="inserir_despesa.php"><img src="logos/add.png" title="Adicionar Despesa" class="imgadd"></a>';
+    }else{
+      echo '<img src="logos/add.png" title="Adicionar Despesa" class="imgaddoff">';
+    }
+  }
+
+  function cantdeclare1(){
+    $f = mysql_query ("SELECT CodVeic FROM veicondu WHERE EmUso='Sim' AND CodUser = ".$_SESSION['user']);
+    $resultf = mysql_num_rows ($f);
+
+    if($resultf == '1'){
+      echo '<a href="agendar_despesa.php"><img src="logos/add.png" title="Adicionar Despesa" class="imgadd"></a>';
+    }else{
+      echo '<img src="logos/add.png" title="Adicionar Despesa" class="imgaddoff">';
+    }
+  }
+
+  function cantdeclare2(){
+    $h = mysql_query ("SELECT CodVeic FROM veicondu WHERE EmUso='Sim' AND CodUser = ".$_SESSION['user']);
+    $resulth = mysql_num_rows ($h);
+
+    if($resulth == '1'){
+      echo '<a href="inserir_abastecimento.php"><img src="logos/add.png" title="Adicionar Despesa" class="imgadd"></a>';
+    }else{
+      echo '<img src="logos/add.png" title="Adicionar Despesa" class="imgaddoff">';
+    }
+  }
+
+  function cantdeclare3(){
+    $h = mysql_query ("SELECT CodVeic FROM veicondu WHERE EmUso='Sim' AND CodUser = ".$_SESSION['user']);
+    $resulth = mysql_num_rows ($h);
+
+    if($resulth == '1'){
+      echo '<a href="inserir_manutencao.php"><img src="logos/add.png" title="Adicionar Despesa" class="imgadd"></a>';
+    }else{
+      echo '<img src="logos/add.png" title="Adicionar Despesa" class="imgaddoff">';
+    }
+  }
+
+  function cantdeclare4(){
+    $h = mysql_query ("SELECT CodVeic FROM veicondu WHERE EmUso='Sim' AND CodUser = ".$_SESSION['user']);
+    $resulth = mysql_num_rows ($h);
+
+    if($resulth == '1'){
+      echo '<a href="agendar_manutencao.php"><img src="logos/add.png" title="Adicionar Despesa" class="imgadd"></a>';
+    }else{
+      echo '<img src="logos/add.png" title="Adicionar Despesa" class="imgaddoff">';
     }
   }
