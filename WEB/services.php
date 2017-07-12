@@ -42,9 +42,8 @@
     </ul>
 
     <ul class="menu-bar">
-        <li><a href="#" class="menu-button">Menu</a></li>
-        <li><a href="#">Defenicoes</a></li>
-        <li><a href="#">Sair</a></li>
+          <li><a href="#" class="menu-button">Menu</a></li>
+          <li><a href="logout.php">Sair</a></li>
     </ul>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
   <script src="js/index.js"></script>
@@ -75,11 +74,14 @@
   <button class="accordion"><img src="logos/bell.png" class="imggg"><h3>AGENDA</h3>
   </button>
   <div class="panel">
+    <h2>Despesas Agendadas</h2>
     <iframe src="agenda.php" frameborder="0" width="100%" height="250px"></iframe><h6>Mais despesas agendadas: <?php agendacount(); ?> !</h6>
     <p align="right"><?php cantdeclare1(); ?>  <a href="listar_despesas_agendadas.php"><img src="logos/file.png" title="Ver Lista" class="imgadd"></a></p>
-    <br>
-      <iframe src="manutencao_agendadas.php" frameborder="0" width="100%" height="250px"></iframe><h6>Mais manutenções agendadas: <?php manucounts(); ?> !</h6>
-      <p align="right"><?php cantdeclare4(); ?>  <a href="listar_manutencoes_agendadas.php"><img src="logos/file.png" title="Ver Lista" class="imgadd"></a></p>
+    <div class="page-title">
+    </div>
+    <h2>Manutenções Agendadas</h2>
+    <iframe src="manutencao_agendadas.php" frameborder="0" width="100%" height="250px"></iframe><h6>Mais manutenções agendadas: <?php manucounts(); ?> !</h6>
+    <p align="right"><?php cantdeclare4(); ?>  <a href="listar_manutencoes_agendadas.php"><img src="logos/file.png" title="Ver Lista" class="imgadd"></a></p>
   </div>
 
   <button class="accordion"><img src="logos/fuel.png" class="imggg"><h3>ABASTECIMENTO</h3> </button>

@@ -46,7 +46,6 @@ if($result = mysqli_query($link, $sql)){
 				        echo "<th>Veículo</th>";
 				        echo "<th>Fornecedor</th>";
 				        echo "<th>Despesa</th>";
-				        echo "<th class='optionsop'>Opção</th>";
             echo "</tr>";
         while($row = mysqli_fetch_array($result)){
             echo "<tr>";
@@ -56,7 +55,6 @@ if($result = mysqli_query($link, $sql)){
                 echo "<td>" . $row['Matricula'] . "</td>";
 				            echo "<td>" . $row['nomef'] . "</td>";
 				                echo "<td>" . $row['nome'] . "</td>";
-				                    echo "<td class='options'>" . "<a href='#.php?id=".$row['CodDesp']."' target='_blank'><img src='logos/view.png' class='imgg' /></a>" . "</td>";
             echo "</tr>";
 
         }
@@ -71,7 +69,6 @@ if($result = mysqli_query($link, $sql)){
               echo "<th>Veículo</th>";
               echo "<th>Fornecedor</th>";
               echo "<th>Despesa</th>";
-              echo "<th class='optionsop'>Opção</th>";
           echo "</tr>";
     }
 } else{

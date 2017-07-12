@@ -130,12 +130,9 @@ function edit_id () {
 }
 
 function checkolddesp () {
-
   $message = "yes";
 
-  $sql5 = mysql_query("UPDATE despesas
-                        SET efetuada = 'Sim'
-                        WHERE efetuada='Nao' AND data_agendada = (CURDATE() - INTERVAL 8 DAY)");
+  $sql5 = mysql_query("DELETE FROM despesas WHERE efetuada='Nao' AND data_agendada = (CURDATE() - INTERVAL 8 DAY)");
 
   $sql6 = "SELECT data_agendada
             FROM despesas
@@ -181,6 +178,7 @@ function ifgest(){
       <span></span>
       <strong>Novo Utilizador!</strong> Para poder utilizar o sistema espere que o administrador <strong>ative</strong> a sua conta !
       </div>";
+      echo "<br>";
     }
   }
 

@@ -46,8 +46,7 @@ if($result = mysqli_query($link, $sql)){
 				echo "<th>Matricula</th>";
 				echo "<th>Ano</th>";
 				echo "<th class='optionsop'>Opção</th>";
-
-            echo "</tr>";
+        echo "</tr>";
         while($row = mysqli_fetch_array($result)){
         echo "<tr>";
         echo "<td>" . $row['Quando_Comecou'] . "</td>";
@@ -55,24 +54,21 @@ if($result = mysqli_query($link, $sql)){
 				echo "<td>" . $row['Modelo'] . "</td>";
         echo "<td>" . $row['Matricula'] . "</td>";
 				echo "<td>" . $row['Ano'] . "</td>";
-				echo "<td class='options'>" . "<a href='#.php?id=".$row['CodVeiC']."' target='_blank'><img src='logos/view.png' class='imgg' /></a>" . "<a href='endrun.php?id=".$row['CodVeiC']."' target='_blank'><img title='Terminar Serviço' src='logos/endlist.png' class='imgg' /></a>" . "</td>";
-
-            echo "</tr>";
+				echo "<td>" . "<a href='endrun.php?id=".$row['CodVeiC']."' target='_blank'><img title='Terminar Serviço' src='logos/endlist.png' class='imgg' /></a>" . "</td>";
+        echo "</tr>";
         }
         echo "</table>";
         // Close result set
         mysqli_free_result($result);
     } else{
-        echo "<table>";
-            echo "<tr>";
-                echo "<th>Quando Começou</th>";
-                echo "<th>Marca</th>";
-                echo "<th>Modelo</th>";
-				echo "<th>Matricula</th>";
-				echo "<th>Notas</th>";
-
-            echo "</tr>";
-        echo "</table>";
+      echo "<table>";
+      echo "<tr>";
+      echo "<th>Quando Começou</th>";
+      echo "<th>Marca</th>";
+      echo "<th>Modelo</th>";
+      echo "<th>Matricula</th>";
+      echo "<th>Ano</th>";
+      echo "<th class='optionsop'>Opção</th>";
     }
 } else{
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);

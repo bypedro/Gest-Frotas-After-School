@@ -65,7 +65,16 @@ if($result = mysqli_query($link, $sql)){
         // Close result set
         mysqli_free_result($result);
     } else{
-        echo "No records matching your query were found.";
+      echo "<table>";
+      echo "<tr>";
+      echo "<th>Data</th>";
+      echo "<th>Veículo (KM)</th>";
+      echo "<th>Quantidade (L)</th>";
+      echo "<th>Valor (€)</th>";
+      echo "<th>Fornecedor</th>";
+      echo "<th>Veículo</th>";
+      echo "<th>Matrícula</th>";
+      echo "</tr>";
     }
 } else{
     echo "ERROR: Could not able to execute $sql. " . mysqli_error($link);

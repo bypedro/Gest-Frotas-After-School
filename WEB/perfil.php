@@ -43,11 +43,10 @@ adada
       <li title="contact"><a href="#" class="">contact</a></li>
     </ul>
 
-  <ul class="menu-bar">
-        <li><a href="#" class="menu-button">Menu</a></li>
-        <li><a href="#">Defenicoes</a></li>
-        <li><a href="#">Sair</a></li>
-  </ul>
+		<ul class="menu-bar">
+	        <li><a href="#" class="menu-button">Menu</a></li>
+	        <li><a href="logout.php">Sair</a></li>
+	  </ul>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
   <script src="js/index.js"></script>
 
@@ -68,6 +67,10 @@ adada
 
   </div>
 
+	<p align="right">
+	<button class="btnperfil" type=button onClick="parent.location='edit_user_pt1.php'">Alterar Perfil</button>
+	</P>
+	</div>
 <div id="Geral" class="tabcontent">
 <p><table cellspacing='0'>
     <tr><th>ID</th><td class="perfiltab"><?php echo $userRow['CodUser']; ?></td></tr>
@@ -78,10 +81,7 @@ adada
     </table>
     </p>
 <br>
-<p align="right">
-  <button class="btnnn" type=button onClick="parent.location='#.php'">?</button>
-  <button class="btnn" type=button onClick="parent.location='editarperfil.php'">&#10000; Alterar</button>
-</p>
+
 </div>
 
 <div id="Pessoal" class="tabcontent">
@@ -95,10 +95,7 @@ adada
     </table>
     </p>
 <br>
-<p align="right">
-  <button class="btnnn" type=button onClick="parent.location='#.php'">?</button>
-  <button class="btnn" type=button onClick="parent.location='editarperfil.php' ">&#10000; Alterar</button>
-</p>
+
 </div>
 
 <div id="Password" class="tabcontent">
@@ -108,11 +105,7 @@ adada
     </table>
     </p>
 <br>
-<p align="right">
-  <button class="btnnn" type=button onClick="parent.location='#.php'">?</button>
-  <button class="btnn" type=button onClick="parent.location='editarperfil.php' ">&#10000; Alterar</button>
-</p>
-</div>
+
 
 <script>
 	function openCity(evt, cityName) {

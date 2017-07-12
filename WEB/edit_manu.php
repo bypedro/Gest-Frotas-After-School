@@ -74,11 +74,10 @@ $userRow=mysql_fetch_array($res);
       <li title="contact"><a href="#" class="">contact</a></li>
     </ul>
 
-  <ul class="menu-bar">
-        <li><a href="#" class="menu-button">Menu</a></li>
-        <li><a href="#">Defenicoes</a></li>
-        <li><a href="#">Sair</a></li>
-  </ul>
+    <ul class="menu-bar">
+          <li><a href="#" class="menu-button">Menu</a></li>
+          <li><a href="logout.php">Sair</a></li>
+    </ul>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
   <script src="js/index.js"></script>
 

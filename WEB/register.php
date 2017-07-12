@@ -156,7 +156,7 @@
 								<span class=""><span class=""></span></span>
 							<input type="text" name="nomep" class="" placeholder="Nome Próprio" maxlength="40" value="<?php echo $nomep ?>" />
 								</div>
-								<span class="text-danger"><?php echo $nameError; ?></span>
+
 						</div>
 
 						<div class="form-group">
@@ -164,7 +164,7 @@
 								<span class=""><span class=""></span></span>
 							<input type="text" name="nomea" class="" placeholder="Apelido" maxlength="40" value="<?php echo $nomea ?>" />
 								</div>
-								<span class="text-danger"><?php echo $nameError; ?></span>
+
 						</div>
 
             <div class="form-group">

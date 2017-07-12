@@ -79,7 +79,7 @@ function showfilter(){
 function optionssho(){
   if(document.getElementById('imdone').style.display = 'none'){
       document.getElementById('imdone').style.display = 'inline';
-      document.getElementById('imaci').style.display = 'inline';
+      document.getElementById('imaci').style.display = 'none';
       document.getElementById('imdesp').style.display = 'inline';
       document.getElementById('idrop').style.display = 'none';
   }else{

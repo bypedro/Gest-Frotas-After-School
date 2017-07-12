@@ -37,11 +37,10 @@ $usersRow=mysqli_fetch_assoc($sql);
       <li title="contact"><a href="#" class="">contact</a></li>
     </ul>
 
-  <ul class="menu-bar">
-        <li><a href="#" class="menu-button">Menu</a></li>
-        <li><a href="#">Defenicoes</a></li>
-        <li><a href="#">Sair</a></li>
-  </ul>
+    <ul class="menu-bar">
+          <li><a href="#" class="menu-button">Menu</a></li>
+          <li><a href="logout.php">Sair</a></li>
+    </ul>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
   <script src="js/index.js"></script>
 
@@ -81,7 +80,6 @@ $usersRow=mysqli_fetch_assoc($sql);
         echo "<th>Manutenção</th>";
         echo "<th>Fornecedor</th>";
         echo "<th>Notas</th>";
-        echo "<th class='optionsop'>Opção</th>";
   echo "</tr>";
 
   ?>
@@ -101,7 +99,6 @@ $usersRow=mysqli_fetch_assoc($sql);
         echo "<td>" . $row['nome'] . "</td>";
         echo "<td>" . $row['nomef'] . "</td>";
         echo "<td>" . $row['Nota'] . "</td>";
-        echo "<td class='options'>" . "<a href='#.php?id=".$row['CodDesp']."' target='_blank'><img src='logos/view.png' class='imgg' /></a>" . "</td>";
   echo "</tr>";
 
 

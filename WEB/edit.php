@@ -18,7 +18,8 @@ $res=mysql_query("SELECT tipouser.designacao, utilizador.location, utilizador.No
 
 $userRow=mysql_fetch_array($res);
 
-  //exist_id();
+
+  exist_id();
   //edit_id();
 
 ?>
@@ -39,7 +40,17 @@ $userRow=mysql_fetch_array($res);
   {
   $id=$_GET['id'];
 
+  $h = mysql_query ("SELECT despesas.CodDesp, despesas.CodUser, utilizador.CodtipoU
+                        FROM utilizador, despesas
+                        WHERE despesas.CodUser = utilizador.CodUser AND despesas.CodDesp='$id' AND despesas.CodUser = ".$_SESSION['user']);
 
+  $resulth = mysql_num_rows ($h);
+
+  if($resulth == '1'){
+
+  }else{
+    header("Location: services.php");
+  }
 
 
   if(isset($_POST['submit']))
@@ -56,11 +67,6 @@ $userRow=mysql_fetch_array($res);
                       from despesas, fornecedores, tipodesp, veiculos
                       where despesas.CodTipoD = tipodesp.CodTipoD and despesas.CodDesp = despesas.CodDesp and despesas.codVei = veiculos.codVei and despesas.CodDesp ='$id'");
   $query2=mysql_fetch_array($query1);
-
-  $ress=mysql_query("SELECT utilizador.Nome_Registo, photos.location
-                      FROM photos, utilizador
-                      WHERE photos.CodUser=utilizador.CodUser AND utilizador.CodUser = " .$_SESSION['user']);
-  $usersRow=mysql_fetch_array($ress);
   ?>
 
   <div class="topnav">
@@ -77,11 +83,10 @@ $userRow=mysql_fetch_array($res);
       <li title="contact"><a href="#" class="">contact</a></li>
     </ul>
 
-  <ul class="menu-bar">
-        <li><a href="#" class="menu-button">Menu</a></li>
-        <li><a href="#">Defenicoes</a></li>
-        <li><a href="#">Sair</a></li>
-  </ul>
+    <ul class="menu-bar">
+          <li><a href="#" class="menu-button">Menu</a></li>
+          <li><a href="logout.php">Sair</a></li>
+    </ul>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
   <script src="js/index.js"></script>
 

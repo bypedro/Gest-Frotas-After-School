@@ -46,11 +46,10 @@
       <li title="contact"><a href="#" class="">contact</a></li>
     </ul>
 
-  <ul class="menu-bar">
-        <li><a href="#" class="menu-button">Menu</a></li>
-        <li><a href="#">Defenicoes</a></li>
-        <li><a href="#">Sair</a></li>
-  </ul>
+    <ul class="menu-bar">
+          <li><a href="#" class="menu-button">Menu</a></li>
+          <li><a href="logout.php">Sair</a></li>
+    </ul>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
   <script src="js/index.js"></script>
 
@@ -116,8 +115,8 @@
   <td class="tdindex">
     <?php noservice(); ?>
     <button src="logos/checked.png"  id="imdone" class="btnpainel" type=button><img src="logos/parked-car.png" class="imgdone">TERMINAR</button>
+    <button class="btnpainel2" id="imdesp" type=button onClick="parent.location='inserir_despesa.php'"><img src="logos/painelfuel.png" class="imgaci">DESPESAS</button>
     <button class="btnpainel1" id="imaci" type=button onClick=""><img src="logos/tools.png" class="imgaci">ACIDENTE</button>
-    <button class="btnpainel2" id="imdesp" type=button onClick="parent.location='inserir_despesa.php'"><img src="logos/painelfuel.png" class="imgaci">DESPESAS</button></td>
   </td>
   </tr>
   <tr>

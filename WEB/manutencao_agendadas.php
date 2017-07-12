@@ -56,7 +56,7 @@ if($result = mysqli_query($link, $sql)){
                 echo "<td>" . $row['Matricula'] . "</td>";
 				            echo "<td>" . $row['nomef'] . "</td>";
 				                echo "<td>" . $row['nome'] . "</td>";
-				        echo "<td class='options'>" . "<a href='edit_manu.php?id=".$row['CodManu']."' target='_blank'><img title='Editar Despesa Agendada' src='logos/edit.png' class='imgg' /></a>" . "<a href='done.php?id=".$row['CodManu']."' target='_blank'><img title='Marcar Como Efetuado' src='logos/done.png' class='imgg' /></a>" . "<a href='delete.php?id=".$row['CodManu']."' target='_blank'><img title='Remover' src='logos/remove.png' class='imgg' /></a>" . "</td>";
+				        echo "<td class='options'>" . "<a href='edit_manu.php?id=".$row['CodManu']."' target='_blank'><img title='Editar Despesa Agendada' src='logos/edit.png' class='imgg' /></a>" . "<a href='done_manu.php?id=".$row['CodManu']."' target='_blank'><img title='Marcar Como Efetuado' src='logos/done.png' class='imgg' /></a>" . "<a href='delete.php?id=".$row['CodManu']."' target='_blank'><img title='Remover' src='logos/remove.png' class='imgg' /></a>" . "</td>";
             echo "</tr>";
 
         }

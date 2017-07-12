@@ -2,6 +2,7 @@
 	ob_start();
 	session_start();
 	require_once 'dbconnect.php';
+	  include 'functions.php';
 
 	// if session is not set this will redirect to login page
 	if( !isset($_SESSION['user']) ) {
@@ -92,25 +93,22 @@
 
 	<div class="topnav">
 		<div class="topp"><?php echo $usersRow['Nome_Registo']; ?></div><div class="topd"><?php echo $usersRow['designacao']; ?></div>
-		 <?php echo '<p><img class="imgmini" src="'.$userRow['location'].'"></p>'; ?>
+		 <?php echo '<p><img class="imgmini" src="'.$usersRow['location'].'"></p>'; ?>
   </div>
 
-  <ul class="menu">
-
+	<ul class="menu">
       <li title="home"><a href="#" class="menu-button home">menu</a></li>
-
-      <li title="Home"><a href="#" class="ico"></a></li>
-      <li title="pencil"><a href="services.php" class="services">pencil</a></li>
-      <li title="about"><a href="#" class="perfil">about</a></li>
-      <li title="archive"><a href="#" class="">archive</a></li>
+      <li title="Home"><a href="painel.php" class="ico"></a></li>
+      <?php   ifgest(); ?>
+      <li title="about"><a href="perfil.php" class="perfil">about</a></li>
+      <li title="archive"><a href="listar_servicos.php" class="history">archive</a></li>
       <li title="contact"><a href="#" class="">contact</a></li>
     </ul>
 
-  <ul class="menu-bar">
-        <li><a href="#" class="menu-button">Menu</a></li>
-        <li><a href="#">Defenicoes</a></li>
-        <li><a href="#">Sair</a></li>
-  </ul>
+		<ul class="menu-bar">
+	        <li><a href="#" class="menu-button">Menu</a></li>
+	        <li><a href="logout.php">Sair</a></li>
+	  </ul>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
   <script src="js/index.js"></script>
 
