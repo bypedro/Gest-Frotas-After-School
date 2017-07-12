@@ -15,6 +15,10 @@ GestFrotPAP
   Overrides the current thread's CurrentUICulture property for all
   resource lookups using this strongly typed resource class.
 </summary>
+</member><member name="P:GestFrotPAP.My.Resources.Resources.circle">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
 </member><member name="P:GestFrotPAP.My.Resources.Resources.construction_hazard_banner_orange">
 	<summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
@@ -39,6 +43,14 @@ GestFrotPAP
 	<summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
+</member><member name="P:GestFrotPAP.My.Resources.Resources.Logo">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:GestFrotPAP.My.Resources.Resources.Logo1">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+</summary>
 </member><member name="P:GestFrotPAP.My.Resources.Resources.maven">
 	<summary>
   Looks up a localized resource of type System.Byte[].
@@ -52,6 +64,10 @@ GestFrotPAP
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member><member name="P:GestFrotPAP.My.Resources.Resources.new_user">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="P:GestFrotPAP.My.Resources.Resources.stats_circular_filled_graphic">
 	<summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>

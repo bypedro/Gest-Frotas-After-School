@@ -24,6 +24,8 @@
         Form1.PnlLogin.Width = Form1.Width
 
         'Talvez Criar outro botão ou mudar o atual
+        Form1.PctLogin.Left = CentroEcranX - (Form1.PctLogin.Width / 2)
+        Form1.PctLogin.Top = 50
         Form1.BtnImagemLogin.Left = CentroEcranX - Form1.BtnImagemLogin.Width - 5
         Form1.BtnImagemRegistarEntrar.Left = CentroEcranX + 5
         Form1.BtnImagemLogin.Top = CentroEcranY + Form1.BtnImagemLogin.Height
@@ -59,9 +61,17 @@
         SendMessage(Form1.TxtPwdReg1.Handle, &H1501, 0, "Password")
         SendMessage(Form1.TxtPwdReg2.Handle, &H1501, 0, "Repetir Password")
         SendMessage(Form1.TxtUserReg.Handle, &H1501, 0, "Utilizador")
+        SendMessage(Form1.TxtNomeProprioReg.Handle, &H1501, 0, "Nome Próprio")
+        SendMessage(Form1.TxtApelidoReg.Handle, &H1501, 0, "Apelido")
 
         'Registar
         'Talvez outro panel?
+        Form1.TxtNomeProprioReg.Font = Fonte.GetInstance(12, FontStyle.Bold)
+        Form1.TxtNomeProprioReg.Left = CentroEcranX - Form1.TxtUserReg.Width - 5
+        Form1.TxtNomeProprioReg.Top = Form1.PnlBarraTop.Bottom + 118
+        Form1.TxtApelidoReg.Font = Fonte.GetInstance(12, FontStyle.Bold)
+        Form1.TxtApelidoReg.Left = CentroEcranX + 5
+        Form1.TxtApelidoReg.Top = Form1.PnlBarraTop.Bottom + 118
 
         Form1.TxtUserReg.Font = Fonte.GetInstance(12, FontStyle.Bold)
         Form1.TxtUserReg.Left = CentroEcranX - Form1.TxtUserReg.Width - 5
@@ -100,7 +110,8 @@
         Form1.LblEmailReg.Hide()
         Form1.LblPasswordReg.Hide()
         Form1.LblUtilizadorReg.Hide()
-
+        Form1.TxtNomeProprioReg.Hide()
+        Form1.TxtApelidoReg.Hide()
         Form1.TxtUserLogin.Show()
         Form1.TxtPwdLogin.Show()
     End Sub
@@ -204,7 +215,6 @@
         Form1.PnlDefUtilizador.Height = Form1.Height - Form1.PnlBarraTop.Height
         Form1.PnlDefUtilizador.Width = Form1.Width
         'Veiculo
-        MsgBox("CARROS")
         ' Form1.LblVeiMarcEmUso.Text = "Cod= " + DetalhesUtilizador.CodVeiculo.ToString + ""
         ' Form1.LblVeiCorEmUso.Text = "Cor= " + DetalhesUtilizador.VeiCor.ToString + ""
         ' Form1.LblVeiMarcEmUso.Text = "Marca= " + DetalhesUtilizador.VeiMarca.ToString + ""
@@ -224,7 +234,10 @@
         Form1.LblUtilizadorLogin.Hide()
         Form1.LblPasswordLogin.Hide()
         Form1.BtnImagemCancelar.Show()
+        Form1.TxtNomeProprioReg.Show()
+        Form1.TxtApelidoReg.Show()
         Form1.BtnImagemRegistar.Show()
+
         Form1.BtnImagemRegistar.Left = CentroEcranX - Form1.BtnImagemRegistar.Width - 5
         Form1.BtnImagemCancelar.Left = CentroEcranX + 5
         Form1.BtnImagemRegistar.Top = CentroEcranY + Form1.BtnImagemRegistar.Height
@@ -281,8 +294,16 @@
         Form1.TxtUtilizadorApelidoDef.Top = Form1.LblUtilizadorNomePDef.Bottom + 5
         Form1.TxtUtilizadorDataNascDef.Top = Form1.LblUtilizadorApelidoDef.Bottom + 5
 
+        Form1.LblUtilizadorGeneroDef.Left = Form1.PnlDefUtilizadorInfo.Left + 10
+        Form1.LblUtilizadorGeneroDef.Top = Form1.TxtUtilizadorDataNascDef.Bottom + 5
+        Form1.TxtUtilizadorGeneroDef.Left = Form1.LblUtilizadorGeneroDef.Right + 10
+        Form1.TxtUtilizadorGeneroDef.Top = Form1.LblUtilizadorGeneroDef.Bottom + 5
+
+        Form1.LblUtilizadorGeneroDef.Hide()
+        Form1.TxtUtilizadorGeneroDef.Hide()
+
         'Lado Direito
-        Form1.LblUtilizadorGeneroDef.Left = Form1.TxtUtilizadorUserDef.Right + 10
+
 
 
 
@@ -734,9 +755,16 @@
             '
             'Ver Isto
             '
-            Form1.LblAdminInserir4.Hide()
+            Form1.LblAdminInserir4.Show()
             Form1.LblAdminInserir4.Text = "Data de Nascimento"
-            Form1.DtpAdminInserir.Hide()
+            Form1.DtpAdminInserir.Show()
+
+        ElseIf Tabela = "AssociarCarro" Then
+            Form1.LblInserirTituloAdmin.Text = "Associar Veículo"
+            Form1.BtnImagemInserirAdmin.Texto = "Associar"
+            Form1.LblInserirTituloAdmin.Show()
+            Form1.BtnImagemInserirAdmin.Show()
+            Form1.LstAdminInserir3.Show()
         Else
             MsgBox("TABELA NÂO DEFINIDA")
         End If
