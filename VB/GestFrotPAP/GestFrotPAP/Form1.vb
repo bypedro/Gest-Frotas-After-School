@@ -132,6 +132,12 @@ Public Class Form1
     Private Sub fechar_click(ByVal sender As Object, ByVal e As EventArgs) Handles Fechar.Click
         Close()
     End Sub
+    Private Sub fechar_enter(ByVal sender As Object, ByVal e As EventArgs) Handles Fechar.MouseEnter
+        Fechar.ForeColor = Color.Red
+    End Sub
+    Private Sub fechar_MouseLeave(ByVal sender As Object, ByVal e As EventArgs) Handles Fechar.MouseLeave
+        Fechar.ForeColor = Color.White
+    End Sub
     '
     'Ações para mover o Form
     '
@@ -177,8 +183,10 @@ Public Class Form1
                 BtnImagemMenuPrincipal(a).Show()
                 If DetalhesUtilizador.TipoUtilizadorCod = 1 Then
                     BtnImagemMenuPrincipal(6).Show()
+                    BtnImagemMenuPrincipal(7).Show()
                 Else
                     BtnImagemMenuPrincipal(6).Hide()
+                    BtnImagemMenuPrincipal(7).Hide()
                 End If
             Next
         End If
@@ -200,8 +208,10 @@ Public Class Form1
                 BtnImagemMenuPrincipal(a).Show()
                 If DetalhesUtilizador.TipoUtilizadorCod = 1 Then
                     BtnImagemMenuPrincipal(6).Show()
+                    BtnImagemMenuPrincipal(7).Show()
                 Else
                     BtnImagemMenuPrincipal(6).Hide()
+                    BtnImagemMenuPrincipal(7).Hide()
                 End If
             Next
         End If
@@ -324,6 +334,15 @@ Public Class Form1
     '
     Private Sub BtnImagem1_click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagem1.ButtonClickMasterRace
         MenuPrincipal(0, False, True)
+        If DetalhesUtilizador.CodVeiculo = 0 Then
+            LblHomeServico.Text = "EM SERVIÇO     NÂO"
+            LblHomeConcluido.Text = "CONCLUIDOS     " + DetalhesUtilizador.ServicosCompletos + ""
+            LblHomeDespesas.Text = "DESPESAS     " + DetalhesUtilizador.Despesas + " " + MoedaSimbolo() + ""
+        Else
+            LblHomeServico.Text = "EM SERVIÇO     SIM"
+            LblHomeConcluido.Text = "CONCLUIDOS     " + DetalhesUtilizador.ServicosCompletos + ""
+            LblHomeDespesas.Text = "DESPESAS     " + DetalhesUtilizador.Despesas + ""
+        End If
     End Sub
     '
     '
@@ -334,7 +353,12 @@ Public Class Form1
     '
     Private Sub BtnImagem2_click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagem2.ButtonClickMasterRace
         MenuPrincipal(1, True)
-        TabelaVer(LstVAbastecimento, "select CodVeiAbast,Data,Nome as Fornecedor,concat(ROUND((quantidade/" + VolumeConversao().ToString + "),2),' " + VolumeSimbolo() + "') as 'Quantidade',concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "' ,concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador  from VeiCondu,veiabast,veiculos,fornecedores,Utilizador where VeiCondu.Codvei=Veiculos.Codvei and Veiculos.Codvei=Veiabast.CodVei and fornecedores.Codforn=Veiabast.Codforn and Utilizador.CodUser=Veiabast.Coduser and VeiCondu.EmUso='Sim' and Utilizador.CodUser='" + DetalhesUtilizador.CodUser + "'order by CodVeiAbast DESC", "LstVAbastecimento")
+        If DetalhesUtilizador.TipoUtilizadorCod = 1 Then
+            TabelaVer(LstVAbastecimento, "select CodVeiAbast,Data,Nome as Fornecedor,concat(ROUND((quantidade/" + VolumeConversao().ToString + "),2),' " + VolumeSimbolo() + "') as 'Quantidade',concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "' ,concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador  from VeiCondu,veiabast,veiculos,fornecedores,Utilizador where VeiCondu.Codvei=Veiculos.Codvei and Veiculos.Codvei=Veiabast.CodVei and fornecedores.Codforn=Veiabast.Codforn and Utilizador.CodUser=Veiabast.Coduser and VeiCondu.EmUso='Sim' order by CodVeiAbast DESC", "LstVAbastecimento")
+        Else
+            TabelaVer(LstVAbastecimento, "select CodVeiAbast,Data,Nome as Fornecedor,concat(ROUND((quantidade/" + VolumeConversao().ToString + "),2),' " + VolumeSimbolo() + "') as 'Quantidade',concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "' ,concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador  from VeiCondu,veiabast,veiculos,fornecedores,Utilizador where VeiCondu.Codvei=Veiculos.Codvei and Veiculos.Codvei=Veiabast.CodVei and fornecedores.Codforn=Veiabast.Codforn and Utilizador.CodUser=Veiabast.Coduser and VeiCondu.EmUso='Sim' and Utilizador.CodUser='" + DetalhesUtilizador.CodUser + "'order by CodVeiAbast DESC", "LstVAbastecimento")
+        End If
+
         LblAbast.Font = GetInstance(12, FontStyle.Bold)
         GrpAbast.Font = GetInstance(12, FontStyle.Bold)
         GrpAbastNotas.Font = GetInstance(8, FontStyle.Bold)
@@ -384,7 +408,12 @@ Public Class Form1
     '
     Private Sub BtnImagem3_click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagem3.ButtonClickMasterRace
         MenuPrincipal(2, True)
-        TabelaVer(LstVManu, "select Codmanu,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipoManu.Nome as Tipo,concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao.ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador from Utilizador,VeiCondu,Manutencao,veiculos,fornecedores,tipomanu where VeiCondu.Codvei=Veiculos.Codvei and Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and Utilizador.CodUser=Manutencao.Coduser and efetuada='Sim' and EmUso='Sim' and Manutencao.CodUser='" + DetalhesUtilizador.CodUser + "'", "LstVManu")
+        If DetalhesUtilizador.TipoUtilizadorCod = 1 Then
+            TabelaVer(LstVManu, "select Codmanu,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipoManu.Nome as Tipo,concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao.ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador from Utilizador,VeiCondu,Manutencao,veiculos,fornecedores,tipomanu where VeiCondu.Codvei=Veiculos.Codvei and Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and Utilizador.CodUser=Manutencao.Coduser and efetuada='Sim' and EmUso='Sim'", "LstVManu")
+        Else
+            TabelaVer(LstVManu, "select Codmanu,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipoManu.Nome as Tipo,concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao.ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador from Utilizador,VeiCondu,Manutencao,veiculos,fornecedores,tipomanu where VeiCondu.Codvei=Veiculos.Codvei and Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and Utilizador.CodUser=Manutencao.Coduser and efetuada='Sim' and EmUso='Sim' and Manutencao.CodUser='" + DetalhesUtilizador.CodUser + "'", "LstVManu")
+        End If
+
         LblManu.Font = GetInstance(12, FontStyle.Bold)
         GrpManu.Font = GetInstance(12, FontStyle.Bold)
         GrpManuNota.Font = GetInstance(8, FontStyle.Bold)
@@ -432,7 +461,11 @@ Public Class Form1
     '
     Private Sub BtnImagem4_click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnImagem4.ButtonClickMasterRace
         MenuPrincipal(3, True)
-        TabelaVer(LstVDesp, "select Coddesp,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipodesp.nome as Tipo ,concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Sim'  and Utilizador.coduser='" + DetalhesUtilizador.CodUser.ToString + "' order by Veiculo_km", "LstVDesp")
+        If DetalhesUtilizador.TipoUtilizadorCod = 1 Then
+            TabelaVer(LstVDesp, "select Coddesp,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipodesp.nome as Tipo ,concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Sim' order by Veiculo_km", "LstVDesp")
+        Else
+            TabelaVer(LstVDesp, "select Coddesp,Data_Efetuada as Data,fornecedores.Nome as Fornecedor,tipodesp.nome as Tipo ,concat(ROUND((valor*" + MoedaConversao().ToString + "),2),' " + MoedaSimbolo() + "') as 'Valor',concat(ROUND((Veiculo_km/" + DistanciaConversao().ToString + "),2),' " + DistanciaSimbolo() + "') as '" + DistanciaDistancia() + "',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,Nome_Registo as Utilizador from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Sim'  and Utilizador.coduser='" + DetalhesUtilizador.CodUser.ToString + "' order by Veiculo_km", "LstVDesp")
+        End If
         LblDesp.Font = GetInstance(12, FontStyle.Bold)
         GrpDesp.Font = GetInstance(12, FontStyle.Bold)
         GrpDespNota.Font = GetInstance(8, FontStyle.Bold)
@@ -480,8 +513,14 @@ Public Class Form1
     '
     Private Sub BtnImagem5_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagem5.ButtonClickMasterRace
         MenuPrincipal(4, True)
-        TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
-        TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
+        If DetalhesUtilizador.TipoUtilizadorCod = 1 Then
+            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao'", "LstVAgendaDesp")
+            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao'", "LstVAgendaManu")
+        Else
+            TabelaVer(LstVAgendaDesp, "select CodDesp,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,TipoDesp.Nome as Tipo from despesas,Veiculos,Fornecedores,Utilizador,TipoDesp where Despesas.codvei=veiculos.codvei and Despesas.codforn=Fornecedores.codforn and Despesas.coduser=Utilizador.coduser and Despesas.codtipod=tipodesp.codtipod and efetuada='Nao' and despesas.coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaDesp")
+            TabelaVer(LstVAgendaManu, "select Codmanu,Data_agendada as 'Data Agendada',concat(Marca, ' ', Modelo,' ',Ano,' ',Matricula) as Veículo,tipoManu.Nome as Tipo from Manutencao,veiculos,fornecedores,tipomanu where Veiculos.Codvei=manutencao.CodVei and fornecedores.Codforn=manutencao.Codforn and tipomanu.CodtipoM=manutencao.codtipom and efetuada='Nao' and coduser=" + DetalhesUtilizador.CodUser + "", "LstVAgendaManu")
+        End If
+        
         BtnImagemAgendaManu.EstadoBotao = True
         MenuAgenda(0)
         GrpAgendaDesp.Font = GetInstance(12, FontStyle.Bold)
@@ -748,9 +787,6 @@ Public Class Form1
         If LstVAdminUtilizador.SelectedItems.Count > 0 Then
             DetalhesUtilizadorAdmin(LstVAdminUtilizador.SelectedItems(0).Text)
         End If
-
-
-
         If LstVAdminUtilizador.SelectedItems.Count > 0 Then
             If LstVAdminUtilizador.SelectedItems(0).SubItems(3).Text() = "Admin" Then
                 BtnImagemAdminUtilizadorAtivar.Texto = "Editar"
@@ -903,37 +939,132 @@ Public Class Form1
         If Login(TxtUserLogin.Text, HashPassword(TxtPwdLogin.Text)) = True Then
             If DetalhesUtilizador.TipoUtilizadorCod = 1 Then 'Só Admin
                 LoadOrder.MenuPrincipalPage()
+                If DetalhesUtilizador.CodVeiculo = 0 Then
+                    LblHomeServico.Text = "EM SERVIÇO     NÂO"
+                    LblHomeConcluido.Text = "CONCLUIDOS     " + DetalhesUtilizador.ServicosCompletos + ""
+                    LblHomeDespesas.Text = "DESPESAS     " + DetalhesUtilizador.Despesas + " " + MoedaSimbolo() + ""
+                    lblHomeVeiculo.Text = ""
+                    BtnImagemHomeAbast.Enabled = False
+                    BtnImagemHomeManu.Enabled = False
+                    BtnImagemHomeDesep.Enabled = False
+                    BtnImagemHomeTerminar.Enabled = False
+
+                    BtnImagemDespInsert.Enabled = False
+                    BtnImagemDespEdit.Enabled = False
+                    BtnImagemManuInsert.Enabled = False
+                    BtnImagemManuEdit.Enabled = False
+                    BtnImagemAbastEdit.Enabled = False
+                    BtnImagemAbastInsert.Enabled = False
+
+                 
+
+                Else
+                    LblHomeServico.Text = "EM SERVIÇO     SIM"
+                    LblHomeConcluido.Text = "CONCLUIDOS     " + DetalhesUtilizador.ServicosCompletos + ""
+                    LblHomeDespesas.Text = "DESPESAS     " + DetalhesUtilizador.Despesas + ""
+                    lblHomeVeiculo.Text = DetalhesUtilizador.VeiMarca + " " + DetalhesUtilizador.VeiModelo + " " + DetalhesUtilizador.VeiMatricula
+                    BtnImagemHomeAbast.Enabled = False
+                    BtnImagemHomeManu.Enabled = False
+                    BtnImagemHomeDesep.Enabled = False
+                    BtnImagemHomeTerminar.Enabled = False
+
+                    BtnImagemDespInsert.Enabled = False
+                    BtnImagemDespEdit.Enabled = False
+                    BtnImagemManuInsert.Enabled = False
+                    BtnImagemManuEdit.Enabled = False
+                    BtnImagemAbastEdit.Enabled = False
+                    BtnImagemAbastInsert.Enabled = False
+
+
+                    BtnImagemAgendaDespApagar.Enabled = False
+                    BtnImagemAgendaDespReagendar.Enabled = False
+                    BtnImagemAgendaDespInsert.Enabled = False
+                    BtnImagemAgendaDespExecutar.Enabled = False
+
+                    BtnImagemAgendaManuApagar.Enabled = False
+                    BtnImagemAgendaManuReagendar.Enabled = False
+                    BtnImagemAgendaManuInsert.Enabled = False
+                    BtnImagemAgendaManuExecutar.Enabled = False
+                End If
                 BtnImagem2.Show()
                 BtnImagem3.Show()
                 BtnImagem4.Show()
                 BtnImagem5.Show()
                 BtnImagem6.Show()
                 BtnImagem7.Show()
-                BtnImagem7.Show()
+                BtnImagem8.Show()
             ElseIf DetalhesUtilizador.TipoUtilizadorCod = 2 Then
-                MsgBox("WIP")
+                MsgBox("Este Utilizador está a ser validado pela Administração", MsgBoxStyle.Information, "Acesso Negado")
+                Exit Sub
+            ElseIf DetalhesUtilizador.TipoUtilizadorCod = 5 Then
+                MsgBox("Este Utilizador foi desativado pela Administração", MsgBoxStyle.Information, "Acesso Negado")
+                Exit Sub
+            Else
+                If DetalhesUtilizador.CodVeiculo = 0 Then
+                    LblHomeServico.Text = "EM SERVIÇO     NÂO"
+                    LblHomeConcluido.Text = "CONCLUIDOS     " + DetalhesUtilizador.ServicosCompletos + ""
+                    LblHomeDespesas.Text = "DESPESAS     " + DetalhesUtilizador.Despesas + " " + MoedaSimbolo() + ""
+                    BtnImagemHomeAbast.Enabled = False
+                    BtnImagemHomeManu.Enabled = False
+                    BtnImagemHomeDesep.Enabled = False
+                    BtnImagemHomeTerminar.Enabled = False
+
+                    BtnImagemDespInsert.Enabled = False
+                    BtnImagemDespEdit.Enabled = False
+                    BtnImagemManuInsert.Enabled = False
+                    BtnImagemManuEdit.Enabled = False
+                    BtnImagemAbastEdit.Enabled = False
+                    BtnImagemAbastInsert.Enabled = False
+
+
+                    BtnImagemAgendaDespApagar.Enabled = False
+                    BtnImagemAgendaDespReagendar.Enabled = False
+                    BtnImagemAgendaDespInsert.Enabled = False
+                    BtnImagemAgendaDespExecutar.Enabled = False
+
+                    BtnImagemAgendaManuApagar.Enabled = False
+                    BtnImagemAgendaManuReagendar.Enabled = False
+                    BtnImagemAgendaManuInsert.Enabled = False
+                    BtnImagemAgendaManuExecutar.Enabled = False
+                Else
+                    LblHomeServico.Text = "EM SERVIÇO     SIM"
+                    LblHomeConcluido.Text = "CONCLUIDOS     " + DetalhesUtilizador.ServicosCompletos + ""
+                    LblHomeDespesas.Text = "DESPESAS     " + DetalhesUtilizador.Despesas + ""
+                    BtnImagemHomeAbast.Enabled = True
+                    BtnImagemHomeManu.Enabled = True
+                    BtnImagemHomeDesep.Enabled = True
+                    BtnImagemHomeTerminar.Enabled = True
+
+                    BtnImagemDespInsert.Enabled = True
+                    BtnImagemDespEdit.Enabled = True
+                    BtnImagemManuInsert.Enabled = True
+                    BtnImagemManuEdit.Enabled = True
+                    BtnImagemAbastEdit.Enabled = True
+                    BtnImagemAbastInsert.Enabled = True
+
+                    BtnImagemAgendaDespApagar.Enabled = True
+                    BtnImagemAgendaDespReagendar.Enabled = True
+                    BtnImagemAgendaDespInsert.Enabled = True
+                    BtnImagemAgendaDespExecutar.Enabled = True
+
+                    BtnImagemAgendaManuApagar.Enabled = True
+                    BtnImagemAgendaManuReagendar.Enabled = True
+                    BtnImagemAgendaManuInsert.Enabled = True
+                    BtnImagemAgendaManuExecutar.Enabled = True
+                End If
                 LoadOrder.MenuPrincipalPage()
-                BtnImagem2.Hide()
-                BtnImagem3.Hide()
-                BtnImagem4.Hide()
-                BtnImagem5.Hide()
-                BtnImagem6.Hide()
+                BtnImagem2.Show()
+                BtnImagem3.Show()
+                BtnImagem4.Show()
+                BtnImagem5.Show()
+                BtnImagem6.Show()
                 BtnImagem7.Hide()
                 BtnImagem8.Hide()
-            Else
-                MsgBox("WIP")
-                LoadOrder.MenuPrincipalPage()
-                BtnImagem2.Show()
-                BtnImagem3.Show()
-                BtnImagem4.Show()
-                BtnImagem5.Show()
-                BtnImagem6.Show()
-                BtnImagem7.Hide()
-                BtnImagem8.Show()
             End If
         Else
             Exit Sub
         End If
+        TmrHome.Enabled = True
         MenuPrincipal(0)
         PnlMenu.Show()
         'LoadOrder.l2()
@@ -1038,7 +1169,9 @@ Public Class Form1
         LblUtilzadorMenu.Hide()
         PnlUser.Hide()
         PnlDefUtilizador.Hide()
+        TmrHome.Enabled = False
         'Limpar Utilizador Anterior
+
         DetalhesUtilizador = New UtilizadorDetalhes
     End Sub
     '
@@ -1080,31 +1213,6 @@ Public Class Form1
     Private Sub BtnImagemDefUtilizadorContato_ButtonClickMasterRace(ByVal sender As Object, ByVal e As EventArgs) Handles BtnImagemDefUtilizadorContato.ButtonClickMasterRace
         MenuDefUtilizador(1)
     End Sub
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     '
     '
     ''''''''''''''''''''PANEL DE EDITAR E INSERIR
@@ -1348,21 +1456,6 @@ Public Class Form1
         LblInserirQuilometros.Text = "Quilometros:"
         TxtInserirQuilometros.Enabled = True
     End Sub
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     '
     'Graficos
     '
@@ -1429,7 +1522,9 @@ Public Class Form1
             GraficoSelecionado(RELATORIO, CmbLista.SelectedValue.ToString)
         End If
     End Sub
-
+    '
+    'Adnmin
+    '
     Private Sub BtnImagemInserirAdmin_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemInserirAdmin.ButtonClickMasterRace
         Botao(BtnImagemInserirAdmin)
         If SQL.TabelaSelecionadaAdmin = "VeiculoInsert" Then
@@ -1501,6 +1596,15 @@ Public Class Form1
                 Exit Sub
             End If
             TabelaVer(LstVAdminUtilizador, "Select CodUser,CodUser as 'Codigo',Nome_Registo as 'Nome de Registo',Designacao as 'Designação' from utilizador, TipoUser where Utilizador.CodtipoU=TipoUser.CodTipoU order by CodUser", "LstVUtilizador")
+        ElseIf SQL.TabelaSelecionadaAdmin = "AssociarCarro" Then
+            If LstAdminInserir3.SelectedItems.Count > 0 Then
+                EditarDadosAdmin("AssociarCarro", LstVAdminUtilizador.SelectedItems(0).Text)
+            Else
+                MsgBox("Preencha todos os campos.", MsgBoxStyle.Information, "Campos Inválidos")
+                Exit Sub
+            End If
+
+
         End If
         PnlAdminInserir.Hide()
     End Sub
@@ -1512,6 +1616,13 @@ Public Class Form1
 
     Private Sub BtnImagemAdminUtilizadorCarro_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemAdminUtilizadorCarro.ButtonClickMasterRace
         Botao(BtnImagemAdminUtilizadorCarro)
+        If LstVAdminUtilizador.SelectedItems.Count > 0 Then
+            PnlAdminInserir.Show()
+            PnlAdminInserir.BringToFront()
+            Inserir_EditarTabelaSQLAdmin("AssociarCarro", LstVAdminUtilizador.SelectedItems(0).Text.ToString)
+        Else
+            MsgBox("Selecione um utilizador")
+        End If
     End Sub
 
     Private Sub BtnImagem10_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemAdminCidade.ButtonClickMasterRace
@@ -1572,7 +1683,7 @@ Public Class Form1
         SelecionarCidade(LstAdminCidadeEdit.SelectedValue.ToString)
     End Sub
 
-    Private Sub BtnImagem8_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemDefUtilizador.ButtonClickMasterRace
+    Private Sub BtnImagemDefUtilizador_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemDefUtilizador.ButtonClickMasterRace
         Botao(BtnImagemDefUtilizador)
         If PnlDefUtilizador.Visible = False Then
             MenuUtilizador()
@@ -1585,7 +1696,7 @@ Public Class Form1
     End Sub
 
 
-    Private Sub BtnImagem9_ButtonClickMasterRace_1(sender As Object, e As EventArgs) Handles BtnImagemProcurar.ButtonClickMasterRace
+    Private Sub BtnImagemProcurar_ButtonClickMasterRace_1(sender As Object, e As EventArgs) Handles BtnImagemProcurar.ButtonClickMasterRace
         Botao(BtnImagemProcurar)
         If RELATORIO <> "" Then
             GraficoSelecionado(RELATORIO, CmbLista.SelectedValue.ToString)
@@ -1601,5 +1712,40 @@ Public Class Form1
                 c.ForeColor = Color.White
             End If
         Next
+    End Sub
+
+    Private Sub BtnImagemHomeTerminar_ButtonClickMasterRace(sender As Object, e As EventArgs) Handles BtnImagemHomeTerminar.ButtonClickMasterRace
+        Botao(BtnImagemHomeTerminar)
+        If DetalhesUtilizador.CodVeiculo <> 0 Then
+            If MsgBox("Confirme se o Serviço está completo.", MsgBoxStyle.YesNo, "Serviço Completo") = MsgBoxResult.No Then
+                Exit Sub
+            Else
+                EditarDadosAdmin("TerminarServico", DetalhesUtilizador.CodVeiculo)
+            End If
+        Else
+            MsgBox("Não tem um serviço ativo.", MsgBoxStyle.Information, "Sem Serviço")
+        End If
+    End Sub
+
+    Private Sub BtnImagem8_ButtonClickMasterRace(sender As Object, e As EventArgs)
+
+    End Sub
+    Private Sub BtnImagem9_ButtonClickMasterRace_1(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub TmrHome_Tick(sender As Object, e As EventArgs) Handles TmrHome.Tick
+        BuscarDadosUtilizador(DetalhesUtilizador.NomeRegisto)
+        If DetalhesUtilizador.CodVeiculo = 0 Then
+            LblHomeServico.Text = "EM SERVIÇO     NÂO"
+            LblHomeConcluido.Text = "CONCLUIDOS     " + DetalhesUtilizador.ServicosCompletos + ""
+            LblHomeDespesas.Text = "DESPESAS     " + DetalhesUtilizador.Despesas + " " + MoedaSimbolo() + ""
+            lblHomeVeiculo.Text = ""
+        Else
+            LblHomeServico.Text = "EM SERVIÇO     SIM"
+            LblHomeConcluido.Text = "CONCLUIDOS     " + DetalhesUtilizador.ServicosCompletos + ""
+            LblHomeDespesas.Text = "DESPESAS     " + DetalhesUtilizador.Despesas + ""
+            lblHomeVeiculo.Text = DetalhesUtilizador.VeiMarca + " " + DetalhesUtilizador.VeiModelo + " " + DetalhesUtilizador.VeiMatricula
+        End If
     End Sub
 End Class

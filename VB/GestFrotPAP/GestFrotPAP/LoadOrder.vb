@@ -215,7 +215,6 @@
         Form1.PnlDefUtilizador.Height = Form1.Height - Form1.PnlBarraTop.Height
         Form1.PnlDefUtilizador.Width = Form1.Width
         'Veiculo
-        MsgBox("CARROS")
         ' Form1.LblVeiMarcEmUso.Text = "Cod= " + DetalhesUtilizador.CodVeiculo.ToString + ""
         ' Form1.LblVeiCorEmUso.Text = "Cor= " + DetalhesUtilizador.VeiCor.ToString + ""
         ' Form1.LblVeiMarcEmUso.Text = "Marca= " + DetalhesUtilizador.VeiMarca.ToString + ""
@@ -759,6 +758,13 @@
             Form1.LblAdminInserir4.Show()
             Form1.LblAdminInserir4.Text = "Data de Nascimento"
             Form1.DtpAdminInserir.Show()
+
+        ElseIf Tabela = "AssociarCarro" Then
+            Form1.LblInserirTituloAdmin.Text = "Associar Veículo"
+            Form1.BtnImagemInserirAdmin.Texto = "Associar"
+            Form1.LblInserirTituloAdmin.Show()
+            Form1.BtnImagemInserirAdmin.Show()
+            Form1.LstAdminInserir3.Show()
         Else
             MsgBox("TABELA NÂO DEFINIDA")
         End If

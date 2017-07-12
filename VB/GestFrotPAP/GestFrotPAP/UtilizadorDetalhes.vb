@@ -14,7 +14,7 @@
     Private _NTelemovel As String = ""
     Private _NTelefone As String = ""
     Private _Email As String = ""
-    Private _NotasContacto As String = ""
+    Private _Despesas As String = 0
     Private _NotasContrato As String = ""
     Private _TipoUtilizador As String = ""
     Private _TipoUtilizadorCod As Integer = 0
@@ -39,6 +39,7 @@
     Private _VeiUltiAbastecimento As String
     Private _VeiUltiManutencao As String
     Private _VeiUltiDespesa As String
+    Private _ServicosCompletos As String = 0
 
     'Utilizador
     Public Property CodUser As String
@@ -166,12 +167,12 @@
         End Set
     End Property
 
-    Public Property NotasContacto As String
+    Public Property Despesas As String
         Get
-            Return _NotasContacto
+            Return _Despesas
         End Get
         Set(ByVal value As String)
-            _NotasContacto = value
+            _Despesas = value
         End Set
     End Property
 
@@ -243,7 +244,11 @@
     'Carro
     Public Property CodVeiculo As Integer
         Get
-            Return _CodVeiculo
+            If _CodVeiculo <> "" Then
+                Return _CodVeiculo
+            Else
+                Return 0
+            End If
         End Get
         Set(ByVal value As Integer)
             _CodVeiculo = value
@@ -334,4 +339,13 @@
         End Set
     End Property
 
+    Public Property ServicosCompletos As String
+        Get
+            Return _ServicosCompletos
+        End Get
+        Set(value As String)
+            _ServicosCompletos = value
+        End Set
+    End Property
+  
 End Class
