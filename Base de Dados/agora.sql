@@ -620,14 +620,6 @@ INSERT INTO `veiculos` VALUES (1,'00-AA-00','BMW','M3','Austin Yellow Metallic',
 UNLOCK TABLES;
 
 --
--- Dumping events for database 'frotas'
---
-
---
--- Dumping routines for database 'frotas'
---
-
---
 -- Final view structure for view `maxbysumuser`
 --
 
@@ -780,4 +772,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-07-13 16:04:01
+-- Dump completed on 2017-07-13 16:15:11
